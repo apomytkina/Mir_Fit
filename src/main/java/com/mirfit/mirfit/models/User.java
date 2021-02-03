@@ -17,14 +17,28 @@ public class User {
     private String secondName;
     private String patronymic;
     private String cardNumber;
+    private String password;
 
-    public User(long id, String cardNumber, String firstName, String secondName, String patronymic) {
+    public User() { }
+
+    public User(long id, String cardNumber, String firstName,
+                String secondName, String patronymic, String password) {
         this.id = id;
         this.cardNumber = cardNumber;
         this.firstName = firstName;
         this.secondName = secondName;
         this.patronymic = patronymic;
+        this.password = password;
     }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
 
     public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
@@ -42,7 +56,7 @@ public class User {
         this.firstName = firstName;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

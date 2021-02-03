@@ -42,11 +42,13 @@ public class UserRepositoryImpl implements UserRepository {
 
         try {
             int count = jdbcTemplate.update(
-                    "INSERT IGNORE INTO user (card_number, first_name, second_name, patronymic) VALUES (?, ?, ?, ?)",
+                    "INSERT IGNORE INTO user (card_number, first_name, second_name, patronymic, password) " +
+                            "VALUES (?, ?, ?, ?, ?)",
                     request.getCardNumber(),
                     request.getFirstName(),
                     request.getSecondName(),
-                    request.getPatronymic()
+                    request.getPatronymic(),
+                    request.getPassword()
             );
 
             if (count == 0)

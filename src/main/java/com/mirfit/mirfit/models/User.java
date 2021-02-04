@@ -18,17 +18,19 @@ public class User {
     private String patronymic;
     private String cardNumber;
     private String password;
+    private String login;
 
     public User() { }
 
     public User(long id, String cardNumber, String firstName,
-                String secondName, String patronymic, String password) {
+                String secondName, String patronymic, String password, String login) {
         this.id = id;
         this.cardNumber = cardNumber;
         this.firstName = firstName;
         this.secondName = secondName;
         this.patronymic = patronymic;
         this.password = password;
+        this.login = login;
     }
 
     public String getPassword() {
@@ -38,7 +40,6 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
 
     public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
@@ -60,6 +61,8 @@ public class User {
         this.id = id;
     }
 
+    public void setLogin(String login) { this.login = login; }
+
     public String getCardNumber() {
         return cardNumber;
     }
@@ -79,4 +82,6 @@ public class User {
     public long getId() {
         return id;
     }
+
+    public String getLogin() { return login; }
 }

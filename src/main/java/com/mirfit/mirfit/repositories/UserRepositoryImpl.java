@@ -1,12 +1,10 @@
 package com.mirfit.mirfit.repositories;
 
-import com.mirfit.mirfit.models.AddUserRequest;
-import com.mirfit.mirfit.models.User;
+import com.mirfit.mirfit.models.*;
 import com.mirfit.mirfit.rowmappers.UserRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
 @Repository
@@ -19,7 +17,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public User getById(long id) {
+    public GetUserResponse getById(long id) {
         try {
             List<User> users = jdbcTemplate.query(
                     "SELECT * FROM user WHERE id = ?",
@@ -28,11 +26,11 @@ public class UserRepositoryImpl implements UserRepository {
             );
 
             if (users.size() != 0)
-                return users.get(0);
+                return new GetUserResponse(users.get(0), null);
             else
-                return null;
+                return new GetUserResponse(null, "User not found");
         } catch (Exception e) {
-            return null;
+            return new GetUserResponse(null, e.getMessage());
         }
     }
 
@@ -42,13 +40,14 @@ public class UserRepositoryImpl implements UserRepository {
 
         try {
             int count = jdbcTemplate.update(
-                    "INSERT IGNORE INTO user (card_number, first_name, second_name, patronymic, password) " +
-                            "VALUES (?, ?, ?, ?, ?)",
+                    "INSERT IGNORE INTO user (card_number, first_name, second_name, patronymic, password, login) " +
+                            "VALUES (?, ?, ?, ?, ?, ?)",
                     request.getCardNumber(),
                     request.getFirstName(),
                     request.getSecondName(),
                     request.getPatronymic(),
-                    request.getPassword()
+                    request.getPassword(),
+                    request.getLogin()
             );
 
             if (count == 0)
@@ -58,5 +57,28 @@ public class UserRepositoryImpl implements UserRepository {
         }
 
         return error;
+    }
+
+    @Override
+    public AuthUserResponse authUser(AuthUserRequest request) {
+
+        try {
+            var result = jdbcTemplate.query(
+                    "SELECT * FROM user WHERE login = ? AND password = ?",
+                        new UserRowMapper(),
+                        request.getLogin(),
+                        request.getPassword()
+            );
+
+            if (result.size() != 0) {
+                return new AuthUserResponse(result.get(0).getId(),null);
+            }
+            else {
+                return new AuthUserResponse(-1, "Wrong login or password");
+            }
+        }
+        catch(Exception e) {
+            return new AuthUserResponse(-1, e.getMessage());
+        }
     }
 }

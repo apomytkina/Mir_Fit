@@ -6,6 +6,7 @@ public class AddUserRequest {
     private String patronymic;
     private String cardNumber;
     private String password;
+    private String login;
 
     public String getPassword() {
         return password;
@@ -45,5 +46,11 @@ public class AddUserRequest {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public void setLogin(String login) { this.login = login; }
+
+    public String getLogin() {
+        return login;
     }
 }

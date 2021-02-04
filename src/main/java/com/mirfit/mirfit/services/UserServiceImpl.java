@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String deleteUserById(long id) {
-        return null;
+        return userRepository.deleteUser(id);
     }
 
     @Override

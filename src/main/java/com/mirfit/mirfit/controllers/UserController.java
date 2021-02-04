@@ -45,4 +45,16 @@ public class UserController {
             return new ResponseEntity(result, HttpStatus.OK);
         }
     }
+
+    @GetMapping("delete")
+    public ResponseEntity<String> deleteUser(long id) {
+        var result = userService.deleteUserById(id);
+
+        if (result == null) {
+            return new ResponseEntity(result, HttpStatus.BAD_REQUEST);
+        }
+        else {
+            return  new ResponseEntity(result, HttpStatus.OK);
+        }
+    }
 }

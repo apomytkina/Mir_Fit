@@ -11,4 +11,6 @@ public interface UserRepository {
     String add(AddUserRequest request);
 
     AuthUserResponse authUser(AuthUserRequest request);
+
+    String deleteUser(long id);
 }

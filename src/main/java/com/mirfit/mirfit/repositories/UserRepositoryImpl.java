@@ -81,4 +81,26 @@ public class UserRepositoryImpl implements UserRepository {
             return new AuthUserResponse(-1, e.getMessage());
         }
     }
+
+    @Override
+    public String deleteUser(long id) {
+        try {
+
+            var result = jdbcTemplate.update(
+                    "DELETE FROM user WHERE id = ?",
+                    id
+            );
+
+            if (result != 0) {
+                return null;
+            }
+
+            else {
+                return "User not found";
+            }
+        }
+        catch (Exception ex) {
+            return ex.getMessage();
+        }
+    }
 }

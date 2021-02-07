@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MirFit</string>
+    <string name="title_profile">Профиль</string>
+    <string name="title_home">Тест_1</string>
+    <string name="title_dashboard">Тест_2</string>
+    <string name="title_registration">Регистрация</string>
+    <string name="title_auth">Авторизация</string>
+    <string name="title_signin">Войти</string>
+    <string name="title_activity_auth">Авторизация</string>
+    <string name="hint_reg_firstName">Имя</string>
+    <string name="hint_reg_secondname">Фамилия</string>
+    <string name="hint_reg_patronymic">Отчество</string>
+    <string name="hint_reg_cardnumber">Номер карты</string>
+    <string name="hint_login">Логин</string>
+    <string name="hint_password">Пароль</string>
+
+
+</resources>

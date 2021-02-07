@@ -1,6 +1,17 @@
 <resources>
-    <string name="app_name">ClientMIR</string>
+    <string name="app_name">MirFit</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_profile">Profile</string>
+    <string name="title_registration">Registration</string>
+    <string name="title_auth">Authentication</string>
+    <string name="title_signin">Sign In</string>
+    <string name="title_activity_auth">Authentication</string>
+    <string name="hint_reg_firstName">First Name</string>
+    <string name="hint_reg_secondname">Second Name</string>
+    <string name="hint_reg_patronymic">Patronymic</string>
+    <string name="hint_reg_cardnumber">Card Number</string>
+    <string name="hint_login">Login</string>
+    <string name="hint_password">Password</string>
+
 </resources>

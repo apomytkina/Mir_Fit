@@ -1,4 +1,4 @@
-package ru.hse.project.clientmir.ui.dashboard
+package ru.hse.project.clientmir.ui.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,15 +10,15 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import ru.hse.project.clientmir.R
 
-class DashboardFragment : Fragment() {
+class HomeFragment : Fragment() {
 
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
+        val root = inflater.inflate(R.layout.fragment_home, container, false)
         return root
     }
 }

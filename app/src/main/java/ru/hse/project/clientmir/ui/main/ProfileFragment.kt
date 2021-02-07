@@ -1,4 +1,4 @@
-package ru.hse.project.clientmir.ui.profile
+package ru.hse.project.clientmir.ui.main
 
 import android.os.Bundle
 import android.view.LayoutInflater

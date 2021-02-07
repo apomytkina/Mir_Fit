@@ -7,19 +7,22 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="ru.hse.project.clientmir.ui.home.HomeFragment"
+        android:name="ru.hse.project.clientmir.ui.main.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="ru.hse.project.clientmir.ui.dashboard.DashboardFragment"
+        android:name="ru.hse.project.clientmir.ui.main.DashboardFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="ru.hse.project.clientmir.ui.profile.profileFragment"
+        android:name="ru.hse.project.clientmir.ui.main.profileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
+
+
+
 </navigation>

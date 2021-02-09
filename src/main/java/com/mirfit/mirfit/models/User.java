@@ -1,11 +1,7 @@
 package com.mirfit.mirfit.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
@@ -18,6 +14,7 @@ public class User {
     private String patronymic;
     private String cardNumber;
     private String password;
+    @Column(unique = true)
     private String login;
 
     public User() { }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping(value = "/users")
@@ -22,27 +23,42 @@ public class UserController {
 
         var result = userService.getUserById(id);
         if (result.getError() == null) {
-            return new ResponseEntity(result.getUser(), HttpStatus.OK);
+            return new ResponseEntity<>(result.getUser(), HttpStatus.OK);
         }
         else {
-            return new ResponseEntity(result.getError(), HttpStatus.BAD_REQUEST);
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    result.getError());
         }
     }
 
     @PostMapping("addUser")
-    public String addUser(@RequestBody AddUserRequest user) {
-        return userService.addUser(user);
+    public ResponseEntity<String> addUser(@RequestBody AddUserRequest user) {
+
+        var result = userService.addUser(user);
+
+        if (result == null)
+        {
+            return new ResponseEntity<>(null, HttpStatus.OK);
+        }
+        else {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    result);
+        }
     }
 
     @PostMapping("authUser")
-    public ResponseEntity<AuthUserResponse> authorizeUser(@RequestBody  AuthUserRequest request) {
+    public ResponseEntity<Long> authorizeUser(@RequestBody  AuthUserRequest request) {
         var result = userService.authorizeUser(request);
 
-        if (result.getError() != null) {
-            return new ResponseEntity(result.getError(), HttpStatus.BAD_REQUEST);
+        if (result.getError() == null) {
+            return new ResponseEntity<>(result.getId(), HttpStatus.OK);
         }
         else {
-            return new ResponseEntity(result, HttpStatus.OK);
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    result.getError());
         }
     }
 
@@ -51,10 +67,12 @@ public class UserController {
         var result = userService.deleteUserById(id);
 
         if (result == null) {
-            return new ResponseEntity(result, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(result, HttpStatus.OK);
         }
         else {
-            return  new ResponseEntity(result, HttpStatus.OK);
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    result);
         }
     }
 }

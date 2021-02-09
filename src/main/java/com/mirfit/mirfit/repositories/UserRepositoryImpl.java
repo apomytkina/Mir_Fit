@@ -9,7 +9,13 @@ import java.util.List;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
+
     private final JdbcTemplate jdbcTemplate;
+
+    // For testing
+    public JdbcTemplate getJdbcTemplate() {
+        return jdbcTemplate;
+    }
 
     @Autowired
     public UserRepositoryImpl(JdbcTemplate jdbcTemplate) {
@@ -51,7 +57,7 @@ public class UserRepositoryImpl implements UserRepository {
             );
 
             if (count == 0)
-                error = "User with card number '" + request.getCardNumber() + "' is already added.";
+                error = "User with login '" + request.getLogin() + "' is already added.";
         } catch (Exception e) {
             error = e.getMessage();
         }

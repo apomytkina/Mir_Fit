@@ -1,4 +1,4 @@
-package ru.hse.project.clientmir.appClient;
+package ru.hse.project.clientmir.clientAuth;
 
 import android.content.SharedPreferences;
 

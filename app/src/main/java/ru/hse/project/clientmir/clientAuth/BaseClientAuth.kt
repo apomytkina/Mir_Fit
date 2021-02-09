@@ -1,11 +1,11 @@
-package ru.hse.project.clientmir.appClient
+package ru.hse.project.clientmir.clientAuth
 
 import android.content.Context
 import android.util.Log
 import okhttp3.*
 import java.io.IOException
 
-class BaseAuth(private val context: Context) {
+class BaseClientAuth(private val context: Context) {
 
     private val PRIVATE_MODE = 0;
     private val PREF_FILE = "json_user";

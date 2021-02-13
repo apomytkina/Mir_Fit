@@ -12,9 +12,9 @@ import java.lang.IllegalArgumentException
 class CardViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
     fun bind(newObject: CardObject) {
-        itemView.findViewById<TextView>(R.id.post_title_name).text = newObject.title
-        itemView.findViewById<TextView>(R.id.post_desc_text).text = newObject.content
-        itemView.findViewById<TextView>(R.id.post_date_text).text = newObject.dateOfPublish
+       // itemView.findViewById<TextView>(R.id.post_title_name).text = newObject.title
+       // itemView.findViewById<TextView>(R.id.post_desc_text).text = newObject.content
+       // itemView.findViewById<TextView>(R.id.post_date_text).text = newObject.dateOfPublish
 
 
     }

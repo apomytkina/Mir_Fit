@@ -88,18 +88,18 @@ class RegistrationFragment : Fragment() {
                 }
             }
 
-//            baseAuth.createUser(
-//                updateUI,
-//                firstName,
-//                secondName,
-//                patronymic,
-//                cardNumber.toLong(),
-//                login,
-//                password
-//            )
+            baseAuth.createUser(
+                updateUI,
+                firstName,
+                secondName,
+                patronymic,
+                cardNumber.toLong(),
+                login,
+                password
+            )
 
 
-             updateUI.invoke(true, null.toString())
+//             updateUI.invoke(true, null.toString())
         }
 
         return root

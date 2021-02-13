@@ -57,7 +57,7 @@ class SignInFragment : Fragment() {
             }
 
 
-//            baseAuth.signInUser(updateUI, login, password)
+            baseAuth.signInUser(updateUI, login, password)
 
 //            updateUI.invoke(true, null.toString())
         }

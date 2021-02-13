@@ -14,6 +14,9 @@
     <string name="hint_reg_cardnumber">Номер карты</string>
     <string name="hint_login">Логин</string>
     <string name="hint_password">Пароль</string>
+    <string name="text_profile_login_password">Логин и пароль</string>
+    <string name="text_profile_bank_card">Банковская карта</string>
+    <string name="text_profile_info_program">О Mir Fit</string>
 
 
 </resources>

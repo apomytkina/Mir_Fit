@@ -99,7 +99,7 @@ class RegistrationFragment : Fragment() {
 //            )
 
 
-            // updateUI.invoke(true, null.toString())
+             updateUI.invoke(true, null.toString())
         }
 
         return root

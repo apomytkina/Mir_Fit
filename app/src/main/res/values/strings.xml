@@ -13,5 +13,8 @@
     <string name="hint_reg_cardnumber">Card Number</string>
     <string name="hint_login">Login</string>
     <string name="hint_password">Password</string>
+    <string name="text_profile_login_password">Login and passwrod</string>
+    <string name="text_profile_bank_card">Card number</string>
+    <string name="text_profile_info_program">About Mir Fit</string>
 
 </resources>

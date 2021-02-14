@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_profile">
 
     <fragment
         android:id="@+id/navigation_home"
@@ -21,8 +21,21 @@
         android:id="@+id/navigation_profile"
         android:name="ru.hse.project.clientmir.ui.main.profile.ProfileFragment"
         android:label="@string/title_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_navigation_profile_to_navigation_setting"
+            app:destination="@id/navigation_setting"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
 
-
+<fragment
+    android:id="@+id/navigation_setting"
+    android:name="ru.hse.project.clientmir.ui.main.profile.SettingsFragment"
+    android:label="@string/btn_profile_settings"
+    tools:layout="@layout/fragment_profile_settings">
+</fragment>
 
 </navigation>

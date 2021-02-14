@@ -16,5 +16,6 @@
     <string name="text_profile_login_password">Login and passwrod</string>
     <string name="text_profile_bank_card">Card number</string>
     <string name="text_profile_info_program">About Mir Fit</string>
+    <string name="btn_profile_settings">Settings</string>
 
 </resources>

@@ -27,7 +27,7 @@ class ProfileFragment : Fragment() {
 
 
         val data = arrayListOf(
-            CardObject("123", "122222222", "myCard"),
+            CardObject("0", "12031209312", "myCard"),
             CardObject("123", "2333453", "mySecondCard"),
             CardObject("123", "2333453", "mySecondCard"),
             CardObject("123", "2333453", "mySecondCard")

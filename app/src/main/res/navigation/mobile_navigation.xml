@@ -5,23 +5,12 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/navigation_profile">
 
-    <fragment
-        android:id="@+id/navigation_home"
-        android:name="ru.hse.project.clientmir.ui.main.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
-
-    <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="ru.hse.project.clientmir.ui.main.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_profile"
         android:name="ru.hse.project.clientmir.ui.main.profile.ProfileFragment"
         android:label="@string/title_profile"
-        tools:layout="@layout/fragment_profile" >
+        tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_navigation_profile_to_navigation_setting"
             app:destination="@id/navigation_setting"
@@ -31,11 +20,10 @@
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
-<fragment
-    android:id="@+id/navigation_setting"
-    android:name="ru.hse.project.clientmir.ui.main.profile.SettingsFragment"
-    android:label="@string/btn_profile_settings"
-    tools:layout="@layout/fragment_profile_settings">
-</fragment>
+    <fragment
+        android:id="@+id/navigation_setting"
+        android:name="ru.hse.project.clientmir.ui.main.profile.SettingsFragment"
+        android:label="@string/btn_profile_settings"
+        tools:layout="@layout/fragment_profile_settings"></fragment>
 
 </navigation>

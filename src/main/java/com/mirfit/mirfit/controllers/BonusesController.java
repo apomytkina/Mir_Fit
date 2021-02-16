@@ -19,9 +19,9 @@ public class BonusesController {
         this.bonusesService = bonusesService;
     }
 
-    @PutMapping("{id}/increase/{bonuses}")
-    public ResponseEntity<String> increase(@PathVariable long id, @PathVariable double bonuses) {
-        String error = bonusesService.updateBonuses(id, bonuses);
+    @PutMapping("increase")
+    public ResponseEntity<String> increase(@RequestBody Bonuses request) {
+        String error = bonusesService.updateBonuses(request.getId(), request.getNumberOfBonuses());
 
         if (error != null) {
             return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
@@ -30,9 +30,9 @@ public class BonusesController {
         }
     }
 
-    @PutMapping("{id}/decrease/{bonuses}")
-    public ResponseEntity<String> decrease(@PathVariable long id, @PathVariable double bonuses) {
-        String result = bonusesService.updateBonuses(id, bonuses * -1);
+    @PutMapping("decrease")
+    public ResponseEntity<String> decrease(@RequestBody Bonuses request) {
+        String result = bonusesService.updateBonuses(request.getId(), request.getNumberOfBonuses() * -1);
 
         if (result != null) {
             return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
@@ -52,6 +52,20 @@ public class BonusesController {
                     HttpStatus.BAD_REQUEST,
                     result.getError()
             );
+        }
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> delete(@PathVariable long id) {
+        String error = bonusesService.delete(id);
+
+        if (error != null) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    error
+            );
+        } else {
+            return new ResponseEntity<>(HttpStatus.OK);
         }
     }
 }

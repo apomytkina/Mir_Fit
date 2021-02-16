@@ -16,11 +16,30 @@ public class BonusesServiceImpl implements BonusesService {
 
     @Override
     public String updateBonuses(long id, double numberOfBonuses) {
-        return bonusesRepository.updateBonuses(id, numberOfBonuses);
+        if (id > 0)
+            return bonusesRepository.updateBonuses(id, numberOfBonuses);
+        else
+            return "Id must be positive.";
     }
 
     @Override
     public GetBonusesResponse getBonuses(long id) {
-        return bonusesRepository.getBonuses(id);
+        if (id > 0)
+            return bonusesRepository.getBonuses(id);
+        else
+            return new GetBonusesResponse("Id must be positive.", null);
+    }
+
+    @Override
+    public String delete(long id) {
+        if (id > 0)
+            return bonusesRepository.delete(id);
+        else
+            return "Id must be positive.";
+    }
+
+    @Override
+    public String add() {
+        return bonusesRepository.add();
     }
 }

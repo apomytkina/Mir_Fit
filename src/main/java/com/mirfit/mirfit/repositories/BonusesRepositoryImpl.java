@@ -26,16 +26,35 @@ public class BonusesRepositoryImpl implements BonusesRepository {
         String error = null;
 
         try {
+            List<Bonuses> res = jdbcTemplate.query(
+                    "SELECT * FROM bonuses WHERE id = ?",
+                    new BonusesRowMapper(),
+                    userId
+            );
+
+            if (res.size() == 0)
+                throw new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Cannot find user with id = " + userId
+                );
+
             int count = jdbcTemplate.update(
-                    "UPDATE IGNORE bonuses SET number_of_bonuses = number_of_bonuses + ? WHERE id = ?",
+                    "UPDATE bonuses " +
+                            "SET number_of_bonuses = CASE" +
+                            "  WHEN number_of_bonuses + ? >= 0" +
+                            "    THEN number_of_bonuses + ?" +
+                            "    ELSE number_of_bonuses " +
+                            "END " +
+                            "WHERE id = ?",
+                    numberOfBonuses,
                     numberOfBonuses,
                     userId
             );
 
-            if (count == 0) {
+            if (count == 0 || numberOfBonuses + res.get(0).getNumberOfBonuses() < 0) {
                 throw new ResponseStatusException(
-                        HttpStatus.NOT_FOUND,
-                        "Cannot find user with id = " + userId
+                        HttpStatus.BAD_REQUEST,
+                        "Not enough bonuses"
                 );
             }
         } catch (DataAccessException e) {
@@ -69,5 +88,68 @@ public class BonusesRepositoryImpl implements BonusesRepository {
         }
 
         return getBonusesResponse;
+    }
+
+    public long getLastInsertId() {
+        long id = 0;
+
+        try {
+            List<Long> res = jdbcTemplate.query(
+                    "SELECT LAST_INSERT_ID();",
+                    (rs, i) -> rs.getLong("LAST_INSERT_ID()")
+            );
+
+            if (res.size() > 0)
+                id = res.get(0);
+        } catch (DataAccessException e) {
+            //nothing here
+        }
+
+        return id;
+    }
+
+    @Override
+    public String add() {
+        String error = null;
+
+        try {
+            int count = jdbcTemplate.update(
+                    "INSERT INTO bonuses (number_of_bonuses) VALUES (0)"
+            );
+
+            if (count == 0) {
+                throw new ResponseStatusException(
+                        HttpStatus.BAD_REQUEST,
+                        "Failed to create new bonuses account"
+                );
+            }
+        } catch (DataAccessException e) {
+            error = e.getMessage();
+        }
+
+        return error;
+    }
+
+    @Override
+    public String delete(long userId) {
+        String error = null;
+
+        try {
+            int count = jdbcTemplate.update(
+                    "DELETE IGNORE FROM bonuses WHERE id = ?",
+                    userId
+            );
+
+            if (count == 0) {
+                throw new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Cannot find account with id = " + userId
+                );
+            }
+        } catch (DataAccessException e) {
+            error = e.getMessage();
+        }
+
+        return error;
     }
 }

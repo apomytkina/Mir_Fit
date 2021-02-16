@@ -8,4 +8,8 @@ public interface BonusesService {
     String updateBonuses(long id, double numberOfBonuses);
 
     GetBonusesResponse getBonuses(long id);
+
+    String delete(long id);
+
+    String add();
 }

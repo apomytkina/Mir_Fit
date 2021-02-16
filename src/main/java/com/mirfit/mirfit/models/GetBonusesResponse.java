@@ -4,6 +4,13 @@ public class GetBonusesResponse {
     private Bonuses bonuses;
     private String error;
 
+    public GetBonusesResponse() { }
+
+    public GetBonusesResponse(String error, Bonuses bonuses) {
+        this.error = error;
+        this.bonuses = bonuses;
+    }
+
     public String getError() {
         return error;
     }

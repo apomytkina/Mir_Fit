@@ -8,4 +8,10 @@ public interface BonusesRepository {
     String updateBonuses(long userId, double numberOfBonuses);
 
     GetBonusesResponse getBonuses(long userId);
+
+    String add();
+
+    String delete(long userId);
+
+    long getLastInsertId();
 }

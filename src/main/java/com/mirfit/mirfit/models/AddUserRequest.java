@@ -1,5 +1,7 @@
 package com.mirfit.mirfit.models;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
+@JsonAutoDetect
 public class AddUserRequest {
 
     private String firstName;

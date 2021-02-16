@@ -2,25 +2,15 @@ package com.mirfit.mirfit.models;
 
 public class AuthUserResponse {
 
-    private long id;
     private String error;
+    private User user;
 
-    public AuthUserResponse(long id, String error) {
-        this.id = id;
+    public AuthUserResponse(User user, String error) {
+        this.user = user;
         this.error = error;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public void setError(String error) {
-        this.error = error;
-    }
-
-    public long getId() {
-        return id;
-    }
+    public User getUser() { return user; }
 
     public String getError() {
         return error;

@@ -1,8 +1,10 @@
 package com.mirfit.mirfit.models;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 
+@JsonAutoDetect
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class User {

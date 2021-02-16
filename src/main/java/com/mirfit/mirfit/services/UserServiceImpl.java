@@ -42,7 +42,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public AuthUserResponse authorizeUser(AuthUserRequest request) {
-
         return userRepository.authUser(request);
     }
 }

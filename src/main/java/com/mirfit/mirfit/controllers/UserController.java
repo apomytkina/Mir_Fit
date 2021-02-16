@@ -18,12 +18,17 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping
+    @GetMapping(produces = "application/json")
     public ResponseEntity<User> getUserById(long id) {
 
         var result = userService.getUserById(id);
         if (result.getError() == null) {
             return new ResponseEntity<>(result.getUser(), HttpStatus.OK);
+        }
+        else if (result.getError().equals("User not found")){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    result.getError());
         }
         else {
             throw new ResponseStatusException(
@@ -32,7 +37,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("addUser")
+    @PostMapping(value = "addUser", produces = "application/json")
     public ResponseEntity<String> addUser(@RequestBody AddUserRequest user) {
 
         var result = userService.addUser(user);
@@ -41,6 +46,12 @@ public class UserController {
         {
             return new ResponseEntity<>(null, HttpStatus.OK);
         }
+
+        else if (result.equals("Login is not available")){
+            throw new ResponseStatusException(
+                    HttpStatus.I_AM_A_TEAPOT,
+                    result);
+        }
         else {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST,
@@ -48,12 +59,18 @@ public class UserController {
         }
     }
 
-    @PostMapping("authUser")
-    public ResponseEntity<Long> authorizeUser(@RequestBody  AuthUserRequest request) {
+    @PostMapping(value = "authUser", produces = "application/json")
+    public ResponseEntity<User> authorizeUser(@RequestBody  AuthUserRequest request) {
         var result = userService.authorizeUser(request);
 
         if (result.getError() == null) {
-            return new ResponseEntity<>(result.getId(), HttpStatus.OK);
+            return new ResponseEntity<>(result.getUser(), HttpStatus.OK);
+        }
+        else if (result.getError().equals("Wrong login or password")) {
+            throw new ResponseStatusException(
+                    HttpStatus.I_AM_A_TEAPOT,
+                    result.getError()
+            );
         }
         else {
             throw new ResponseStatusException(
@@ -62,7 +79,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("delete")
+    @GetMapping(value = "delete", produces = "application/json")
     public ResponseEntity<String> deleteUser(long id) {
         var result = userService.deleteUserById(id);
 

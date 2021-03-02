@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String deleteUserById(long id) {
-        return null;
+        return userRepository.deleteUser(id);
     }
 
     @Override
@@ -42,7 +42,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public AuthUserResponse authorizeUser(AuthUserRequest request) {
-
         return userRepository.authUser(request);
     }
 }

@@ -1,6 +1,7 @@
 package com.mirfit.mirfit.models;
 
 public class AddUserResponse {
+
     private String error;
 
     public AddUserResponse(String error) {

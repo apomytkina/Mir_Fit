@@ -1,6 +1,9 @@
 package com.mirfit.mirfit.models;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
+@JsonAutoDetect
 public class AddUserRequest {
+
     private String firstName;
     private String secondName;
     private String patronymic;
@@ -8,47 +11,35 @@ public class AddUserRequest {
     private String password;
     private String login;
 
-    public String getPassword() {
-        return password;
+    public AddUserRequest(String firstName, String secondName, String patronymic,
+                          String cardNumber, String password, String login) {
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.patronymic = patronymic;
+        this.cardNumber = cardNumber;
+        this.password = password;
+        this.login = login;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public String getPassword() {
+        return password;
     }
 
     public String getCardNumber() {
         return cardNumber;
     }
 
-    public void setCardNumber(String cardNumber) {
-        this.cardNumber = cardNumber;
-    }
-
     public String getPatronymic() {
         return patronymic;
-    }
-
-    public void setPatronymic(String patronymic) {
-        this.patronymic = patronymic;
     }
 
     public String getSecondName() {
         return secondName;
     }
 
-    public void setSecondName(String secondName) {
-        this.secondName = secondName;
-    }
-
     public String getFirstName() {
         return firstName;
     }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLogin(String login) { this.login = login; }
 
     public String getLogin() {
         return login;

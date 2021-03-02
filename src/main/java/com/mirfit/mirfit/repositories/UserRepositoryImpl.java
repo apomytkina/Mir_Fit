@@ -9,7 +9,13 @@ import java.util.List;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
+
     private final JdbcTemplate jdbcTemplate;
+
+    // For testing
+    public JdbcTemplate getJdbcTemplate() {
+        return jdbcTemplate;
+    }
 
     @Autowired
     public UserRepositoryImpl(JdbcTemplate jdbcTemplate) {
@@ -51,7 +57,7 @@ public class UserRepositoryImpl implements UserRepository {
             );
 
             if (count == 0)
-                error = "User with card number '" + request.getCardNumber() + "' is already added.";
+                error = "Login is not available";
         } catch (Exception e) {
             error = e.getMessage();
         }
@@ -71,14 +77,36 @@ public class UserRepositoryImpl implements UserRepository {
             );
 
             if (result.size() != 0) {
-                return new AuthUserResponse(result.get(0).getId(),null);
+                return new AuthUserResponse(result.get(0), null);
             }
             else {
-                return new AuthUserResponse(-1, "Wrong login or password");
+                return new AuthUserResponse(null, "Wrong login or password");
             }
         }
         catch(Exception e) {
-            return new AuthUserResponse(-1, e.getMessage());
+            return new AuthUserResponse(null, e.getMessage());
+        }
+    }
+
+    @Override
+    public String deleteUser(long id) {
+        try {
+
+            var result = jdbcTemplate.update(
+                    "DELETE FROM user WHERE id = ?",
+                    id
+            );
+
+            if (result != 0) {
+                return null;
+            }
+
+            else {
+                return "User not found";
+            }
+        }
+        catch (Exception ex) {
+            return ex.getMessage();
         }
     }
 }

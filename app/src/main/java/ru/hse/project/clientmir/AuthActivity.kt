@@ -20,16 +20,16 @@ class AuthActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-        finishAfterTransition()
+//        val intent = Intent(this, MainActivity::class.java)
+//        startActivity(intent)
+//        finishAfterTransition()
 
-//        val currentUser = clientAuth.currentUser
-//        if (currentUser != null) {
-//            val intent = Intent(this, MainActivity::class.java)
-//            startActivity(intent)
-//            finishAfterTransition()
-//        }
+        val currentUser = clientAuth.currentUser
+        if (currentUser != null) {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finishAfterTransition()
+        }
     }
 
 

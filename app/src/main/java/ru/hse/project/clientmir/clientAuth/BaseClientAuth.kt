@@ -23,8 +23,10 @@ class BaseClientAuth(private val context: Context) {
             .add(User.CODE_LOGIN, login)
             .add(User.CODE_PASSWORD, password)
             .build()
+
+
         val request = Request.Builder()
-            .url("https://localhost:8080/users")
+            .url("https://10.0.2.2:8080/users/authUser")
             .post(formBody)
             .build()
 

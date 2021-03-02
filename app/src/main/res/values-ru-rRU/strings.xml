@@ -18,6 +18,10 @@
     <string name="text_profile_bank_card">Банковская карта</string>
     <string name="text_profile_info_program">О Mir Fit</string>
     <string name="btn_profile_settings">Настройки</string>
+    <string name="title_edit">Переименовать</string>
+    <string name="text_edit_card">Название карты</string>
+    <string name="btn_cancel">Отмена</string>
+    <string name="btn_save">Сохранить</string>
 
 
 </resources>

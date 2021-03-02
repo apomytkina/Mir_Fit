@@ -51,6 +51,10 @@ dependencies {
     testImplementation 'junit:junit:4.+'
 
 
+    implementation 'com.android.support:recyclerview-v7:21.0.0'
+    implementation 'com.android.support:support-v4:20.+'
+    implementation "com.daimajia.swipelayout:library:1.2.0@aar"
+
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }

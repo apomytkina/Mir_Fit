@@ -1,5 +1,6 @@
 package ru.hse.project.clientmir.ui.main.profile
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,14 +12,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.daimajia.swipe.SwipeLayout
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter
 import ru.hse.project.clientmir.R
+import ru.hse.project.clientmir.clientAuth.BaseClient
 
 
 class CardAdapter(private val fm: FragmentManager, private val data: ArrayList<CardObject>) :
     RecyclerSwipeAdapter<CardAdapter.CardViewHolder>() {
 
+    lateinit var context: Context;
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
+        context = parent.context
+        val inflater = LayoutInflater.from(context)
         val layout = inflater.inflate(R.layout.layout_bank_card, parent, false)
         return CardViewHolder(layout)
     }
@@ -43,7 +47,8 @@ class CardAdapter(private val fm: FragmentManager, private val data: ArrayList<C
 
         holder.btnDelete.setOnClickListener {
             mItemManger.removeShownLayouts(holder.swipeLayout)
-            data.removeAt(position)
+            data.remove(item)
+            // BaseClient(context).currentUser.updateCardObject()
             notifyItemRemoved(position)
             notifyItemRangeChanged(position, data.size)
             mItemManger.closeAllItems()
@@ -61,9 +66,10 @@ class CardAdapter(private val fm: FragmentManager, private val data: ArrayList<C
         return R.id.swipe
     }
 
+
     fun addItem(cardObject: CardObject) {
         data.add(cardObject)
-        //BaseClientAuth().currentUser.updateCardObject()
+        //  BaseClient(context).currentUser.updateCardObject()
         this.notifyItemInserted(data.size - 1)
     }
 

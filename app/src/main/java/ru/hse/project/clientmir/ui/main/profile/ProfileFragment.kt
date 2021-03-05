@@ -4,18 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ru.hse.project.clientmir.R
-import ru.hse.project.clientmir.clientAuth.BaseClientAuth
+import ru.hse.project.clientmir.clientAuth.BaseClient
 import ru.hse.project.clientmir.clientAuth.User
 
 class ProfileFragment : Fragment() {
 
-    private var user: User? = null
+    private lateinit var user: User
     lateinit var recycler: RecyclerView
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,25 +25,25 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Юзер приходит null, но в релизе всегда будет
-        user = BaseClientAuth(inflater.context).currentUser
+        user = BaseClient(inflater.context).currentUser!!
         val root = inflater.inflate(R.layout.fragment_profile, container, false)
+        root.findViewById<TextView>(R.id.prof_text_full_name).text =
+            (user.firstName + " " + user.secondName)
 
-//        root.findViewById<TextView>(R.id.prof_text_full_name).text =
-//            (user.secondName + " " + user.firstName)
 
+
+        root.findViewById<CardView>(R.id.profileImageContainer).setOnClickListener {
+            // findNavController().navigate(R.id.navigation_edit_image)
+        }
 
         // data of user cards
         val data = arrayListOf(
-            CardObject("0", "12031209312", "myCard"),
-            CardObject("123", "2333453", "mySecondCard"),
-            CardObject("123", "2333453", "mySecondCard"),
-            CardObject("123", "2333453", "mySecondCard")
+            CardObject("0", user.cardNumber.toString(), "YourCard")
         )
 
-        val postAdapter = CardAdapter(parentFragmentManager,data)
+        val postAdapter = CardAdapter(parentFragmentManager, data)
 
         recycler = root.findViewById(R.id.card_recycler)
-
         recycler.apply {
             layoutManager = LinearLayoutManager(root.context)
             adapter = postAdapter
@@ -58,12 +60,6 @@ class ProfileFragment : Fragment() {
         }
 
         return root
-    }
-
-
-    override fun onResume() {
-        super.onResume()
-
     }
 
 }

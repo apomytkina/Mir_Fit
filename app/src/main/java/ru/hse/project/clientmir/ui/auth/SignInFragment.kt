@@ -7,12 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ru.hse.project.clientmir.MainActivity
 import ru.hse.project.clientmir.R
-import ru.hse.project.clientmir.clientAuth.BaseClientAuth
+import ru.hse.project.clientmir.clientAuth.BaseClient
 import ru.hse.project.clientmir.util.Validator
 
 class SignInFragment : Fragment() {
@@ -22,7 +21,7 @@ class SignInFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val baseAuth = BaseClientAuth(inflater.context)
+        val baseAuth = BaseClient(inflater.context)
         val root = inflater.inflate(R.layout.fragment_signin, container, false)
 
         val textLogin = root.findViewById<EditText>(R.id.frag_sign_login)
@@ -43,7 +42,7 @@ class SignInFragment : Fragment() {
             }
 
 
-            val updateUI = { successful: Boolean, message: String ->
+            val updateUI = { successful: Boolean ->
                 if (successful) {
                     val intent = Intent(requireContext(), MainActivity::class.java)
                     startActivity(intent)
@@ -52,14 +51,10 @@ class SignInFragment : Fragment() {
                     }
                 } else {
                     findNavController().navigate(R.id.navigation_auth)
-                    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
                 }
             }
 
-
             baseAuth.signInUser(updateUI, login, password)
-
-//            updateUI.invoke(true, null.toString())
         }
 
         return root

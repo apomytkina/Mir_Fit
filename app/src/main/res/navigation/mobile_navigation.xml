@@ -26,4 +26,10 @@
         android:label="@string/btn_profile_settings"
         tools:layout="@layout/fragment_profile_settings"></fragment>
 
+    <fragment
+        android:id="@+id/navigation_edit_image"
+        android:name="ru.hse.project.clientmir.ui.main.profile.ProfileEditImageFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_edit_image_profile"></fragment>
+
 </navigation>

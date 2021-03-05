@@ -44,6 +44,7 @@ class DialogAddCardFragment(private val postAdapter: CardAdapter) : DialogFragme
             }
 
             val bundle = Bundle()
+
             postAdapter.addItem(CardObject("0", cardNumberText, cardNameText))
             dismiss();
         }

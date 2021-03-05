@@ -8,8 +8,10 @@
     tools:context=".ui.main.profile.ProfileFragment">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/profileImageContainer"
         android:layout_width="0dp"
         android:layout_height="90dp"
+        android:clickable="true"
         android:elevation="10dp"
         app:cardCornerRadius="18dp"
         app:layout_constraintBottom_toTopOf="@+id/prof_text_full_name"

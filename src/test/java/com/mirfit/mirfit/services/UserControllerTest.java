@@ -23,7 +23,7 @@ import java.io.IOException;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestPropertySource("/application.properties")
 @ContextConfiguration
-class UserControllerTest {
+class gitUserControllerTest {
 
     @Autowired
     private UserRepositoryImpl userRepository;

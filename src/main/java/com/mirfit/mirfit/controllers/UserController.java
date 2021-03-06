@@ -82,10 +82,10 @@ public class UserController {
 
     @GetMapping(value = "delete/{id}", produces = "application/json")
     public ResponseEntity<String> deleteUser(@PathVariable UUID id) {
+        bonusesService.delete(id);
         var result = userService.deleteUserById(id);
 
         if (result == null) {
-            bonusesService.delete(id);
             return new ResponseEntity<>(null, HttpStatus.OK);
         } else {
             throw new ResponseStatusException(

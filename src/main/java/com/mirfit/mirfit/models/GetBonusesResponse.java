@@ -1,13 +1,13 @@
 package com.mirfit.mirfit.models;
 
 public class GetBonusesResponse {
-    private Bonuses bonuses;
+    private BonusesAccount bonuses;
     private String error;
 
     public GetBonusesResponse() {
     }
 
-    public GetBonusesResponse(String error, Bonuses bonuses) {
+    public GetBonusesResponse(String error, BonusesAccount bonuses) {
         this.error = error;
         this.bonuses = bonuses;
     }
@@ -20,11 +20,11 @@ public class GetBonusesResponse {
         this.error = error;
     }
 
-    public Bonuses getBonuses() {
+    public BonusesAccount getBonuses() {
         return bonuses;
     }
 
-    public void setBonuses(Bonuses bonuses) {
+    public void setBonuses(BonusesAccount bonuses) {
         this.bonuses = bonuses;
     }
 }

@@ -2,9 +2,11 @@ package com.mirfit.mirfit.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.mirfit.mirfit.models.Bonuses;
+import com.mirfit.mirfit.models.BonusesAccount;
+import com.mirfit.mirfit.models.UpdateBonusesRequest;
 import com.mirfit.mirfit.repositories.BonusesRepository;
 import okhttp3.*;
+import org.hibernate.sql.Update;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +36,7 @@ class BonusesControllerTest {
         UUID id = UUID.randomUUID();
         bonusesRepository.add(id);
 
-        Bonuses updateBonusesRequest = new Bonuses(id, 100);
+        UpdateBonusesRequest updateBonusesRequest = new UpdateBonusesRequest(id, 100);
         String json = mapper.writeValueAsString(updateBonusesRequest);
         RequestBody body = RequestBody.create(JSON, json);
 
@@ -56,11 +58,11 @@ class BonusesControllerTest {
         response = client.newCall(request).execute();
 
         Gson gson = new Gson();
-        Bonuses bonuses = gson.fromJson(Objects.requireNonNull(response.body()).string(), Bonuses.class);
+        BonusesAccount bonuses = gson.fromJson(Objects.requireNonNull(response.body()).string(), BonusesAccount.class);
         Assertions.assertEquals(100, bonuses.getNumberOfBonuses());
 
         //Check if returned status code is 404 when bonuses account does not exist
-        updateBonusesRequest = new Bonuses(UUID.randomUUID(), 100);
+        updateBonusesRequest = new UpdateBonusesRequest(UUID.randomUUID(), 100);
         json = mapper.writeValueAsString(updateBonusesRequest);
         body = RequestBody.create(JSON, json);
 
@@ -82,7 +84,7 @@ class BonusesControllerTest {
         UUID id = UUID.randomUUID();
         bonusesRepository.add(id);
 
-        Bonuses updateBonusesRequest = new Bonuses(id, 100);
+        UpdateBonusesRequest updateBonusesRequest = new UpdateBonusesRequest(id, 100);
         String json = mapper.writeValueAsString(updateBonusesRequest);
         RequestBody body = RequestBody.create(JSON, json);
 
@@ -113,11 +115,11 @@ class BonusesControllerTest {
         response = client.newCall(request).execute();
 
         Gson gson = new Gson();
-        Bonuses bonuses = gson.fromJson(Objects.requireNonNull(response.body()).string(), Bonuses.class);
+        BonusesAccount bonuses = gson.fromJson(Objects.requireNonNull(response.body()).string(), BonusesAccount.class);
         Assertions.assertEquals(100, bonuses.getNumberOfBonuses());
 
         //Check if returned status code is 404 when bonuses account does not exist
-        updateBonusesRequest = new Bonuses(UUID.randomUUID(), 100);
+        updateBonusesRequest = new UpdateBonusesRequest(UUID.randomUUID(), 100);
         json = mapper.writeValueAsString(updateBonusesRequest);
         body = RequestBody.create(JSON, json);
 
@@ -151,7 +153,7 @@ class BonusesControllerTest {
 
         //Check if balance is 0
         Gson gson = new Gson();
-        Bonuses bonuses = gson.fromJson(Objects.requireNonNull(response.body()).string(), Bonuses.class);
+        BonusesAccount bonuses = gson.fromJson(Objects.requireNonNull(response.body()).string(), BonusesAccount.class);
         Assertions.assertEquals(0, bonuses.getNumberOfBonuses());
 
         //Check if returned status code is 404 when bonuses account does not exist

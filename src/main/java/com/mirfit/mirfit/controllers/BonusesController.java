@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping(value = "/bonuses")
 public class BonusesController {
@@ -42,7 +44,7 @@ public class BonusesController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Bonuses> getBonuses(@PathVariable long id) {
+    public ResponseEntity<Bonuses> getBonuses(@PathVariable UUID id) {
         GetBonusesResponse result = bonusesService.getBonuses(id);
 
         if (result.getError() == null) {
@@ -56,7 +58,7 @@ public class BonusesController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<String> delete(@PathVariable long id) {
+    public ResponseEntity<String> delete(@PathVariable UUID id) {
         String error = bonusesService.delete(id);
 
         if (error != null) {

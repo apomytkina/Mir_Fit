@@ -5,27 +5,26 @@ import com.mirfit.mirfit.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class UserServiceImpl implements UserService {
 
-    private final BonusesService bonusesService;
     private final UserRepository userRepository;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, BonusesService bonusesService) {
-        this.bonusesService = bonusesService;
+    public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     @Override
-    public String addUser(AddUserRequest request) {
-        bonusesService.add();
+    public AddUserResponse addUser(AddUserRequest request) {
         return userRepository.add(request);
     }
 
     @Override
-    public GetUserResponse getUserById(long id) {
-       return userRepository.getById(id);
+    public GetUserResponse getUserById(UUID id) {
+        return userRepository.getById(id);
     }
 
     @Override
@@ -34,12 +33,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String deleteUserById(long id) {
+    public String deleteUserById(UUID id) {
         return userRepository.deleteUser(id);
     }
 
     @Override
-    public String updateUserById(long id) {
+    public String updateUserById(UUID id) {
         return null;
     }
 

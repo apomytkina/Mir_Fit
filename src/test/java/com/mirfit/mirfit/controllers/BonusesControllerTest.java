@@ -15,6 +15,7 @@ import org.springframework.test.context.TestPropertySource;
 
 import java.io.IOException;
 import java.util.Objects;
+import java.util.UUID;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestPropertySource("/application.properties")
@@ -30,10 +31,10 @@ class BonusesControllerTest {
 
     @Test
     void increase() throws IOException {
-        bonusesRepository.add();
-        long lastAddedId = bonusesRepository.getLastInsertId();
+        UUID id = UUID.randomUUID();
+        bonusesRepository.add(id);
 
-        Bonuses updateBonusesRequest = new Bonuses(lastAddedId, 100);
+        Bonuses updateBonusesRequest = new Bonuses(id, 100);
         String json = mapper.writeValueAsString(updateBonusesRequest);
         RequestBody body = RequestBody.create(JSON, json);
 
@@ -48,7 +49,7 @@ class BonusesControllerTest {
 
         //Check if number of bonuses is 100
         request = new Request.Builder()
-                .url(URL + lastAddedId)
+                .url(URL + id)
                 .get()
                 .build();
 
@@ -59,7 +60,7 @@ class BonusesControllerTest {
         Assertions.assertEquals(100, bonuses.getNumberOfBonuses());
 
         //Check if returned status code is 404 when bonuses account does not exist
-        updateBonusesRequest = new Bonuses(lastAddedId + 1, 100);
+        updateBonusesRequest = new Bonuses(UUID.randomUUID(), 100);
         json = mapper.writeValueAsString(updateBonusesRequest);
         body = RequestBody.create(JSON, json);
 
@@ -73,15 +74,15 @@ class BonusesControllerTest {
         Assertions.assertEquals(HttpStatus.NOT_FOUND.value(), response.code());
 
         //Delete added bonuses account
-        bonusesRepository.delete(lastAddedId);
+        bonusesRepository.delete(id);
     }
 
     @Test
     void decrease() throws IOException {
-        bonusesRepository.add();
-        long lastAddedId = bonusesRepository.getLastInsertId();
+        UUID id = UUID.randomUUID();
+        bonusesRepository.add(id);
 
-        Bonuses updateBonusesRequest = new Bonuses(lastAddedId, 100);
+        Bonuses updateBonusesRequest = new Bonuses(id, 100);
         String json = mapper.writeValueAsString(updateBonusesRequest);
         RequestBody body = RequestBody.create(JSON, json);
 
@@ -105,7 +106,7 @@ class BonusesControllerTest {
 
         //Check if number of bonuses is 100
         request = new Request.Builder()
-                .url(URL + lastAddedId)
+                .url(URL + id)
                 .get()
                 .build();
 
@@ -116,7 +117,7 @@ class BonusesControllerTest {
         Assertions.assertEquals(100, bonuses.getNumberOfBonuses());
 
         //Check if returned status code is 404 when bonuses account does not exist
-        updateBonusesRequest = new Bonuses(lastAddedId + 1, 100);
+        updateBonusesRequest = new Bonuses(UUID.randomUUID(), 100);
         json = mapper.writeValueAsString(updateBonusesRequest);
         body = RequestBody.create(JSON, json);
 
@@ -128,16 +129,19 @@ class BonusesControllerTest {
         response = client.newCall(request).execute();
         Assertions.assertNotNull(response);
         Assertions.assertEquals(HttpStatus.NOT_FOUND.value(), response.code());
+
+        //Delete added bonuses account
+        bonusesRepository.delete(id);
     }
 
     @Test
     void getBonuses() throws IOException {
         //Create new bonuses account
-        bonusesRepository.add();
-        long lastAddedId = bonusesRepository.getLastInsertId();
+        UUID id = UUID.randomUUID();
+        bonusesRepository.add(id);
 
         Request request = new Request.Builder()
-                .url(URL + lastAddedId)
+                .url(URL + id)
                 .get()
                 .build();
 
@@ -152,17 +156,16 @@ class BonusesControllerTest {
 
         //Check if returned status code is 404 when bonuses account does not exist
         request = new Request.Builder()
-                .url(URL + ++lastAddedId)
+                .url(URL + UUID.randomUUID())
                 .get()
                 .build();
 
         response = client.newCall(request).execute();
         Assertions.assertEquals(HttpStatus.NOT_FOUND.value(), response.code());
 
-        //Check if returned status code is 400 when negative id is passed
-        int wrongId = -4;
+        //Check if returned status code is 400 when wrong id is passed
         request = new Request.Builder()
-                .url(URL + wrongId)
+                .url(URL + null)
                 .get()
                 .build();
 
@@ -170,17 +173,17 @@ class BonusesControllerTest {
         Assertions.assertEquals(HttpStatus.BAD_REQUEST.value(), response.code());
 
         //Delete added bonuses account
-        bonusesRepository.delete(--lastAddedId);
+        bonusesRepository.delete(id);
     }
 
     @Test
     void delete() throws IOException {
-        bonusesRepository.add();
-        long lastAddedId = bonusesRepository.getLastInsertId();
+        UUID id = UUID.randomUUID();
+        bonusesRepository.add(id);
 
         //Check if new bonuses account was successfully added
         Request request = new Request.Builder()
-                .url(URL + lastAddedId)
+                .url(URL + id)
                 .get()
                 .build();
 
@@ -189,7 +192,7 @@ class BonusesControllerTest {
 
         //Check if returned status code is 200
         request = new Request.Builder()
-                .url(URL + lastAddedId)
+                .url(URL + id)
                 .delete()
                 .build();
 
@@ -198,7 +201,7 @@ class BonusesControllerTest {
 
         //Check if bonuses account was deleted (GET /bonuses/{id} should return 404)
         request = new Request.Builder()
-                .url(URL + lastAddedId)
+                .url(URL + id)
                 .get()
                 .build();
 
@@ -207,17 +210,16 @@ class BonusesControllerTest {
 
         //Check if returned status code is 404 when bonuses account does not exist
         request = new Request.Builder()
-                .url(URL + lastAddedId)
+                .url(URL + id)
                 .delete()
                 .build();
 
         response = client.newCall(request).execute();
         Assertions.assertEquals(HttpStatus.NOT_FOUND.value(), response.code());
 
-        //Check if returned status code is 400 when negative id is passed
-        int wrongId = -4;
+        //Check if returned status code is 400 when wrong id is passed
         request = new Request.Builder()
-                .url(URL + wrongId)
+                .url(URL + null)
                 .delete()
                 .build();
 

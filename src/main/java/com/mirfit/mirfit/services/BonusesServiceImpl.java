@@ -5,6 +5,8 @@ import com.mirfit.mirfit.repositories.BonusesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class BonusesServiceImpl implements BonusesService {
     private final BonusesRepository bonusesRepository;
@@ -15,31 +17,34 @@ public class BonusesServiceImpl implements BonusesService {
     }
 
     @Override
-    public String updateBonuses(long id, double numberOfBonuses) {
-        if (id > 0)
+    public String updateBonuses(UUID id, double numberOfBonuses) {
+        if (id != null)
             return bonusesRepository.updateBonuses(id, numberOfBonuses);
         else
-            return "Id must be positive.";
+            return "Id cannot be null.";
     }
 
     @Override
-    public GetBonusesResponse getBonuses(long id) {
-        if (id > 0)
+    public GetBonusesResponse getBonuses(UUID id) {
+        if (id != null)
             return bonusesRepository.getBonuses(id);
         else
-            return new GetBonusesResponse("Id must be positive.", null);
+            return new GetBonusesResponse("Id cannot be null.", null);
     }
 
     @Override
-    public String delete(long id) {
-        if (id > 0)
+    public String delete(UUID id) {
+        if (id != null)
             return bonusesRepository.delete(id);
         else
-            return "Id must be positive.";
+            return "Id cannot be null.";
     }
 
     @Override
-    public String add() {
-        return bonusesRepository.add();
+    public String add(UUID id) {
+        if (id != null)
+            return bonusesRepository.add(id);
+        else
+            return "Id cannot be null.";
     }
 }

@@ -10,7 +10,9 @@ public class AuthUserResponse {
         this.error = error;
     }
 
-    public User getUser() { return user; }
+    public User getUser() {
+        return user;
+    }
 
     public String getError() {
         return error;

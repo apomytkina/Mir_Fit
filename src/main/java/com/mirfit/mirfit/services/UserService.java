@@ -3,18 +3,20 @@ package com.mirfit.mirfit.services;
 import com.mirfit.mirfit.models.*;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public interface UserService {
 
-    String addUser(AddUserRequest request);
+    AddUserResponse addUser(AddUserRequest request);
 
-    GetUserResponse getUserById(long id);
+    GetUserResponse getUserById(UUID id);
 
     String deleteAllUsers();
 
-    String deleteUserById(long id);
+    String deleteUserById(UUID id);
 
-    String updateUserById(long id);
+    String updateUserById(UUID id);
 
     AuthUserResponse authorizeUser(AuthUserRequest request);
 }

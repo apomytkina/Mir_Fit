@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public class BonusesRepositoryImpl implements BonusesRepository {
@@ -22,14 +23,14 @@ public class BonusesRepositoryImpl implements BonusesRepository {
     }
 
     @Override
-    public String updateBonuses(long userId, double numberOfBonuses) {
+    public String updateBonuses(UUID userId, double numberOfBonuses) {
         String error = null;
 
         try {
             List<Bonuses> res = jdbcTemplate.query(
                     "SELECT * FROM bonuses WHERE id = ?",
                     new BonusesRowMapper(),
-                    userId
+                    userId.toString()
             );
 
             if (res.size() == 0)
@@ -48,7 +49,7 @@ public class BonusesRepositoryImpl implements BonusesRepository {
                             "WHERE id = ?",
                     numberOfBonuses,
                     numberOfBonuses,
-                    userId
+                    userId.toString()
             );
 
             if (count == 0 || numberOfBonuses + res.get(0).getNumberOfBonuses() < 0) {
@@ -65,14 +66,14 @@ public class BonusesRepositoryImpl implements BonusesRepository {
     }
 
     @Override
-    public GetBonusesResponse getBonuses(long userId) {
+    public GetBonusesResponse getBonuses(UUID userId) {
         GetBonusesResponse getBonusesResponse = new GetBonusesResponse();
 
         try {
             List<Bonuses> res = jdbcTemplate.query(
                     "SELECT * FROM bonuses WHERE ID = ?",
                     new BonusesRowMapper(),
-                    userId
+                    userId.toString()
             );
 
             if (res.size() != 0) {
@@ -90,31 +91,14 @@ public class BonusesRepositoryImpl implements BonusesRepository {
         return getBonusesResponse;
     }
 
-    public long getLastInsertId() {
-        long id = 0;
-
-        try {
-            List<Long> res = jdbcTemplate.query(
-                    "SELECT LAST_INSERT_ID();",
-                    (rs, i) -> rs.getLong("LAST_INSERT_ID()")
-            );
-
-            if (res.size() > 0)
-                id = res.get(0);
-        } catch (DataAccessException e) {
-            //nothing here
-        }
-
-        return id;
-    }
-
     @Override
-    public String add() {
+    public String add(UUID id) {
         String error = null;
 
         try {
             int count = jdbcTemplate.update(
-                    "INSERT INTO bonuses (number_of_bonuses) VALUES (0)"
+                    "INSERT IGNORE INTO bonuses (id, number_of_bonuses) VALUES (?, 0)",
+                    id.toString()
             );
 
             if (count == 0) {
@@ -131,13 +115,13 @@ public class BonusesRepositoryImpl implements BonusesRepository {
     }
 
     @Override
-    public String delete(long userId) {
+    public String delete(UUID userId) {
         String error = null;
 
         try {
             int count = jdbcTemplate.update(
                     "DELETE IGNORE FROM bonuses WHERE id = ?",
-                    userId
+                    userId.toString()
             );
 
             if (count == 0) {

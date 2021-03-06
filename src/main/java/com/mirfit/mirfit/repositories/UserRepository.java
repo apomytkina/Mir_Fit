@@ -3,14 +3,16 @@ package com.mirfit.mirfit.repositories;
 import com.mirfit.mirfit.models.*;
 import org.springframework.stereotype.Repository;
 
+import java.util.UUID;
+
 @Repository
 public interface UserRepository {
 
-    GetUserResponse getById(long id);
+    GetUserResponse getById(UUID id);
 
-    String add(AddUserRequest request);
+    AddUserResponse add(AddUserRequest request);
 
     AuthUserResponse authUser(AuthUserRequest request);
 
-    String deleteUser(long id);
+    String deleteUser(UUID id);
 }

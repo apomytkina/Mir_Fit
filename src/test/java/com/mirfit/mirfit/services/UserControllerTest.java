@@ -18,6 +18,7 @@ import org.springframework.test.context.TestPropertySource;
 
 
 import java.io.IOException;
+import java.util.UUID;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
@@ -113,7 +114,7 @@ class gitUserControllerTest {
                 .query("SELECT * FROM user", new UserRowMapper())
                 .size();
 
-        long lastId = userRepository.getJdbcTemplate()
+        UUID lastId = userRepository.getJdbcTemplate()
                 .query("SELECT * FROM user ORDER BY id DESC LIMIT 1", new UserRowMapper())
                 .get(0)
                 .getId();

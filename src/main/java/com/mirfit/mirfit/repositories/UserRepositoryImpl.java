@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
@@ -23,12 +24,12 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public GetUserResponse getById(long id) {
+    public GetUserResponse getById(UUID id) {
         try {
             List<User> users = jdbcTemplate.query(
                     "SELECT * FROM user WHERE id = ?",
                     new UserRowMapper(),
-                    id
+                    id.toString()
             );
 
             if (users.size() != 0)
@@ -41,13 +42,15 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public String add(AddUserRequest request) {
+    public AddUserResponse add(AddUserRequest request) {
         String error = null;
+        UUID id = UUID.randomUUID();
 
         try {
             int count = jdbcTemplate.update(
-                    "INSERT IGNORE INTO user (card_number, first_name, second_name, patronymic, password, login) " +
-                            "VALUES (?, ?, ?, ?, ?, ?)",
+                    "INSERT IGNORE INTO user (id, card_number, first_name, second_name, patronymic, password, login) " +
+                            "VALUES (?, ?, ?, ?, ?, ?, ?)",
+                    id.toString(),
                     request.getCardNumber(),
                     request.getFirstName(),
                     request.getSecondName(),
@@ -62,7 +65,7 @@ public class UserRepositoryImpl implements UserRepository {
             error = e.getMessage();
         }
 
-        return error;
+        return new AddUserResponse(error, id);
     }
 
     @Override
@@ -89,12 +92,12 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public String deleteUser(long id) {
+    public String deleteUser(UUID id) {
         try {
 
             var result = jdbcTemplate.update(
                     "DELETE FROM user WHERE id = ?",
-                    id
+                    id.toString()
             );
 
             if (result != 0) {

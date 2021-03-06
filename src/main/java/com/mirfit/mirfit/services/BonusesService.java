@@ -3,13 +3,15 @@ package com.mirfit.mirfit.services;
 import com.mirfit.mirfit.models.GetBonusesResponse;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public interface BonusesService {
-    String updateBonuses(long id, double numberOfBonuses);
+    String updateBonuses(UUID id, double numberOfBonuses);
 
-    GetBonusesResponse getBonuses(long id);
+    GetBonusesResponse getBonuses(UUID id);
 
-    String delete(long id);
+    String delete(UUID id);
 
-    String add();
+    String add(UUID id);
 }

@@ -5,12 +5,13 @@ import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.UUID;
 
 public class UserRowMapper implements RowMapper<User> {
     @Override
     public User mapRow(ResultSet resultSet, int i) throws SQLException {
         return new User(
-                resultSet.getLong("id"),
+                UUID.fromString(resultSet.getString("id")),
                 resultSet.getString("card_number"),
                 resultSet.getString("first_name"),
                 resultSet.getString("second_name"),

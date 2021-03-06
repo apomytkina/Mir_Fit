@@ -3,15 +3,15 @@ package com.mirfit.mirfit.repositories;
 import com.mirfit.mirfit.models.GetBonusesResponse;
 import org.springframework.stereotype.Repository;
 
+import java.util.UUID;
+
 @Repository
 public interface BonusesRepository {
-    String updateBonuses(long userId, double numberOfBonuses);
+    String updateBonuses(UUID userId, double numberOfBonuses);
 
-    GetBonusesResponse getBonuses(long userId);
+    GetBonusesResponse getBonuses(UUID userId);
 
-    String add();
+    String add(UUID userId);
 
-    String delete(long userId);
-
-    long getLastInsertId();
+    String delete(UUID userId);
 }

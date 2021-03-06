@@ -1,4 +1,5 @@
 package com.mirfit.mirfit.models;
+
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 @JsonAutoDetect

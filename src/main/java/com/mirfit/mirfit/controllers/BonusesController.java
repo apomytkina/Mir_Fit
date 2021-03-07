@@ -1,7 +1,8 @@
 package com.mirfit.mirfit.controllers;
 
-import com.mirfit.mirfit.models.Bonuses;
+import com.mirfit.mirfit.models.BonusesAccount;
 import com.mirfit.mirfit.models.GetBonusesResponse;
+import com.mirfit.mirfit.models.UpdateBonusesRequest;
 import com.mirfit.mirfit.services.BonusesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,8 +23,8 @@ public class BonusesController {
     }
 
     @PutMapping("increase")
-    public ResponseEntity<String> increase(@RequestBody Bonuses request) {
-        String error = bonusesService.updateBonuses(request.getId(), request.getNumberOfBonuses());
+    public ResponseEntity<String> increase(@RequestBody UpdateBonusesRequest request) {
+        String error = bonusesService.updateBonuses(request.getUserId(), request.getNumberOfBonuses());
 
         if (error != null) {
             return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
@@ -33,8 +34,8 @@ public class BonusesController {
     }
 
     @PutMapping("decrease")
-    public ResponseEntity<String> decrease(@RequestBody Bonuses request) {
-        String result = bonusesService.updateBonuses(request.getId(), request.getNumberOfBonuses() * -1);
+    public ResponseEntity<String> decrease(@RequestBody UpdateBonusesRequest request) {
+        String result = bonusesService.updateBonuses(request.getUserId(), request.getNumberOfBonuses() * -1);
 
         if (result != null) {
             return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
@@ -44,7 +45,7 @@ public class BonusesController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Bonuses> getBonuses(@PathVariable UUID id) {
+    public ResponseEntity<BonusesAccount> getBonusesByUserId(@PathVariable UUID id) {
         GetBonusesResponse result = bonusesService.getBonuses(id);
 
         if (result.getError() == null) {

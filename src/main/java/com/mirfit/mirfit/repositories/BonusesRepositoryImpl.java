@@ -1,6 +1,6 @@
 package com.mirfit.mirfit.repositories;
 
-import com.mirfit.mirfit.models.Bonuses;
+import com.mirfit.mirfit.models.BonusesAccount;
 import com.mirfit.mirfit.models.GetBonusesResponse;
 import com.mirfit.mirfit.rowmappers.BonusesRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +27,8 @@ public class BonusesRepositoryImpl implements BonusesRepository {
         String error = null;
 
         try {
-            List<Bonuses> res = jdbcTemplate.query(
-                    "SELECT * FROM bonuses WHERE id = ?",
+            List<BonusesAccount> res = jdbcTemplate.query(
+                    "SELECT * FROM bonuses WHERE user_id = ?",
                     new BonusesRowMapper(),
                     userId.toString()
             );
@@ -46,7 +46,7 @@ public class BonusesRepositoryImpl implements BonusesRepository {
                             "    THEN number_of_bonuses + ?" +
                             "    ELSE number_of_bonuses " +
                             "END " +
-                            "WHERE id = ?",
+                            "WHERE user_id = ?",
                     numberOfBonuses,
                     numberOfBonuses,
                     userId.toString()
@@ -70,8 +70,8 @@ public class BonusesRepositoryImpl implements BonusesRepository {
         GetBonusesResponse getBonusesResponse = new GetBonusesResponse();
 
         try {
-            List<Bonuses> res = jdbcTemplate.query(
-                    "SELECT * FROM bonuses WHERE ID = ?",
+            List<BonusesAccount> res = jdbcTemplate.query(
+                    "SELECT * FROM bonuses WHERE user_id = ?",
                     new BonusesRowMapper(),
                     userId.toString()
             );
@@ -97,7 +97,7 @@ public class BonusesRepositoryImpl implements BonusesRepository {
 
         try {
             int count = jdbcTemplate.update(
-                    "INSERT IGNORE INTO bonuses (id, number_of_bonuses) VALUES (?, 0)",
+                    "INSERT IGNORE INTO bonuses (user_id, number_of_bonuses) VALUES (?, 0)",
                     id.toString()
             );
 
@@ -120,14 +120,14 @@ public class BonusesRepositoryImpl implements BonusesRepository {
 
         try {
             int count = jdbcTemplate.update(
-                    "DELETE IGNORE FROM bonuses WHERE id = ?",
+                    "DELETE IGNORE FROM bonuses WHERE user_id = ?",
                     userId.toString()
             );
 
             if (count == 0) {
                 throw new ResponseStatusException(
                         HttpStatus.NOT_FOUND,
-                        "Cannot find account with id = " + userId
+                        "Cannot find user with id = " + userId
                 );
             }
         } catch (DataAccessException e) {

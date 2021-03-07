@@ -48,8 +48,7 @@ class gitUserControllerTest {
     @Test
     void addUser() throws IOException {
 
-        addUserRequest = new AddUserRequest("Иванов", "Иван", "Иванович",
-                "123456789876543", "givememoney", "coollogin");
+        addUserRequest = new AddUserRequest("Иванов", "Иван", "Иванович", "givememoney", "coollogin");
 
         String json = mapper.writeValueAsString(addUserRequest);
 
@@ -76,7 +75,6 @@ class gitUserControllerTest {
         Assertions.assertEquals(addedUser.getLogin(), addUserRequest.getLogin());
         Assertions.assertEquals(addedUser.getFirstName(), addUserRequest.getFirstName());
         Assertions.assertEquals(addedUser.getSecondName(), addUserRequest.getSecondName());
-        Assertions.assertEquals(addedUser.getCardNumber(), addUserRequest.getCardNumber());
         Assertions.assertEquals(addedUser.getPassword(), addUserRequest.getPassword());
 
         deleteTestRow();
@@ -107,8 +105,7 @@ class gitUserControllerTest {
 
     @Test
     void deleteUserById() throws IOException {
-        userRepository.add(new AddUserRequest("Иванов", "Иван", "Иванович",
-                "123456789876543", "givememoney", "coollogin"));
+        userRepository.add(new AddUserRequest("Иванов", "Иван", "Иванович", "givememoney", "coollogin"));
 
         long countUsers =  userRepository.getJdbcTemplate()
                 .query("SELECT * FROM user", new UserRowMapper())
@@ -136,8 +133,7 @@ class gitUserControllerTest {
     @Test
     void authorizeUser() throws IOException {
 
-        userRepository.add(new AddUserRequest("Иванов", "Иван", "Иванович",
-                "123456789876543", "givememoney", "coollogin"));
+        userRepository.add(new AddUserRequest("Иванов", "Иван", "Иванович", "givememoney", "coollogin"));
 
         AuthUserRequest addRequest = new AuthUserRequest("coollogin", "givememoney");
         String json = mapper.writeValueAsString(addRequest);

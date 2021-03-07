@@ -48,10 +48,9 @@ public class UserRepositoryImpl implements UserRepository {
 
         try {
             int count = jdbcTemplate.update(
-                    "INSERT IGNORE INTO user (id, card_number, first_name, second_name, patronymic, password, login) " +
-                            "VALUES (?, ?, ?, ?, ?, ?, ?)",
+                    "INSERT IGNORE INTO user (id, first_name, second_name, patronymic, password, login) " +
+                            "VALUES (?, ?, ?, ?, ?, ?)",
                     id.toString(),
-                    request.getCardNumber(),
                     request.getFirstName(),
                     request.getSecondName(),
                     request.getPatronymic(),

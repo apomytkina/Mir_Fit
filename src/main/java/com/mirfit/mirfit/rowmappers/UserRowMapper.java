@@ -12,7 +12,6 @@ public class UserRowMapper implements RowMapper<User> {
     public User mapRow(ResultSet resultSet, int i) throws SQLException {
         return new User(
                 UUID.fromString(resultSet.getString("id")),
-                resultSet.getString("card_number"),
                 resultSet.getString("first_name"),
                 resultSet.getString("second_name"),
                 resultSet.getString("patronymic"),

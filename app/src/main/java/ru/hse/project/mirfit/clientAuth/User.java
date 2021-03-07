@@ -1,4 +1,4 @@
-package ru.hse.project.clientmir.clientAuth;
+package ru.hse.project.mirfit.clientAuth;
 
 import android.content.SharedPreferences;
 import android.net.Uri;

@@ -1,4 +1,4 @@
-package ru.hse.project.clientmir.clientAuth
+package ru.hse.project.mirfit.clientAuth
 
 import android.content.Context
 import android.net.Uri
@@ -10,18 +10,21 @@ import org.json.JSONObject
 import java.io.IOException
 
 
-class BaseClient(private val context: Context) {
+class BaseClient(context: Context) {
 
-    private val AUTH_USER = "authUser"
-    private val UPDATE_USER = "updateUser"
-    private val PRIVATE_MODE = 0;
-    private val PREF_FILE = "json_user";
-    private val JSON = "application/json; charset=utf-8".toMediaType()
-    private val BASE_URL = "http://192.168.31.121:8080/users/"
-    private val ADD_USER_URL = "addUser"
+    companion object {
+        private const val PRIVATE_MODE = 0
+        private const val PREF_FILE = "json_user"
+        private val JSON = "application/json; charset=utf-8".toMediaType()
+        private const val BASE_URL = "http://192.168.31.121:8080/users/"
+        private const val CREATE_USER = "addUser"
+        private const val UPDATE_USER = "updateUser"
+        private const val AUTH_USER = "authUser"
+    }
+
     private val client: OkHttpClient = OkHttpClient()
     private val userSharedPref = context.getSharedPreferences(PREF_FILE, PRIVATE_MODE)
-    var currentUser: User? = User.builder(userSharedPref, this);
+    var currentUser: User? = User.builder(userSharedPref, this)
 
     fun signInUser(
         updateUI: (Boolean) -> Unit,
@@ -87,7 +90,6 @@ class BaseClient(private val context: Context) {
         password: String
     ) {
 
-
         val json = JSONObject().apply {
             put(User.CODE_CARD_NUMBER, cardNumber.toString())
             put(User.CODE_FIRST_NAME, firstName)
@@ -97,8 +99,7 @@ class BaseClient(private val context: Context) {
             put(User.CODE_SECOND_NAME, secondName)
         }.toString()
 
-
-        call(json, ADD_USER_URL).enqueue(object : Callback {
+        call(json, CREATE_USER).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 updateUI.invoke(false)
                 Log.d("RESPONSE", e.message.toString())
@@ -125,7 +126,6 @@ class BaseClient(private val context: Context) {
                 }
             }
         })
-
     }
 
 
@@ -147,12 +147,9 @@ class BaseClient(private val context: Context) {
     }
 
 
-    fun updateImage(url: Uri) {
-
-
+    fun updateImage(url: Uri?) {
+        TODO("Not yet implemented")
     }
-
-
 }
 
 

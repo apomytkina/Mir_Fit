@@ -1,12 +1,11 @@
-package ru.hse.project.clientmir.ui.main.profile
+package ru.hse.project.mirfit.ui.settings
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import ru.hse.project.clientmir.MainActivity
-import ru.hse.project.clientmir.R
+import ru.hse.project.mirfit.R
 
 
 class SettingsFragment : Fragment() {

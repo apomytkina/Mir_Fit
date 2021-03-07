@@ -7,21 +7,21 @@
 
     <fragment
         android:id="@+id/navigation_registration"
-        android:name="ru.hse.project.clientmir.ui.auth.RegistrationFragment"
+        android:name="ru.hse.project.mirfit.ui.auth.RegistrationFragment"
         android:label="@string/title_registration"
         tools:layout="@layout/fragment_registration" />
 
 
     <fragment
         android:id="@+id/navigation_signin"
-        android:name="ru.hse.project.clientmir.ui.auth.SignInFragment"
+        android:name="ru.hse.project.mirfit.ui.auth.SignInFragment"
         android:label="@string/title_signin"
         tools:layout="@layout/fragment_signin" />
 
 
     <fragment
         android:id="@+id/navigation_auth"
-        android:name="ru.hse.project.clientmir.ui.auth.AuthFragment"
+        android:name="ru.hse.project.mirfit.ui.auth.AuthFragment"
         android:label="@string/title_auth"
         tools:layout="@layout/fragment_selection_auth" >
         <action

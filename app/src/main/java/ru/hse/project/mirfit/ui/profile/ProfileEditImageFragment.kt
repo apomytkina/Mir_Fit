@@ -1,4 +1,4 @@
-package ru.hse.project.clientmir.ui.main.profile
+package ru.hse.project.mirfit.ui.profile
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
-import ru.hse.project.clientmir.R
-import ru.hse.project.clientmir.clientAuth.BaseClient
+import ru.hse.project.mirfit.R
+import ru.hse.project.mirfit.clientAuth.BaseClient
 
 class ProfileEditImageFragment : Fragment() {
 
@@ -24,11 +24,10 @@ class ProfileEditImageFragment : Fragment() {
         root.findViewById<ConstraintLayout>(R.id.btn_edit_image_prof).setOnClickListener {
 
 
-
         }
 
         root.findViewById<ConstraintLayout>(R.id.btn_delete_image_prof).setOnClickListener {
-            BaseClient(inflater.context).updateImage(null);
+            BaseClient(inflater.context).updateImage(null)
 
         }
 

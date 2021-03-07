@@ -1,4 +1,4 @@
-package ru.hse.project.clientmir.ui.auth
+package ru.hse.project.mirfit.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,10 +9,10 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import ru.hse.project.clientmir.MainActivity
-import ru.hse.project.clientmir.R
-import ru.hse.project.clientmir.clientAuth.BaseClient
-import ru.hse.project.clientmir.util.Validator
+import ru.hse.project.mirfit.MainActivity
+import ru.hse.project.mirfit.R
+import ru.hse.project.mirfit.clientAuth.BaseClient
+import ru.hse.project.mirfit.util.Validator
 
 
 class RegistrationFragment : Fragment() {

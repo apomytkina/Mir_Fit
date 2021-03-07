@@ -1,4 +1,4 @@
-package ru.hse.project.clientmir.ui.main.profile
+package ru.hse.project.mirfit.ui.profile.card
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -9,15 +9,15 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.DialogFragment
-import ru.hse.project.clientmir.R
-import ru.hse.project.clientmir.util.Validator
+import ru.hse.project.mirfit.R
+import ru.hse.project.mirfit.util.Validator
 
 class DialogEditCardFragment(private val cardAdapter: CardAdapter, private val position: Int) :
     DialogFragment() {
 
-    lateinit var editName: EditText
-    lateinit var btnCancel: Button
-    lateinit var btnComplete: Button
+    private lateinit var editName: EditText
+    private lateinit var btnCancel: Button
+    private lateinit var btnComplete: Button
 
     override fun onCreateView(
         inflater: LayoutInflater,

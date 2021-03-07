@@ -1,9 +1,9 @@
-package ru.hse.project.clientmir.util
+package ru.hse.project.mirfit.util
 
 class Validator {
     companion object {
 
-        private val notValidateChars: List<Char> = listOf<Char>(
+        private val notValidateChars: List<Char> = listOf(
             ' ', ',', '.', '/', ';',
             ':', '\'', '"', '[', ']',
             '!', '>', '<', '|', '#', '@',
@@ -64,7 +64,7 @@ class Validator {
                 return false
             }
 
-            return true;
+            return true
 
         }
 

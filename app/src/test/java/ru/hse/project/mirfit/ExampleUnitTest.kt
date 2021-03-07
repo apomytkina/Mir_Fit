@@ -1,4 +1,4 @@
-package ru.hse.project.clientmir
+package ru.hse.project.mirfit
 
 import org.junit.Test
 

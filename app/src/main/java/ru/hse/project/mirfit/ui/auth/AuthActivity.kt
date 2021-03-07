@@ -1,25 +1,25 @@
-package ru.hse.project.clientmir
+package ru.hse.project.mirfit.ui.auth
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import ru.hse.project.clientmir.clientAuth.BaseClient
+import androidx.appcompat.app.AppCompatActivity
+import ru.hse.project.mirfit.MainActivity
+import ru.hse.project.mirfit.R
+import ru.hse.project.mirfit.clientAuth.BaseClient
 
 class AuthActivity : AppCompatActivity() {
 
 
-    lateinit var client: BaseClient
+    private lateinit var client: BaseClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
-        client = BaseClient(this);
-
+        client = BaseClient(this)
     }
 
     override fun onStart() {
         super.onStart()
-
         val currentUser = client.currentUser
         if (currentUser != null) {
             val intent = Intent(this, MainActivity::class.java)
@@ -27,6 +27,4 @@ class AuthActivity : AppCompatActivity() {
             finishAfterTransition()
         }
     }
-
-
 }

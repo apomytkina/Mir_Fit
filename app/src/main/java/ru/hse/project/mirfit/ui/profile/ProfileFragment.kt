@@ -1,4 +1,4 @@
-package ru.hse.project.clientmir.ui.main.profile
+package ru.hse.project.mirfit.ui.profile
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,9 +11,12 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ru.hse.project.clientmir.R
-import ru.hse.project.clientmir.clientAuth.BaseClient
-import ru.hse.project.clientmir.clientAuth.User
+import ru.hse.project.mirfit.R
+import ru.hse.project.mirfit.clientAuth.BaseClient
+import ru.hse.project.mirfit.clientAuth.User
+import ru.hse.project.mirfit.ui.profile.card.CardAdapter
+import ru.hse.project.mirfit.ui.profile.card.CardObject
+import ru.hse.project.mirfit.ui.profile.card.DialogAddCardFragment
 
 class ProfileFragment : Fragment() {
 

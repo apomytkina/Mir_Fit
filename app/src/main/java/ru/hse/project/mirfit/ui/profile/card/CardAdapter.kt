@@ -1,4 +1,4 @@
-package ru.hse.project.clientmir.ui.main.profile
+package ru.hse.project.mirfit.ui.profile.card
 
 import android.content.Context
 import android.os.Bundle
@@ -11,14 +11,13 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.daimajia.swipe.SwipeLayout
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter
-import ru.hse.project.clientmir.R
-import ru.hse.project.clientmir.clientAuth.BaseClient
+import ru.hse.project.mirfit.R
 
 
 class CardAdapter(private val fm: FragmentManager, private val data: ArrayList<CardObject>) :
     RecyclerSwipeAdapter<CardAdapter.CardViewHolder>() {
 
-    lateinit var context: Context;
+    private lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
         context = parent.context
@@ -54,7 +53,7 @@ class CardAdapter(private val fm: FragmentManager, private val data: ArrayList<C
             mItemManger.closeAllItems()
         }
 
-        mItemManger.bindView(holder.itemView, position);
+        mItemManger.bindView(holder.itemView, position)
     }
 
 

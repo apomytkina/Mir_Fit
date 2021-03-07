@@ -10,12 +10,30 @@ import java.util.UUID;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
-public class BonusesAccount {
+public class Card {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private UUID userId;
     private double numberOfBonuses;
+    private String name;
+    private String number;
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public UUID getUserId() {
         return userId;
@@ -25,13 +43,15 @@ public class BonusesAccount {
         this.userId = userId;
     }
 
-    public BonusesAccount() {
+    public Card() {
     }
 
-    public BonusesAccount(long id, double numberOfBonuses, UUID userId) {
+    public Card(long id, double numberOfBonuses, UUID userId, String name, String number) {
         this.id = id;
         this.numberOfBonuses = numberOfBonuses;
         this.userId = userId;
+        this.name = name;
+        this.number = number;
     }
 
     public double getNumberOfBonuses() {

@@ -1,6 +1,6 @@
 package com.mirfit.mirfit;
 
-import com.mirfit.mirfit.controllers.BonusesController;
+import com.mirfit.mirfit.controllers.CardController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class MirFitApplicationTests {
 
 	@Autowired
-	private BonusesController bonusesController;
+	private CardController bonusesController;
 
 	@Test
 	void contextLoads() {

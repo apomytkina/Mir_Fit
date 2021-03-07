@@ -3,7 +3,7 @@ package com.mirfit.mirfit.controllers;
 import com.mirfit.mirfit.models.AddUserRequest;
 import com.mirfit.mirfit.models.AuthUserRequest;
 import com.mirfit.mirfit.models.User;
-import com.mirfit.mirfit.services.BonusesService;
+import com.mirfit.mirfit.services.CardService;
 import com.mirfit.mirfit.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,12 +17,12 @@ import java.util.UUID;
 @RequestMapping(value = "/users")
 public class UserController {
     private final UserService userService;
-    private final BonusesService bonusesService;
+    private final CardService cardService;
 
     @Autowired
-    public UserController(UserService userService, BonusesService bonusesService) {
+    public UserController(UserService userService, CardService cardService) {
         this.userService = userService;
-        this.bonusesService = bonusesService;
+        this.cardService = cardService;
     }
 
     @GetMapping(value = "{id}", produces = "application/json")
@@ -49,7 +49,6 @@ public class UserController {
         var result = userService.addUser(user);
 
         if (result.getError() == null) {
-            bonusesService.add(result.getId());
             return new ResponseEntity<>(result.getId(), HttpStatus.OK);
         } else if (result.getError().equals("Login is not available")) {
             throw new ResponseStatusException(
@@ -82,7 +81,7 @@ public class UserController {
 
     @GetMapping(value = "delete/{id}", produces = "application/json")
     public ResponseEntity<String> deleteUser(@PathVariable UUID id) {
-        bonusesService.delete(id);
+        cardService.delete(id);
         var result = userService.deleteUserById(id);
 
         if (result == null) {

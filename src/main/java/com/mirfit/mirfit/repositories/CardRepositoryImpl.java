@@ -1,8 +1,9 @@
 package com.mirfit.mirfit.repositories;
 
-import com.mirfit.mirfit.models.BonusesAccount;
-import com.mirfit.mirfit.models.GetBonusesResponse;
-import com.mirfit.mirfit.rowmappers.BonusesRowMapper;
+import com.mirfit.mirfit.models.Card;
+import com.mirfit.mirfit.models.CardDto;
+import com.mirfit.mirfit.models.GetCardsResponse;
+import com.mirfit.mirfit.rowmappers.CardRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
@@ -14,11 +15,11 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public class BonusesRepositoryImpl implements BonusesRepository {
+public class CardRepositoryImpl implements CardRepository {
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public BonusesRepositoryImpl(JdbcTemplate jdbcTemplate) {
+    public CardRepositoryImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
@@ -27,9 +28,9 @@ public class BonusesRepositoryImpl implements BonusesRepository {
         String error = null;
 
         try {
-            List<BonusesAccount> res = jdbcTemplate.query(
+            List<Card> res = jdbcTemplate.query(
                     "SELECT * FROM bonuses WHERE user_id = ?",
-                    new BonusesRowMapper(),
+                    new CardRowMapper(),
                     userId.toString()
             );
 
@@ -66,45 +67,40 @@ public class BonusesRepositoryImpl implements BonusesRepository {
     }
 
     @Override
-    public GetBonusesResponse getBonuses(UUID userId) {
-        GetBonusesResponse getBonusesResponse = new GetBonusesResponse();
+    public GetCardsResponse getCardsByUserId(UUID userId) {
+        GetCardsResponse getCardsResponse = new GetCardsResponse();
 
         try {
-            List<BonusesAccount> res = jdbcTemplate.query(
-                    "SELECT * FROM bonuses WHERE user_id = ?",
-                    new BonusesRowMapper(),
+            List<Card> res = jdbcTemplate.query(
+                    "SELECT * FROM card WHERE user_id = ?",
+                    new CardRowMapper(),
                     userId.toString()
             );
 
-            if (res.size() != 0) {
-                getBonusesResponse.setBonuses(res.get(0));
-            } else {
-                throw new ResponseStatusException(
-                        HttpStatus.NOT_FOUND,
-                        "Cannot find user with id = " + userId
-                );
-            }
+            getCardsResponse.setCards(res);
         } catch (DataAccessException e) {
-            getBonusesResponse.setError(e.getMessage());
+            getCardsResponse.setError(e.getMessage());
         }
 
-        return getBonusesResponse;
+        return getCardsResponse;
     }
 
     @Override
-    public String add(UUID id) {
+    public String addCard(UUID id, CardDto card) {
         String error = null;
 
         try {
             int count = jdbcTemplate.update(
-                    "INSERT IGNORE INTO bonuses (user_id, number_of_bonuses) VALUES (?, 0)",
-                    id.toString()
+                    "INSERT IGNORE INTO card (user_id, number_of_bonuses, name, number) VALUES (?, 0, ?, ?)",
+                    id.toString(),
+                    card.getName(),
+                    card.getNumber()
             );
 
             if (count == 0) {
                 throw new ResponseStatusException(
                         HttpStatus.BAD_REQUEST,
-                        "Failed to create new bonuses account"
+                        "Card with number '" + card.getNumber() + "' is already added."
                 );
             }
         } catch (DataAccessException e) {
@@ -120,14 +116,63 @@ public class BonusesRepositoryImpl implements BonusesRepository {
 
         try {
             int count = jdbcTemplate.update(
-                    "DELETE IGNORE FROM bonuses WHERE user_id = ?",
+                    "DELETE IGNORE FROM card WHERE user_id = ?",
                     userId.toString()
             );
 
             if (count == 0) {
                 throw new ResponseStatusException(
                         HttpStatus.NOT_FOUND,
-                        "Cannot find user with id = " + userId
+                        "Cannot find cards with user id = " + userId
+                );
+            }
+        } catch (DataAccessException e) {
+            error = e.getMessage();
+        }
+
+        return error;
+    }
+
+    @Override
+    public String delete(String cardNumber) {
+        String error = null;
+
+        try {
+            int count = jdbcTemplate.update(
+                    "DELETE IGNORE FROM card WHERE number = ?",
+                    cardNumber
+            );
+
+            if (count == 0) {
+                throw new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Cannot find card with number = " + cardNumber
+                );
+            }
+        } catch (DataAccessException e) {
+            error = e.getMessage();
+        }
+
+        return error;
+    }
+
+    @Override
+    public String updateName(String cardNumber, String name) {
+        String error = null;
+
+        try {
+            int count = jdbcTemplate.update(
+                    "UPDATE IGNORE card " +
+                            "SET name = ? " +
+                            "WHERE number = ?",
+                    name,
+                    cardNumber
+            );
+
+            if (count == 0) {
+                throw new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Cannot find card with number = " + cardNumber
                 );
             }
         } catch (DataAccessException e) {

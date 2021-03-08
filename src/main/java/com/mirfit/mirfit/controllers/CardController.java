@@ -21,6 +21,20 @@ public class CardController {
         this.cardService = cardService;
     }
 
+    @GetMapping("/bonuses/{cardNumber}")
+    public ResponseEntity<Double> getBonuses(@PathVariable String cardNumber) {
+        var result = cardService.getBonuses(cardNumber);
+
+        if (result.getError() == null) {
+            return new ResponseEntity<>(result.getBonuses(), HttpStatus.OK);
+        } else {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    result.getError()
+            );
+        }
+    }
+
     @PatchMapping
     public ResponseEntity<String> updateName(@RequestBody UpdateNameRequest request) {
         String error = cardService.updateName(request.getCardNumber(), request.getName());
@@ -43,7 +57,7 @@ public class CardController {
 
     @GetMapping("/{id}")
     public ResponseEntity<List<Card>> getCardsByUserId(@PathVariable UUID id) {
-        GetCardsResponse result = cardService.getBonuses(id);
+        GetCardsResponse result = cardService.getCards(id);
 
         if (result.getError() == null) {
             return new ResponseEntity<>(result.getCards(), HttpStatus.OK);
@@ -52,6 +66,28 @@ public class CardController {
                     HttpStatus.BAD_REQUEST,
                     result.getError()
             );
+        }
+    }
+
+    @PutMapping("increase")
+    public ResponseEntity<String> increase(@RequestBody UpdateBonusesRequest request) {
+        String error = cardService.updateBonuses(request.getCardNumber(), request.getNumberOfBonuses());
+
+        if (error != null) {
+            return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+        } else {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+    }
+
+    @PutMapping("decrease")
+    public ResponseEntity<String> decrease(@RequestBody UpdateBonusesRequest request) {
+        String result = cardService.updateBonuses(request.getCardNumber(), request.getNumberOfBonuses() * -1);
+
+        if (result != null) {
+            return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+        } else {
+            return new ResponseEntity<>(HttpStatus.OK);
         }
     }
 

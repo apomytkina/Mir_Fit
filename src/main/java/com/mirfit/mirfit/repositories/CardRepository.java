@@ -1,6 +1,7 @@
 package com.mirfit.mirfit.repositories;
 
 import com.mirfit.mirfit.models.CardDto;
+import com.mirfit.mirfit.models.GetBonusesResponse;
 import com.mirfit.mirfit.models.GetCardsResponse;
 import org.springframework.stereotype.Repository;
 
@@ -8,9 +9,11 @@ import java.util.UUID;
 
 @Repository
 public interface CardRepository {
-    String updateBonuses(UUID userId, double numberOfBonuses);
+    String updateBonuses(String cardNumber, double numberOfBonuses);
 
     GetCardsResponse getCardsByUserId(UUID userId);
+
+    GetBonusesResponse getBonuses(String cardNumber);
 
     String addCard(UUID userId, CardDto card);
 

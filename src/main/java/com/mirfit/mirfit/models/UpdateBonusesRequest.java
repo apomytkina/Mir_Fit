@@ -1,29 +1,19 @@
 package com.mirfit.mirfit.models;
 
-import java.util.UUID;
-
 public class UpdateBonusesRequest {
-    public UUID getUserId() {
-        return userId;
-    }
+    private final double numberOfBonuses;
+    private final String cardNumber;
 
-    public void setUserId(UUID userId) {
-        this.userId = userId;
-    }
-
-    private UUID userId;
-    private double numberOfBonuses;
-
-    public UpdateBonusesRequest(UUID userId, double numberOfBonuses) {
+    public UpdateBonusesRequest(String cardNumber, double numberOfBonuses) {
         this.numberOfBonuses = numberOfBonuses;
-        this.userId = userId;
+        this.cardNumber = cardNumber;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
     }
 
     public double getNumberOfBonuses() {
         return numberOfBonuses;
-    }
-
-    public void setNumberOfBonuses(double numberOfBonuses) {
-        this.numberOfBonuses = numberOfBonuses;
     }
 }

@@ -2,6 +2,7 @@ package com.mirfit.mirfit.repositories;
 
 import com.mirfit.mirfit.models.Card;
 import com.mirfit.mirfit.models.CardDto;
+import com.mirfit.mirfit.models.GetBonusesResponse;
 import com.mirfit.mirfit.models.GetCardsResponse;
 import com.mirfit.mirfit.rowmappers.CardRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,33 +25,33 @@ public class CardRepositoryImpl implements CardRepository {
     }
 
     @Override
-    public String updateBonuses(UUID userId, double numberOfBonuses) {
+    public String updateBonuses(String cardNumber, double numberOfBonuses) {
         String error = null;
 
         try {
             List<Card> res = jdbcTemplate.query(
-                    "SELECT * FROM bonuses WHERE user_id = ?",
+                    "SELECT * FROM card WHERE number = ?",
                     new CardRowMapper(),
-                    userId.toString()
+                    cardNumber
             );
 
             if (res.size() == 0)
                 throw new ResponseStatusException(
                         HttpStatus.NOT_FOUND,
-                        "Cannot find user with id = " + userId
+                        "Cannot find card with number = " + cardNumber
                 );
 
             int count = jdbcTemplate.update(
-                    "UPDATE bonuses " +
+                    "UPDATE card " +
                             "SET number_of_bonuses = CASE" +
                             "  WHEN number_of_bonuses + ? >= 0" +
                             "    THEN number_of_bonuses + ?" +
                             "    ELSE number_of_bonuses " +
                             "END " +
-                            "WHERE user_id = ?",
+                            "WHERE number = ?",
                     numberOfBonuses,
                     numberOfBonuses,
-                    userId.toString()
+                    cardNumber
             );
 
             if (count == 0 || numberOfBonuses + res.get(0).getNumberOfBonuses() < 0) {
@@ -83,6 +84,28 @@ public class CardRepositoryImpl implements CardRepository {
         }
 
         return getCardsResponse;
+    }
+
+    @Override
+    public GetBonusesResponse getBonuses(String cardNumber) {
+        GetBonusesResponse getBonusesResponse = new GetBonusesResponse(null, 0);
+
+        try {
+            List<Card> res = jdbcTemplate.query(
+                    "SELECT * FROM card WHERE number = ?",
+                    new CardRowMapper(),
+                    cardNumber
+            );
+
+            if (res.size() > 0)
+                getBonusesResponse.setBonuses(res.get(0).getNumberOfBonuses());
+            else
+                getBonusesResponse.setError("No such card.");
+        } catch (DataAccessException e) {
+            getBonusesResponse.setError(e.getMessage());
+        }
+
+        return getBonusesResponse;
     }
 
     @Override

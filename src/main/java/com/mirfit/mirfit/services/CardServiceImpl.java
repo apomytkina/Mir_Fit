@@ -1,6 +1,7 @@
 package com.mirfit.mirfit.services;
 
 import com.mirfit.mirfit.models.CardDto;
+import com.mirfit.mirfit.models.GetBonusesResponse;
 import com.mirfit.mirfit.models.GetCardsResponse;
 import com.mirfit.mirfit.repositories.CardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,19 +19,27 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public String updateBonuses(UUID id, double numberOfBonuses) {
-        if (id != null)
-            return cardRepository.updateBonuses(id, numberOfBonuses);
+    public String updateBonuses(String cardNumber, double numberOfBonuses) {
+        if (cardNumber != null)
+            return cardRepository.updateBonuses(cardNumber, numberOfBonuses);
         else
-            return "Id cannot be null.";
+            return "Card number cannot be null.";
     }
 
     @Override
-    public GetCardsResponse getBonuses(UUID id) {
+    public GetCardsResponse getCards(UUID id) {
         if (id != null)
             return cardRepository.getCardsByUserId(id);
         else
             return new GetCardsResponse("Id cannot be null.", null);
+    }
+
+    @Override
+    public GetBonusesResponse getBonuses(String cardNumber) {
+        if (cardNumber != null)
+            return cardRepository.getBonuses(cardNumber);
+        else
+            return new GetBonusesResponse("Card number cannot be null.", 0);
     }
 
     @Override

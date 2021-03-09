@@ -4,7 +4,11 @@ import com.mirfit.mirfit.models.*;
 import com.mirfit.mirfit.rowmappers.UserRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCallback;
 import org.springframework.stereotype.Repository;
+
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.UUID;
 
@@ -102,12 +106,59 @@ public class UserRepositoryImpl implements UserRepository {
             if (result != 0) {
                 return null;
             }
-
             else {
                 return "User not found";
             }
         }
         catch (Exception ex) {
+            return ex.getMessage();
+        }
+    }
+
+    @Override
+    public String updateLogin(UpdateLoginRequest request) {
+        try{
+
+            // check that login is unique
+            var loginCount = jdbcTemplate.query(
+                    "SELECT * FROM user WHERE login = ?",
+                    new UserRowMapper(),
+                    request.getLogin()).size();
+
+            if (loginCount > 0) {
+                return "Login is not available";
+            }
+
+            var result = jdbcTemplate.update("UPDATE user SET login = ? WHERE id = ?",
+                    request.getLogin(),
+                    request.getId().toString());
+
+            if (result == 0) {
+                return "User with this id doesn't exist";
+            }
+            else{
+                return null;
+            }
+        }
+        catch (Exception ex) {
+            return ex.getMessage();
+        }
+    }
+
+    @Override
+    public String updatePassword(UpdatePasswordRequest request) {
+        try {
+            var result = jdbcTemplate.update("UPDATE user SET password = ? WHERE id = ?",
+                    request.getPassword(),
+                    request.getId().toString());
+
+            if (result == 0) {
+                return "User with this id doesn't exist";
+            }
+            else{
+                return null;
+            }
+        }catch (Exception ex) {
             return ex.getMessage();
         }
     }

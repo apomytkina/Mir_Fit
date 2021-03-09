@@ -1,8 +1,6 @@
 package com.mirfit.mirfit.controllers;
 
-import com.mirfit.mirfit.models.AddUserRequest;
-import com.mirfit.mirfit.models.AuthUserRequest;
-import com.mirfit.mirfit.models.User;
+import com.mirfit.mirfit.models.*;
 import com.mirfit.mirfit.services.CardService;
 import com.mirfit.mirfit.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +41,7 @@ public class UserController {
         }
     }
 
-    @PostMapping(value = "addUser", produces = "application/json")
+    @PostMapping(value = "addUser")
     public ResponseEntity<UUID> addUser(@RequestBody AddUserRequest user) {
 
         var result = userService.addUser(user);
@@ -90,6 +88,34 @@ public class UserController {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST,
                     result);
+        }
+    }
+
+    @PatchMapping(value = "updateLogin", produces = "application/json")
+    public ResponseEntity<String> updateLogin(@RequestBody UpdateLoginRequest request) {
+
+        var result = userService.updateLogin(request);
+
+        if (result != null) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    result);
+        } else {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+    }
+
+    @PatchMapping(value = "updatePassword", produces = "application/json")
+    public ResponseEntity<String> updatePassword(@RequestBody UpdatePasswordRequest request) {
+
+        var result = userService.updatePassword(request);
+
+        if (result != null) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    result);
+        } else {
+            return new ResponseEntity<>(HttpStatus.OK);
         }
     }
 }

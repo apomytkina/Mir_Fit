@@ -3,6 +3,7 @@ package ru.hse.project.mirfit.ui.auth
 import android.content.Intent
 import android.os.Bundle
 import android.os.StrictMode
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import ru.hse.project.mirfit.MainActivity
 import ru.hse.project.mirfit.R
@@ -32,7 +33,7 @@ class AuthActivity : AppCompatActivity() {
                 startActivity(intent)
                 finishAfterTransition()
             }.addOnFailureListener {
-                //тост
+                Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
             }
         }
     }

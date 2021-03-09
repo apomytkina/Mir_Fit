@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
@@ -53,7 +54,7 @@ class CardAdapter(private val fm: FragmentManager, private val data: ArrayList<C
                 mItemManger.closeAllItems()
             }.addOnFailureListener {
                 holder.swipeLayout.close()
-                //Toast
+                Toast.makeText(holder.swipeLayout.context, it.message, Toast.LENGTH_SHORT).show()
             }
         }
 

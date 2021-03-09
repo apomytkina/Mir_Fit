@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import ru.hse.project.mirfit.R
 import ru.hse.project.mirfit.ui.auth.AuthActivity
@@ -51,7 +52,7 @@ class DialogEditCardFragment(private val cardAdapter: CardAdapter, private val p
                 .addOnSuccessListener {
                     cardAdapter.editItem(newName, position)
                 }.addOnFailureListener {
-                    //Toast
+                    Toast.makeText(context,it.message, Toast.LENGTH_SHORT).show()
                 }
         }
         return root

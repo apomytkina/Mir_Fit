@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ru.hse.project.mirfit.MainActivity
@@ -49,7 +50,7 @@ class SignInFragment : Fragment() {
                 }
             }.addOnFailureListener {
                 findNavController().navigate(R.id.navigation_auth)
-
+                Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
             }
         }
 

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import ru.hse.project.mirfit.R
 import ru.hse.project.mirfit.clientAuth.BaseClient
@@ -56,6 +57,8 @@ class DialogAddCardFragment(private val postAdapter: CardAdapter) : DialogFragme
 
             AuthActivity.client.currentUser!!.addCard(card).addOnSuccessListener {
                 postAdapter.addItem(card)
+            }.addOnFailureListener {
+                Toast.makeText(context,it.message,Toast.LENGTH_SHORT).show()
             }
         }
 

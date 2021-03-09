@@ -80,7 +80,7 @@ class RegistrationFragment : Fragment() {
                 }
             }.addOnFailureListener {
                 findNavController().navigate(R.id.navigation_auth)
-                Toast.makeText(context, "Exception - ${it.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
             }
         }
         return root

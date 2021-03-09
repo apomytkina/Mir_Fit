@@ -13,7 +13,6 @@ import org.json.JSONObject
 import ru.hse.project.mirfit.ui.profile.card.CardObject
 import ru.hse.project.mirfit.util.JsonParser
 import java.io.IOException
-import java.text.FieldPosition
 
 
 class BaseClient(context: Context) {
@@ -22,8 +21,8 @@ class BaseClient(context: Context) {
         private const val PRIVATE_MODE = 0
         private const val PREF_FILE = "json_user"
         private val JSON = "application/json; charset=utf-8".toMediaType()
-        private const val HOST_URL = "192.168.31.121"
-        private const val BASE_URL = "http://${HOST_URL}:8080"
+        private const val HOST_IP = "192.168.31.121"
+        private const val BASE_URL = "http://$HOST_IP:8080"
         private const val USER_CONTROLLER = "/users"
         private const val CARD_CONTROLLER = "/cards"
         private const val CARD_ADD = "$CARD_CONTROLLER/add"
@@ -39,9 +38,6 @@ class BaseClient(context: Context) {
 
     fun addCard(card: CardObject): Task<Void> {
         val task = TaskCompletionSource<Void>()
-        // val task = callHeader("")
-        //   val tasks = Tasks.whenAll(task, task2)
-        //getBonus
 
         val json = JSONObject().apply {
             put("card",
@@ -53,13 +49,18 @@ class BaseClient(context: Context) {
         }.toString()
 
 
-        callWithBody(json, BASE_URL + CARD_ADD).addOnSuccessListener {
+        val body = json.toRequestBody(JSON)
+        val request: Request = Request.Builder()
+            .url(BASE_URL + CARD_ADD)
+            .post(body)
+            .build()
+
+
+        call(request).addOnSuccessListener {
             task.setResult(null)
         }.addOnFailureListener {
             task.setException(it)
         }
-
-        //addCardToService
         return task.task
     }
 
@@ -71,7 +72,14 @@ class BaseClient(context: Context) {
             put(User.CODE_CARD_NUMBER, card.cardNumber)
         }.toString()
 
-        callWithBody(json, BASE_URL + CARD_CONTROLLER).addOnSuccessListener {
+
+        val body = json.toRequestBody(JSON)
+        val request: Request = Request.Builder()
+            .url(BASE_URL + CARD_CONTROLLER)
+            .patch(body)
+            .build()
+
+        call(request).addOnSuccessListener {
             task.setResult(null)
         }.addOnFailureListener {
             task.setException(it)
@@ -85,7 +93,13 @@ class BaseClient(context: Context) {
         val task = TaskCompletionSource<Void>()
         val cardNumber = card.cardNumber
 
-        callHeader("$BASE_URL$CARD_CONTROLLER/$cardNumber").addOnSuccessListener {
+        val request = Request.Builder()
+            .url("$BASE_URL$CARD_CONTROLLER/$cardNumber")
+            .delete()
+            .build()
+
+
+        call(request).addOnSuccessListener {
             task.setResult(null)
         }.addOnFailureListener {
             task.setException(it)
@@ -97,8 +111,17 @@ class BaseClient(context: Context) {
 
     fun authUserFromStorage(): Task<Void> {
         val id = currentUser!!.id
-        val taskGetInfoUser = callHeader("$BASE_URL$USER_CONTROLLER/$id")
-        val taskGetCardsUser = callHeader("$BASE_URL$CARD_CONTROLLER/$id")
+        val requestUser: Request = Request.Builder()
+            .url("$BASE_URL$USER_CONTROLLER/$id")
+            .get()
+            .build()
+        val requestCard: Request = Request.Builder()
+            .url("$BASE_URL$CARD_CONTROLLER/$id")
+            .get()
+            .build()
+
+        val taskGetInfoUser = call(requestUser)
+        val taskGetCardsUser = call(requestCard)
         val tasks = Tasks.whenAll(taskGetCardsUser, taskGetInfoUser)
 
         tasks.addOnSuccessListener {
@@ -131,17 +154,30 @@ class BaseClient(context: Context) {
         login: String,
         password: String
     ): Task<Void> {
+        val task = TaskCompletionSource<Void>()
+
         val json = JSONObject().apply {
             put(User.CODE_LOGIN, login)
             put(User.CODE_PASSWORD, password)
         }.toString()
-        val task = TaskCompletionSource<Void>()
 
 
-        callWithBody(json, BASE_URL + AUTH_USER).addOnSuccessListener { response ->
+        val body = json.toRequestBody(JSON)
+        val requestUser: Request = Request.Builder()
+            .url(BASE_URL + AUTH_USER)
+            .post(body)
+            .build()
+
+        call(requestUser).addOnSuccessListener { response ->
             val obj = JSONObject(response.body?.string()!!)
             val id = obj.getString(User.CODE_ID)
-            callHeader("$BASE_URL$CARD_CONTROLLER/$id").addOnSuccessListener {
+
+            val requestCard: Request = Request.Builder()
+                .url("$BASE_URL$CARD_CONTROLLER/$id")
+                .get()
+                .build()
+
+            call(requestCard).addOnSuccessListener {
 
                 val editor = userSharedPref.edit()
                 editor.putString(User.CODE_ID, id)
@@ -160,7 +196,6 @@ class BaseClient(context: Context) {
                     .login(login)
                     .password(password)
                     .build()
-
 
                 task.setResult(null)
             }.addOnFailureListener {
@@ -184,7 +219,6 @@ class BaseClient(context: Context) {
     ): Task<Void> {
         val task = TaskCompletionSource<Void>()
 
-
         val json = JSONObject().apply {
             put(User.CODE_FIRST_NAME, firstName)
             put(User.CODE_LOGIN, login)
@@ -193,16 +227,18 @@ class BaseClient(context: Context) {
             put(User.CODE_SECOND_NAME, secondName)
         }.toString()
 
-        callWithBody(json, BASE_URL + CREATE_USER).addOnSuccessListener {
+        
+        val body = json.toRequestBody(JSON)
+        val request: Request = Request.Builder()
+            .url(BASE_URL + CREATE_USER)
+            .post(body)
+            .build()
 
-            val sds = it.body?.toString()
+        call(request).addOnSuccessListener {
 
-
-            val dd = JSONObject(sds)
-            // val obj = JSONObject(it.body?.string()!!)
+            val id = it.body?.string()!!.trim('\"')
             val editor = userSharedPref.edit()
-            editor.putString(User.CODE_ID, "123")
-            //  editor.putString(User.CODE_ID, obj.getString(User.CODE_ID))
+            editor.putString(User.CODE_ID, id)
             editor.apply()
             currentUser = User.Builder(userSharedPref, this)
                 .firstName(firstName)
@@ -222,11 +258,9 @@ class BaseClient(context: Context) {
     }
 
 
-    private fun callHeader(url: String): Task<Response> {
+
+    private fun call(request: Request): Task<Response> {
         val task = TaskCompletionSource<Response>()
-        val request = Request.Builder()
-            .url(url)
-            .build()
 
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
@@ -237,31 +271,9 @@ class BaseClient(context: Context) {
                 if (response.isSuccessful) {
                     task.setResult(response)
                 } else {
-                    task.setException(Exception(response.code.toString()))
-                }
-            }
-        })
-
-        return task.task
-    }
-
-    private fun callWithBody(json: String, url: String): Task<Response> {
-        val task = TaskCompletionSource<Response>()
-        val body = json.toRequestBody(JSON)
-        val request: Request = Request.Builder()
-            .url(url)
-            .post(body)
-            .build()
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                task.setException(e)
-            }
-
-            override fun onResponse(call: Call, response: Response) {
-                if (response.isSuccessful) {
-                    task.setResult(response)
-                } else {
-                    task.setException(Exception(response.code.toString()))
+                    val obj = JSONObject(response.body?.string()!!)
+                    val message = obj.getString("message")
+                    task.setException(Exception(message))
                 }
             }
         })

@@ -10,6 +10,8 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.DialogFragment
 import ru.hse.project.mirfit.R
+import ru.hse.project.mirfit.clientAuth.BaseClient
+import ru.hse.project.mirfit.ui.auth.AuthActivity
 import ru.hse.project.mirfit.util.Validator
 
 class DialogAddCardFragment(private val postAdapter: CardAdapter) : DialogFragment() {
@@ -24,7 +26,6 @@ class DialogAddCardFragment(private val postAdapter: CardAdapter) : DialogFragme
 
         val root = inflater.inflate(R.layout.dialog_fragment_add_bank_card, container, false)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
         cardNumber = root.findViewById(R.id.edit_text_card_number_frag_add_card)
         cardName = root.findViewById(R.id.edit_text_name_card_frag_add_card)
         btnAdd = root.findViewById(R.id.btn_frag_add_card)
@@ -43,10 +44,20 @@ class DialogAddCardFragment(private val postAdapter: CardAdapter) : DialogFragme
                 return@setOnClickListener
             }
 
-            postAdapter.addItem(CardObject("0", cardNumberText, cardNameText))
-            dismiss()
-        }
 
+            val card = CardObject(
+                0,
+                cardNumberText,
+                cardNameText,
+                0,
+                AuthActivity.client.currentUser!!.id
+            )
+            dismiss()
+
+            AuthActivity.client.currentUser!!.addCard(card).addOnSuccessListener {
+                postAdapter.addItem(card)
+            }
+        }
 
         return root
     }

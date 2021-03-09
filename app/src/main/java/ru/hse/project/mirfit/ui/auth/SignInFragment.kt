@@ -21,7 +21,6 @@ class SignInFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val baseAuth = BaseClient(inflater.context)
         val root = inflater.inflate(R.layout.fragment_signin, container, false)
 
         val textLogin = root.findViewById<EditText>(R.id.frag_sign_login)
@@ -42,19 +41,16 @@ class SignInFragment : Fragment() {
             }
 
 
-            val updateUI = { successful: Boolean ->
-                if (successful) {
-                    val intent = Intent(requireContext(), MainActivity::class.java)
-                    startActivity(intent)
-                    if (activity != null) {
-                        activity?.finishAfterTransition()
-                    }
-                } else {
-                    findNavController().navigate(R.id.navigation_auth)
+            AuthActivity.client.signInUser(login, password).addOnSuccessListener {
+                val intent = Intent(requireContext(), MainActivity::class.java)
+                startActivity(intent)
+                if (activity != null) {
+                    activity?.finishAfterTransition()
                 }
-            }
+            }.addOnFailureListener {
+                findNavController().navigate(R.id.navigation_auth)
 
-            baseAuth.signInUser(updateUI, login, password)
+            }
         }
 
         return root

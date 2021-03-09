@@ -16,9 +16,6 @@ class SettingsFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_profile_settings, container, false)
 
-//        val actionBar = (activity as MainActivity?)!!.supportActionBar
-//        actionBar!!.setHomeButtonEnabled(true)
-//        actionBar!!.setDisplayHomeAsUpEnabled(true)
 
         return root;
     }

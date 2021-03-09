@@ -12,16 +12,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.daimajia.swipe.SwipeLayout
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter
 import ru.hse.project.mirfit.R
+import ru.hse.project.mirfit.clientAuth.BaseClient
+import ru.hse.project.mirfit.ui.auth.AuthActivity
 
 
 class CardAdapter(private val fm: FragmentManager, private val data: ArrayList<CardObject>) :
     RecyclerSwipeAdapter<CardAdapter.CardViewHolder>() {
 
-    private lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
-        context = parent.context
-        val inflater = LayoutInflater.from(context)
+        val inflater = LayoutInflater.from(parent.context)
         val layout = inflater.inflate(R.layout.layout_bank_card, parent, false)
         return CardViewHolder(layout)
     }
@@ -45,12 +45,16 @@ class CardAdapter(private val fm: FragmentManager, private val data: ArrayList<C
 
 
         holder.btnDelete.setOnClickListener {
-            mItemManger.removeShownLayouts(holder.swipeLayout)
-            data.remove(item)
-            // BaseClient(context).currentUser.updateCardObject()
-            notifyItemRemoved(position)
-            notifyItemRangeChanged(position, data.size)
-            mItemManger.closeAllItems()
+            AuthActivity.client.currentUser!!.deleteCard(item).addOnSuccessListener {
+                mItemManger.removeShownLayouts(holder.swipeLayout)
+                data.remove(item)
+                notifyItemRemoved(position)
+                notifyItemRangeChanged(position, data.size)
+                mItemManger.closeAllItems()
+            }.addOnFailureListener {
+                holder.swipeLayout.close()
+                //Toast
+            }
         }
 
         mItemManger.bindView(holder.itemView, position)
@@ -68,13 +72,11 @@ class CardAdapter(private val fm: FragmentManager, private val data: ArrayList<C
 
     fun addItem(cardObject: CardObject) {
         data.add(cardObject)
-        //  BaseClient(context).currentUser.updateCardObject()
         this.notifyItemInserted(data.size - 1)
     }
 
     fun editItem(newName: String, position: Int) {
         data[position].cardName = newName
-        //BaseClientAuth().currentUser.updateCardObject()
         notifyItemChanged(position)
     }
 
@@ -90,7 +92,7 @@ class CardAdapter(private val fm: FragmentManager, private val data: ArrayList<C
                 ("•••• " + cardNumber.subSequence(cardNumber.length - 5, cardNumber.length - 1))
 
             itemView.findViewById<TextView>(R.id.lay_bank_card_balance).text =
-                (newObject.balance + "₽")
+                (newObject.balance.toString() + "₽")
             itemView.findViewById<TextView>(R.id.lay_bank_card_name).text = newObject.cardName
         }
     }

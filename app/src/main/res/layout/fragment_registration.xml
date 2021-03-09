@@ -11,22 +11,23 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:width="0dp"
         android:fontFamily="sans-serif-medium"
         android:text="@string/title_registration"
         android:textAlignment="viewStart"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/frag_reg_text_first_name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/frag_reg_text_first_name"
-        android:layout_width="0dp"
+        android:layout_width="371dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:width="0dp"
         android:backgroundTint="@color/mir_color"
         android:ems="10"
         android:hint="@string/hint_reg_firstName"
@@ -34,16 +35,16 @@
         android:textCursorDrawable="@drawable/cursor_mir_color"
         app:layout_constraintBottom_toTopOf="@+id/frag_reg_text_second_name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frag_reg_text_tittle" />
 
     <EditText
         android:id="@+id/frag_reg_text_second_name"
-        android:layout_width="0dp"
+        android:layout_width="371dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:width="0dp"
         android:backgroundTint="@color/mir_color"
         android:ems="10"
         android:hint="@string/hint_reg_secondname"
@@ -51,69 +52,51 @@
         android:textCursorDrawable="@drawable/cursor_mir_color"
         app:layout_constraintBottom_toTopOf="@+id/frag_reg_text_patronymic"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frag_reg_text_first_name" />
 
     <EditText
         android:id="@+id/frag_reg_text_patronymic"
-        android:layout_width="0dp"
+        android:layout_width="371dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:width="0dp"
         android:backgroundTint="@color/mir_color"
         android:ems="10"
         android:hint="@string/hint_reg_patronymic"
         android:inputType="textPersonName"
         android:textCursorDrawable="@drawable/cursor_mir_color"
-        app:layout_constraintBottom_toTopOf="@+id/frag_reg_text_card_number"
+        app:layout_constraintBottom_toTopOf="@+id/frag_reg_text_login"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frag_reg_text_second_name" />
 
     <EditText
-        android:id="@+id/frag_reg_text_card_number"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:backgroundTint="@color/mir_color"
-        android:ems="10"
-        android:hint="@string/hint_reg_cardnumber"
-        android:inputType="number"
-        android:maxLength="19"
-        android:textCursorDrawable="@drawable/cursor_mir_color"
-        app:layout_constraintBottom_toTopOf="@+id/frag_reg_text_login"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frag_reg_text_patronymic" />
-
-    <EditText
         android:id="@+id/frag_reg_text_login"
-        android:layout_width="0dp"
+        android:layout_width="371dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+
+        android:width="0dp"
         android:backgroundTint="@color/mir_color"
         android:ems="10"
-
         android:hint="@string/hint_login"
         android:inputType="textPersonName"
         android:textCursorDrawable="@drawable/cursor_mir_color"
         app:layout_constraintBottom_toTopOf="@+id/frag_reg_text_password"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frag_reg_text_card_number" />
+        app:layout_constraintTop_toBottomOf="@+id/frag_reg_text_patronymic" />
 
     <EditText
         android:id="@+id/frag_reg_text_password"
-        android:layout_width="0dp"
+        android:layout_width="371dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:width="0dp"
         android:backgroundTint="@color/mir_color"
         android:ems="10"
         android:hint="@string/hint_password"
@@ -121,20 +104,19 @@
         android:textCursorDrawable="@drawable/cursor_mir_color"
         app:layout_constraintBottom_toTopOf="@+id/frag_reg_btn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frag_reg_text_login" />
 
     <Button
         android:id="@+id/frag_reg_btn"
-        android:layout_width="0dp"
+        android:layout_width="371dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:width="0dp"
         android:text="@string/title_registration"
         app:layout_constraintBottom_toTopOf="@+id/guideline7"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frag_reg_text_password" />
 
@@ -143,6 +125,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.8" />
+        app:layout_constraintGuide_percent="0.74" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

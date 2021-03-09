@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.DialogFragment
 import ru.hse.project.mirfit.R
+import ru.hse.project.mirfit.ui.auth.AuthActivity
 import ru.hse.project.mirfit.util.Validator
 
 class DialogEditCardFragment(private val cardAdapter: CardAdapter, private val position: Int) :
@@ -45,8 +46,13 @@ class DialogEditCardFragment(private val cardAdapter: CardAdapter, private val p
                 return@setOnClickListener
             }
 
-            cardAdapter.editItem(newName, position)
             dismiss()
+            AuthActivity.client.currentUser!!.editCard(newName, position)
+                .addOnSuccessListener {
+                    cardAdapter.editItem(newName, position)
+                }.addOnFailureListener {
+                    //Toast
+                }
         }
         return root
     }

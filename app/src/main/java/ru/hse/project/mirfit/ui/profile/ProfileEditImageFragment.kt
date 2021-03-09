@@ -27,7 +27,7 @@ class ProfileEditImageFragment : Fragment() {
         }
 
         root.findViewById<ConstraintLayout>(R.id.btn_delete_image_prof).setOnClickListener {
-            BaseClient(inflater.context).updateImage(null)
+           // BaseClient(inflater.context).updateImage(null)
 
         }
 

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ru.hse.project.mirfit.MainActivity
@@ -23,7 +24,6 @@ class RegistrationFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val baseAuth = BaseClient(inflater.context)
         val root = inflater.inflate(R.layout.fragment_registration, container, false)
 
         val textFirstName = root.findViewById<EditText>(R.id.frag_reg_text_first_name)
@@ -31,7 +31,6 @@ class RegistrationFragment : Fragment() {
         val textPatronymic = root.findViewById<EditText>(R.id.frag_reg_text_patronymic)
         val textLogin = root.findViewById<EditText>(R.id.frag_reg_text_login)
         val textPassword = root.findViewById<EditText>(R.id.frag_reg_text_password)
-        val textCardNumber = root.findViewById<EditText>(R.id.frag_reg_text_card_number)
 
 
         root.findViewById<Button>(R.id.frag_reg_btn).setOnClickListener {
@@ -54,13 +53,6 @@ class RegistrationFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            val cardNumber = textCardNumber.text.toString()
-            if (!Validator.validateString(cardNumber)) {
-                textCardNumber.error = ""
-                return@setOnClickListener
-            }
-
-
             val login = textLogin.text.toString()
             if (!Validator.validateString(login)) {
                 textLogin.error = ""
@@ -74,27 +66,22 @@ class RegistrationFragment : Fragment() {
             }
 
 
-            val updateUI = { successful: Boolean ->
-                if (successful) {
-                    val intent = Intent(requireContext(), MainActivity::class.java)
-                    startActivity(intent)
-                    if (activity != null) {
-                        activity?.finishAfterTransition()
-                    }
-                } else {
-                    findNavController().navigate(R.id.navigation_auth)
-                }
-            }
-
-            baseAuth.createUser(
-                updateUI,
+            AuthActivity.client.createUser(
                 firstName,
                 secondName,
                 patronymic,
-                cardNumber.toLong(),
                 login,
                 password
-            )
+            ).addOnSuccessListener {
+                val intent = Intent(context, MainActivity::class.java)
+                startActivity(intent)
+                if (activity != null) {
+                    activity?.finishAfterTransition()
+                }
+            }.addOnFailureListener {
+                findNavController().navigate(R.id.navigation_auth)
+                Toast.makeText(context, "Exception - ${it.message}", Toast.LENGTH_SHORT).show()
+            }
         }
         return root
     }

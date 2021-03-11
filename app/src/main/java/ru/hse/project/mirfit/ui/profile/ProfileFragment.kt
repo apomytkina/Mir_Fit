@@ -51,7 +51,6 @@ class ProfileFragment : Fragment() {
             adapter = postAdapter
         }
 
-
         root.findViewById<ConstraintLayout>(R.id.prof_lay_setting).setOnClickListener {
             findNavController().navigate(R.id.action_navigation_profile_to_navigation_setting)
         }

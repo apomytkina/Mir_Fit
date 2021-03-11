@@ -23,7 +23,8 @@ class SettingsFragment : Fragment() {
         val layContent = root.findViewById<ConstraintLayout>(R.id.setting_content)
         layContent.findViewById<ConstraintLayout>(R.id.btn_change_login_password)
             .setOnClickListener {
-
+// появление фрагмента по выбору
+                // фрагмент смены логина, и пароля
 
             }
 

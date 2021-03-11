@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="ru.hse.project.mirfit"
     xmlns:dist="http://schemas.android.com/apk/distribution">
 
@@ -13,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ClientMIR"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:targetApi="m">
         <activity
             android:name="ru.hse.project.mirfit.ui.auth.AuthActivity"
             android:label="@string/app_name">
@@ -26,7 +28,7 @@
 
         <activity
             android:name="ru.hse.project.mirfit.MainActivity"
-            android:label="@string/app_name"></activity>
+            android:label="@string/app_name" />
     </application>
 
 </manifest>

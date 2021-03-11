@@ -227,7 +227,7 @@ class BaseClient(context: Context) {
             put(User.CODE_SECOND_NAME, secondName)
         }.toString()
 
-        
+
         val body = json.toRequestBody(JSON)
         val request: Request = Request.Builder()
             .url(BASE_URL + CREATE_USER)

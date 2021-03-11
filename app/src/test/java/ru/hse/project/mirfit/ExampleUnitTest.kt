@@ -1,5 +1,6 @@
 package ru.hse.project.mirfit
 
+import android.app.Instrumentation
 import org.junit.Test
 
 import org.junit.Assert.*

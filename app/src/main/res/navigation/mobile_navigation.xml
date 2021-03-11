@@ -24,7 +24,7 @@
         android:id="@+id/navigation_setting"
         android:name="ru.hse.project.mirfit.ui.settings.SettingsFragment"
         android:label="@string/btn_profile_settings"
-        tools:layout="@layout/set"></fragment>
+        tools:layout="@layout/fragment_profile_settings"></fragment>
 
     <fragment
         android:id="@+id/navigation_edit_image"

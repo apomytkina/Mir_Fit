@@ -1,45 +1,64 @@
 package ru.hse.project.mirfit.cucumber.steps;
 
-import cucumber.api.PendingException;
+
+import android.app.Activity;
+
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import ru.hse.project.mirfit.R;
 
-public class SignInDetailsSteps {
+
+import static androidx.test.espresso.Espresso.*;
+import static androidx.test.espresso.action.ViewActions.*;
+import static androidx.test.espresso.assertion.ViewAssertions.*;
+import static androidx.test.espresso.matcher.ViewMatchers.*;
+
+
+public class SignInDetailsSteps  {
 
 
     @Given("^I start the application$")
-    public void givenLoginTryCounter(Integer counterValue) {
-
+    public void startApplication() {
+        ///
     }
+
     @When("^I click button SIGN IN$")
-    public void givenLoginTryCounter2(Integer counterValue) {
-
+    public void clickSignIn() {
+        onView(withId(R.id.btn_signIn)).perform(click());
     }
+
     @And("^I click login field$")
-    public void givenLoginTryCounter3(Integer counterValue) {
+    public void clickLoginField() {
+        onView(withId(R.id.frag_sign_login)).perform(click());
+    }
 
+    @And("^I enter '(.*)' login '(.*)'$")
+    public void enterValidLogin(String typeLogin, String login) {
+        onView(withId(R.id.frag_sign_login)).perform(typeText(login));
     }
-    @And("^I enter valid login <login>$")
-    public void iEnterValidLoginLogin() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
-    }
+
     @And("^I click password field$")
-    public void givenLoginTryCounter5(Integer counterValue) {
+    public void clickPasswordField() {
+        onView(withId(R.id.frag_sign_password)).perform(click());
+    }
 
+    @And("^I enter '(.*)' password '(.*)'$")
+    public void enterValidPassword(String typePassword, String password) {
+        onView(withId(R.id.frag_sign_password)).perform(typeText(password));
     }
-    @And("^I enter valid password <password>$")
-    public void iEnterValidPasswordPassword() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+
+    @And("^I click button SIGN IN in authorize form$")
+    public void clickSignInAuthorizeForm() {
+        onView(withId(R.id.frag_sign_btn)).perform(click());
     }
+
     @Then("^I expect to see successful changing the screen$")
-    public void givenLoginTryCounter7(Integer counterValue) {
+    public void givenLoginTryCounter7() {
 
+        onView(withId(R.id.prof_lay_add_card)).check(matches(isClickable()));
     }
-
 
 
 }

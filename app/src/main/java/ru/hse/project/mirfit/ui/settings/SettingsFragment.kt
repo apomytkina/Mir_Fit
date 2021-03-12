@@ -22,9 +22,7 @@ class SettingsFragment : Fragment() {
         val layContent = root.findViewById<ConstraintLayout>(R.id.prof_set_front_content)
         layContent.findViewById<ConstraintLayout>(R.id.btn_change_login_password)
             .setOnClickListener {
-                // появление фрагмента по выбору
-                // фрагмент смены логина, и пароля
-
+                DialogChoseEditFragment().show(parentFragmentManager, "EDIT_LOG_PAS")
             }
 
         val layNonContent = root.findViewById<ConstraintLayout>(R.id.prof_set_back_content)

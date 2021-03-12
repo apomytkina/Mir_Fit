@@ -20,7 +20,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/tittle_fragment_edit_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
@@ -33,7 +33,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/tittle_field_edit_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -43,20 +43,20 @@
                 android:textColor="@color/mir_color"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
+                app:layout_constraintTop_toBottomOf="@+id/tittle_fragment_edit_card" />
 
             <Button
-                android:id="@+id/dfrag_edit_card_cancel"
+                android:id="@+id/edit_card_cancel_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginBottom="10dp"
                 android:text="@string/btn_cancel"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/dfrag_edit_card_complete" />
+                app:layout_constraintEnd_toStartOf="@+id/edit_card_save_btn" />
 
             <EditText
-                android:id="@+id/dfrag_editcard_edit_name"
+                android:id="@+id/edit_card_field"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -66,10 +66,10 @@
                 android:inputType="textPersonName"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                app:layout_constraintTop_toBottomOf="@+id/tittle_field_edit_card" />
 
             <Button
-                android:id="@+id/dfrag_edit_card_complete"
+                android:id="@+id/edit_card_save_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginEnd="10dp"

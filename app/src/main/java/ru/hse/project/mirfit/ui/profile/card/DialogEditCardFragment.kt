@@ -29,9 +29,9 @@ class DialogEditCardFragment(private val cardAdapter: CardAdapter, private val p
 
         val root = inflater.inflate(R.layout.dialog_fragment_edit_bank_card, container, false)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        editName = root.findViewById(R.id.dfrag_editcard_edit_name)
-        btnCancel = root.findViewById(R.id.dfrag_edit_card_cancel)
-        btnComplete = root.findViewById(R.id.dfrag_edit_card_complete)
+        editName = root.findViewById(R.id.edit_card_field)
+        btnCancel = root.findViewById(R.id.edit_card_cancel_btn)
+        btnComplete = root.findViewById(R.id.edit_card_save_btn)
         val oldNameCard = arguments?.getString("nameCard")
         editName.setText(oldNameCard)
 

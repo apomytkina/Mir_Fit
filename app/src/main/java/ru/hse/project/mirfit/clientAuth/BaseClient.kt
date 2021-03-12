@@ -27,8 +27,10 @@ class BaseClient(context: Context) {
         private const val CARD_CONTROLLER = "/cards"
         private const val CARD_ADD = "$CARD_CONTROLLER/add"
         private const val CREATE_USER = "$USER_CONTROLLER/addUser"
-        private const val UPDATE_USER = "$USER_CONTROLLER/updateUser"
         private const val AUTH_USER = "$USER_CONTROLLER/authUser"
+        private const val UPDATE_LOGIN = "$USER_CONTROLLER/updateLogin"
+        private const val UPDATE_PASSWORD = "$USER_CONTROLLER/updatePassword"
+
     }
 
     private val client: OkHttpClient = OkHttpClient()
@@ -258,7 +260,6 @@ class BaseClient(context: Context) {
     }
 
 
-
     private fun call(request: Request): Task<Response> {
         val task = TaskCompletionSource<Response>()
 
@@ -280,22 +281,52 @@ class BaseClient(context: Context) {
         return task.task
     }
 
-//    fun updateUser(user: User): Task<Void> {
-//        val task = TaskCompletionSource<Void>()
-//
-//        val json = JSONObject().apply {
-//            put(User.CODE_LOGIN, user.login)
-//            put(User.CODE_PASSWORD, user.password)
-//        }.toString()
-//        callWithBody(json, UPDATE_USER).addOnSuccessListener {
-//
-//            task.setResult(null)
-//        }.addOnFailureListener {
-//
-//            task.setException(it)
-//        }
-//        return task.task
-//    }
+
+    private fun updateLogin(newLogin: String, id: String): Task<Void> {
+        val task = TaskCompletionSource<Void>()
+
+        val json = JSONObject().apply {
+            put(User.CODE_ID, id)
+            put(User.CODE_LOGIN, newLogin)
+        }.toString()
+
+        val body = json.toRequestBody(JSON)
+        val request: Request = Request.Builder()
+            .url(BASE_URL + UPDATE_LOGIN)
+            .patch(body)
+            .build()
+        call(request).addOnSuccessListener {
+            task.setResult(null)
+        }.addOnFailureListener {
+            task.setException(it)
+        }
+
+        return task.task
+    }
+
+
+    private fun updatePassword(newPassword: String, id: String): Task<Void> {
+        val task = TaskCompletionSource<Void>()
+
+        val json = JSONObject().apply {
+            put(User.CODE_ID, id)
+            put(User.CODE_PASSWORD, newPassword)
+        }.toString()
+
+        val body = json.toRequestBody(JSON)
+        val request: Request = Request.Builder()
+            .url(BASE_URL + UPDATE_PASSWORD)
+            .patch(body)
+            .build()
+
+        call(request).addOnSuccessListener {
+            task.setResult(null)
+        }.addOnFailureListener {
+            task.setException(it)
+        }
+
+        return task.task
+    }
 
 
     class User(builder: Builder) {
@@ -322,6 +353,40 @@ class BaseClient(context: Context) {
             task.addOnSuccessListener {
                 cards!!.remove(card)
             }
+            return task
+        }
+
+        fun updateLogin(newLogin: String): Task<Void> {
+            val task = baseClient.updateLogin(newLogin, id)
+
+            task.addOnSuccessListener {
+                baseClient.currentUser = User.Builder(baseClient.userSharedPref, baseClient)
+                    .firstName(firstName!!)
+                    .secondName(secondName!!)
+                    .patronymic(patronymic!!)
+                    .cards(cards!!)
+                    .login(newLogin)
+                    .password(password!!)
+                    .build()
+            }
+
+            return task
+        }
+
+        fun updatePassword(newPassword: String): Task<Void> {
+            val task = baseClient.updatePassword(newPassword, id)
+
+            task.addOnSuccessListener {
+                baseClient.currentUser = User.Builder(baseClient.userSharedPref, baseClient)
+                    .firstName(firstName!!)
+                    .secondName(secondName!!)
+                    .patronymic(patronymic!!)
+                    .cards(cards!!)
+                    .login(login!!)
+                    .password(newPassword)
+                    .build()
+            }
+
             return task
         }
 
@@ -383,6 +448,7 @@ class BaseClient(context: Context) {
             const val CODE_PASSWORD = "password"
         }
     }
+
 }
 
 

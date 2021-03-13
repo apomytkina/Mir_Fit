@@ -1,13 +1,19 @@
 package ru.hse.project.mirfit.cucumber.steps;
 
-
-import android.app.Activity;
-
+import ru.hse.project.mirfit.R;
+import ru.hse.project.mirfit.ui.auth.AuthActivity;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import ru.hse.project.mirfit.R;
+
+
+
+import androidx.test.rule.ActivityTestRule;
+
+
+import ru.hse.project.mirfit.MainActivity;
+
 
 
 import static androidx.test.espresso.Espresso.*;
@@ -16,12 +22,16 @@ import static androidx.test.espresso.assertion.ViewAssertions.*;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
 
 
+
 public class SignInDetailsSteps  {
+
+private final ActivityTestRule<AuthActivity> loginActivity = new ActivityTestRule<>
+        (AuthActivity.class,false,false);
 
 
     @Given("^I start the application$")
     public void startApplication() {
-        ///
+        loginActivity.launchActivity(null);
     }
 
     @When("^I click button SIGN IN$")

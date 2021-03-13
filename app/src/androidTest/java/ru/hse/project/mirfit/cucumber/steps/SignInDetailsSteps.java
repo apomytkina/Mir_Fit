@@ -1,20 +1,17 @@
 package ru.hse.project.mirfit.cucumber.steps;
 
+import android.content.Context;
+
 import ru.hse.project.mirfit.R;
-import ru.hse.project.mirfit.ui.auth.AuthActivity;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import ru.hse.project.mirfit.ui.auth.AuthActivity;
 
 
-
+import androidx.test.core.app.ApplicationProvider;
 import androidx.test.rule.ActivityTestRule;
-
-
-import ru.hse.project.mirfit.MainActivity;
-
-
 
 import static androidx.test.espresso.Espresso.*;
 import static androidx.test.espresso.action.ViewActions.*;
@@ -22,11 +19,14 @@ import static androidx.test.espresso.assertion.ViewAssertions.*;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
 
 
+public class SignInDetailsSteps {
 
-public class SignInDetailsSteps  {
+    public SignInDetailsSteps() {
+    int d =10;
 
-private final ActivityTestRule<AuthActivity> loginActivity = new ActivityTestRule<>
-        (AuthActivity.class,false,false);
+    }
+
+    private final ActivityTestRule<AuthActivity> loginActivity = new ActivityTestRule<>(AuthActivity.class);
 
 
     @Given("^I start the application$")
@@ -65,8 +65,7 @@ private final ActivityTestRule<AuthActivity> loginActivity = new ActivityTestRul
     }
 
     @Then("^I expect to see successful changing the screen$")
-    public void givenLoginTryCounter7() {
-
+    public void i_expect_to_see_successful_changing_the_screen() {
         onView(withId(R.id.prof_lay_add_card)).check(matches(isClickable()));
     }
 

@@ -167,8 +167,8 @@
             android:clickable="true">
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="29dp"
+                android:layout_height="20dp"
                 android:layout_margin="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="h,1:1"

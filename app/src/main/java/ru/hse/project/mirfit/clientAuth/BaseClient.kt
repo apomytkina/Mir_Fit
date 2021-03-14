@@ -22,7 +22,7 @@ class BaseClient(context: Context) {
         private const val PRIVATE_MODE = 0
         private const val PREF_FILE = "json_user"
         private val JSON = "application/json; charset=utf-8".toMediaType()
-        private const val HOST_IP = "192.168.31.121"
+        private const val HOST_IP = "192.168.1.35"
         private const val BASE_URL = "http://$HOST_IP:8080"
         private const val USER_CONTROLLER = "/users"
         private const val CARD_CONTROLLER = "/cards"

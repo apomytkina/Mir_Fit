@@ -1,7 +1,13 @@
 package ru.hse.project.mirfit.cucumber.steps;
 
-import android.content.Context;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.res.Resources;
+import android.os.SystemClock;
+import android.view.View;
+
+import cucumber.runtime.io.Resource;
 import ru.hse.project.mirfit.R;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -10,21 +16,20 @@ import cucumber.api.java.en.When;
 import ru.hse.project.mirfit.ui.auth.AuthActivity;
 
 
-import androidx.test.core.app.ApplicationProvider;
+import androidx.test.InstrumentationRegistry;
+import androidx.test.espresso.action.ViewActions;
 import androidx.test.rule.ActivityTestRule;
+
+import org.hamcrest.Matcher;
 
 import static androidx.test.espresso.Espresso.*;
 import static androidx.test.espresso.action.ViewActions.*;
 import static androidx.test.espresso.assertion.ViewAssertions.*;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
+import static org.hamcrest.Matchers.allOf;
 
 
 public class SignInDetailsSteps {
-
-    public SignInDetailsSteps() {
-    int d =10;
-
-    }
 
     private final ActivityTestRule<AuthActivity> loginActivity = new ActivityTestRule<>(AuthActivity.class);
 
@@ -44,8 +49,8 @@ public class SignInDetailsSteps {
         onView(withId(R.id.frag_sign_login)).perform(click());
     }
 
-    @And("^I enter '(.*)' login '(.*)'$")
-    public void enterValidLogin(String typeLogin, String login) {
+    @And("^I enter valid login \"([^\"]*)\"$")
+    public void enterValidLogin(String login) {
         onView(withId(R.id.frag_sign_login)).perform(typeText(login));
     }
 
@@ -54,8 +59,8 @@ public class SignInDetailsSteps {
         onView(withId(R.id.frag_sign_password)).perform(click());
     }
 
-    @And("^I enter '(.*)' password '(.*)'$")
-    public void enterValidPassword(String typePassword, String password) {
+    @And("^I enter valid password \"([^\"]*)\"$")
+    public void enterValidPassword(String password) {
         onView(withId(R.id.frag_sign_password)).perform(typeText(password));
     }
 
@@ -65,8 +70,9 @@ public class SignInDetailsSteps {
     }
 
     @Then("^I expect to see successful changing the screen$")
-    public void i_expect_to_see_successful_changing_the_screen() {
-        onView(withId(R.id.prof_lay_add_card)).check(matches(isClickable()));
+    public void checkExistButtonAddCard() {
+        onView(withId(R.id.prof_lay_add_card)).check(matches(isDisplayed()));
+        Utils.closeApp();
     }
 
 

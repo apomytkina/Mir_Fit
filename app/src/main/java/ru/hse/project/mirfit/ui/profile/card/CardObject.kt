@@ -4,7 +4,7 @@ data class CardObject(
     var balance: Int,
     val cardNumber: String,
     var cardName: String,
-    val id: Int,
+    val id: Int?,
     val userId: String
 ) {
     companion object {

@@ -17,7 +17,7 @@ import ru.hse.project.mirfit.util.Validator
 class DialogEditCardFragment(private val cardAdapter: CardAdapter, private val position: Int) :
     DialogFragment() {
 
-    private lateinit var editName: EditText
+    private lateinit var editNameText: EditText
     private lateinit var btnCancel: Button
     private lateinit var btnComplete: Button
 
@@ -29,25 +29,26 @@ class DialogEditCardFragment(private val cardAdapter: CardAdapter, private val p
 
         val root = inflater.inflate(R.layout.dialog_fragment_edit_bank_card, container, false)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        editName = root.findViewById(R.id.edit_card_field)
+        editNameText = root.findViewById(R.id.edit_card_field)
         btnCancel = root.findViewById(R.id.edit_card_cancel_btn)
         btnComplete = root.findViewById(R.id.edit_card_save_btn)
         val oldNameCard = arguments?.getString("nameCard")
-        editName.setText(oldNameCard)
-
+        editNameText.setText(oldNameCard)
 
         btnCancel.setOnClickListener {
             dismiss()
         }
 
         btnComplete.setOnClickListener {
-            val newName = editName.text.toString()
-            if (!Validator.validateString(newName)) {
-                editName.error = "invalid Name"
+            val newName = editNameText.text.toString()
+            val newNameValidate = Validator.validateLogin(newName)
+            if(!newNameValidate.isValidate){
+                editNameText.error=newNameValidate.validateError
                 return@setOnClickListener
             }
 
             dismiss()
+
             AuthActivity.client.currentUser!!.editCard(newName, position)
                 .addOnSuccessListener {
                     cardAdapter.editItem(newName, position)

@@ -13,6 +13,7 @@ import androidx.fragment.app.DialogFragment
 import ru.hse.project.mirfit.R
 import ru.hse.project.mirfit.clientAuth.BaseClient
 import ru.hse.project.mirfit.ui.auth.AuthActivity
+import ru.hse.project.mirfit.util.Validator
 
 class DialogEditLoginFragment : DialogFragment() {
 
@@ -46,8 +47,11 @@ class DialogEditLoginFragment : DialogFragment() {
 
         btnComplete.setOnClickListener {
             val newLogin = editLogin.text.toString()
-
-            //validator newLogin
+            val newLoginValidate = Validator.validateLogin(newLogin)
+            if (!newLoginValidate.isValidate) {
+                editLogin.error = newLoginValidate.validateError
+                return@setOnClickListener
+            }
 
             user.updateLogin(newLogin).addOnSuccessListener {
                 dismiss()

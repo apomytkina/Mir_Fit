@@ -13,6 +13,7 @@ import androidx.fragment.app.DialogFragment
 import ru.hse.project.mirfit.R
 import ru.hse.project.mirfit.clientAuth.BaseClient
 import ru.hse.project.mirfit.ui.auth.AuthActivity
+import ru.hse.project.mirfit.util.Validator
 
 class DialogEditPasswordFragment : DialogFragment() {
     private lateinit var editOldPassword: EditText
@@ -46,12 +47,18 @@ class DialogEditPasswordFragment : DialogFragment() {
 
 
             if (oldPassword != user.password) {
-                editOldPassword.error = "Incorrect old password"
+                editOldPassword.error = "Неверный пароль"
+                return@setOnClickListener
+            }
+
+            val newPasswordValidate = Validator.validatePassword(newPassword)
+            if(!newPasswordValidate.isValidate){
+                editNewPassword.error=newPasswordValidate.validateError
                 return@setOnClickListener
             }
 
             if (oldPassword == newPassword) {
-                editNewPassword.error = "new password cant'be old password"
+                editNewPassword.error = "Новый пароль должен отличаться от старого"
                 return@setOnClickListener
             }
 

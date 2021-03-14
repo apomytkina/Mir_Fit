@@ -36,32 +36,39 @@ class RegistrationFragment : Fragment() {
         root.findViewById<Button>(R.id.frag_reg_btn).setOnClickListener {
 
             val firstName = textFirstName.text.toString()
-            if (!Validator.validateString(firstName)) {
-                textFirstName.error = ""
+            val firstNameValidate = Validator.validateUserName(firstName)
+            if (!firstNameValidate.isValidate) {
+                textFirstName.error = firstNameValidate.validateError
                 return@setOnClickListener
             }
+
 
             val secondName = textSecondName.text.toString()
-            if (!Validator.validateString(secondName)) {
-                textSecondName.error = ""
+            val secondNameValidate = Validator.validateUserName(secondName)
+            if (!secondNameValidate.isValidate) {
+                textSecondName.error = secondNameValidate.validateError
                 return@setOnClickListener
             }
 
+
             val patronymic = textPatronymic.text.toString()
-            if (!Validator.validateString(patronymic)) {
-                textPatronymic.error = ""
+            val patronymicValidate = Validator.validateUserName(patronymic)
+            if (!patronymicValidate.isValidate) {
+                textPatronymic.error = patronymicValidate.validateError
                 return@setOnClickListener
             }
 
             val login = textLogin.text.toString()
-            if (!Validator.validateString(login)) {
-                textLogin.error = ""
+            val loginValidate = Validator.validateLogin(login)
+            if (!loginValidate.isValidate) {
+                textLogin.error = loginValidate.validateError
                 return@setOnClickListener
             }
 
             val password = textPassword.text.toString()
-            if (!Validator.validateString(password)) {
-                textPassword.error = ""
+            val passwordValidate = Validator.validatePassword(password)
+            if (!passwordValidate.isValidate) {
+                textPassword.error = passwordValidate.validateError
                 return@setOnClickListener
             }
 
@@ -79,12 +86,9 @@ class RegistrationFragment : Fragment() {
                     activity?.finishAfterTransition()
                 }
             }.addOnFailureListener {
-                findNavController().navigate(R.id.navigation_auth)
                 Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
             }
         }
         return root
     }
-
-
 }

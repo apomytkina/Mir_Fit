@@ -13,8 +13,7 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner =
-                'ru.hse.project.mirfit.cucumber.runner.CucumberTestRunner'
+        testInstrumentationRunner = 'ru.hse.project.mirfit.cucumber.runner.CucumberTestRunner'
     }
 
 

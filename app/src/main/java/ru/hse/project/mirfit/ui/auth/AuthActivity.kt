@@ -19,9 +19,6 @@ class AuthActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
         client = BaseClient(this)
-
-        val dd = 13
-
     }
 
     override fun onStart() {

@@ -30,14 +30,16 @@ class SignInFragment : Fragment() {
         root.findViewById<Button>(R.id.frag_sign_btn).setOnClickListener {
 
             val login = textLogin.text.toString()
-            if (!Validator.validateString(login)) {
-                textLogin.error = ""
+            val loginValidate = Validator.validateLogin(login)
+            if (!loginValidate.isValidate) {
+                textLogin.error = loginValidate.validateError
                 return@setOnClickListener
             }
 
             val password = textPassword.text.toString()
-            if (!Validator.validateString(password)) {
-                textPassword.error = ""
+            val passwordValidate = Validator.validatePassword(password)
+            if (!passwordValidate.isValidate) {
+                textPassword.error = passwordValidate.validateError
                 return@setOnClickListener
             }
 
@@ -49,7 +51,6 @@ class SignInFragment : Fragment() {
                     activity?.finishAfterTransition()
                 }
             }.addOnFailureListener {
-                findNavController().navigate(R.id.navigation_auth)
                 Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
             }
         }

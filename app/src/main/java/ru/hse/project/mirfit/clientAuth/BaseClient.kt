@@ -13,6 +13,7 @@ import org.json.JSONObject
 import ru.hse.project.mirfit.ui.profile.card.CardObject
 import ru.hse.project.mirfit.util.JsonParser
 import java.io.IOException
+import kotlin.coroutines.coroutineContext
 
 
 class BaseClient(context: Context) {
@@ -99,6 +100,7 @@ class BaseClient(context: Context) {
             .url("$BASE_URL$CARD_CONTROLLER/$cardNumber")
             .delete()
             .build()
+
 
 
         call(request).addOnSuccessListener {
@@ -326,6 +328,13 @@ class BaseClient(context: Context) {
         }
 
         return task.task
+    }
+
+    fun signOut() {
+        val editor = userSharedPref.edit()
+        editor.remove(User.CODE_ID)
+        editor.apply()
+        currentUser = null
     }
 
 

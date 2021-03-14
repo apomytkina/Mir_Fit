@@ -22,14 +22,15 @@
 
     <EditText
         android:id="@+id/edit_text_name_card_frag_add_card"
-        android:layout_width="130dp"
+        android:layout_width="160dp"
         android:layout_height="25dp"
         android:layout_marginStart="10dp"
         android:background="@android:color/transparent"
         android:ems="10"
-        android:hint="Name Card"
+        android:hint="CardName"
 
         android:inputType="textPersonName"
+        android:maxLength="15"
         android:textColor="#FFFFFFFF"
         android:textColorHint="#FAFAFA"
         android:typeface="sans"

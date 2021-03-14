@@ -26,10 +26,18 @@
         tools:layout="@layout/fragment_selection_auth" >
         <action
             android:id="@+id/action_navigation_auth_to_navigation_registration"
-            app:destination="@id/navigation_registration" />
+            app:destination="@id/navigation_registration"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_navigation_auth_to_navigation_signin"
-            app:destination="@id/navigation_signin" />
+            app:destination="@id/navigation_signin"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
     </fragment>
 
 </navigation>

@@ -7,9 +7,8 @@ class Validator {
 
         private val AUTH_PATTERN = Pattern.compile("""^[_A-z0-9]*([_A-z0-9])*${'$'}""")
         private val UPPER_CASE_PATTERN = Pattern.compile("""[_A-Z]*${'$'}""")
-        private val USERNAME_PATTERN = Pattern.compile("""^[_А-я]*((-)*[_А-я])*${'$'}""")
+        private val USERNAME_PATTERN = Pattern.compile("""^[_A-z]*((-)*[_A-z])*${'$'}""")
         private val NUMBER_CODE_MIR_PAY = listOf("2200", "2201", "2202", "0987")
-
 
         fun validateLogin(str: String): ValidatorResult {
             if (str.isBlank()) {
@@ -59,7 +58,7 @@ class Validator {
             }
 
             if (!USERNAME_PATTERN.matcher(str).matches()) {
-                return ValidatorResult(validateError = "Поле может содержать только символы кирилицы")
+                return ValidatorResult(validateError = "Поле может содержать только символы латиницы")
             }
 
 

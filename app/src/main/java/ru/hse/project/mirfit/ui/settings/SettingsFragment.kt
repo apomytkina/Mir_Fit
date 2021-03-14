@@ -22,7 +22,6 @@ class SettingsFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_profile_settings, container, false)
 
-
         val layContent = root.findViewById<ConstraintLayout>(R.id.prof_set_front_content)
         layContent.findViewById<ConstraintLayout>(R.id.btn_change_login_password)
             .setOnClickListener {

@@ -18,10 +18,10 @@ class AuthFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_selection_auth, container, false)
 
         root.findViewById<Button>(R.id.btn_reg).setOnClickListener {
-            findNavController().navigate(R.id.navigation_registration)
+            findNavController().navigate(R.id.action_navigation_auth_to_navigation_registration)
         }
         root.findViewById<Button>(R.id.btn_signIn).setOnClickListener {
-            findNavController().navigate(R.id.navigation_signin)
+            findNavController().navigate(R.id.action_navigation_auth_to_navigation_signin)
         }
         return root
     }

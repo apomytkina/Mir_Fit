@@ -1,6 +1,8 @@
 package ru.hse.project.mirfit.cucumber.steps;
 
 
+import android.os.SystemClock;
+
 import ru.hse.project.mirfit.R;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;

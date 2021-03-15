@@ -9,12 +9,14 @@ import ru.hse.project.mirfit.R;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.hasErrorText;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.startsWith;
 
 public class SignInDetailsSteps {
-
-
     @When("^I click button SIGN IN$")
     public void clickSignIn() {
         onView(withId(R.id.btn_signIn)).perform(click());
@@ -44,9 +46,15 @@ public class SignInDetailsSteps {
 
     @Then("^I expect to the same screen and notification with error message$")
     public void i_expect_to_the_same_screen_and_notification_with_error_message()
-    {}
+    {
+        onView(withText("Wrong login or password")).inRoot(new ToastMatcher())
+                .check(matches(isDisplayed()));
+    }
 
     @Then("^I expect to the same screen and error in the field$")
-    public void i_expect_to_the_same_screen_and_notification_error_in_the_field()
-    {}
+    public void i_expect_to_the_same_screen_and_error_in_the_field()
+    {
+        onView(withId(R.id.frag_sign_login)).
+                check(matches(hasErrorText(startsWith("Логин"))));
+    }
 }

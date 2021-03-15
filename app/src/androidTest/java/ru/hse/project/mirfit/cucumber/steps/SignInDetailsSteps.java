@@ -1,6 +1,10 @@
 package ru.hse.project.mirfit.cucumber.steps;
 
 
+import android.os.SystemClock;
+
+import androidx.test.espresso.Espresso;
+
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -42,19 +46,38 @@ public class SignInDetailsSteps {
     public void clickSignInAuthorizeForm() { onView(withId(R.id.frag_sign_btn)).perform(click()); }
 
     @Then("^I expect to see successful changing the screen$")
-    public void checkExistButtonAddCard() { Utils.closeApp(); }
-
-    @Then("^I expect to the same screen and notification with error message$")
-    public void i_expect_to_the_same_screen_and_notification_with_error_message()
-    {
-        onView(withText("Wrong login or password")).inRoot(new ToastMatcher())
-                .check(matches(isDisplayed()));
+    public void checkExistButtonAddCard() {
+        Utils.closeApp();
+        Espresso.pressBackUnconditionally();
     }
 
-    @Then("^I expect to the same screen and error in the field$")
-    public void i_expect_to_the_same_screen_and_error_in_the_field()
-    {
+    @Then("^I expect to the same screen and notification with error message$")
+    public void i_expect_to_the_same_screen_and_notification_with_error_message() {
+        onView(withText("Wrong login or password")).inRoot(new ToastMatcher()).
+                check(matches(isDisplayed()));
+        SystemClock.sleep(2000);
+        for (int i = 0; i < 3; i++) {
+            Espresso.pressBackUnconditionally();
+        }
+    }
+
+    @Then("^I expect to the same screen and error in the login field$")
+    public void i_expect_to_the_same_screen_and_error_in_the_login_field() {
         onView(withId(R.id.frag_sign_login)).
                 check(matches(hasErrorText(startsWith("Логин"))));
+        SystemClock.sleep(2000);
+        for (int i = 0; i < 3; i++) {
+            Espresso.pressBackUnconditionally();
+        }
+    }
+
+    @Then("^I expect to the same screen and error in the password field$")
+    public void i_expect_to_the_same_screen_and_error_in_the_password_field() {
+        onView(withId(R.id.frag_sign_password)).
+                check(matches(hasErrorText(startsWith("Пароль"))));
+        SystemClock.sleep(2000);
+        for (int i = 0; i < 3; i++) {
+            Espresso.pressBackUnconditionally();
+        }
     }
 }

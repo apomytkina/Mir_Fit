@@ -14,7 +14,7 @@ import ru.hse.project.mirfit.R
 import ru.hse.project.mirfit.ui.auth.AuthActivity
 import ru.hse.project.mirfit.util.Validator
 
-class DialogEditCardFragment(private val cardAdapter: CardAdapter, private val position: Int) :
+class DialogEditCardFragment(private val cardAdapter: CardAdapter) :
     DialogFragment() {
 
     private lateinit var editNameText: EditText
@@ -32,7 +32,8 @@ class DialogEditCardFragment(private val cardAdapter: CardAdapter, private val p
         editNameText = root.findViewById(R.id.edit_card_field)
         btnCancel = root.findViewById(R.id.edit_card_cancel_btn)
         btnComplete = root.findViewById(R.id.edit_card_save_btn)
-        val oldNameCard = arguments?.getString("nameCard")
+        val oldNameCard = arguments?.getString("NAME_CARD")!!
+        val position = arguments?.getInt("POSITION")!!
         editNameText.setText(oldNameCard)
 
         btnCancel.setOnClickListener {
@@ -42,18 +43,16 @@ class DialogEditCardFragment(private val cardAdapter: CardAdapter, private val p
         btnComplete.setOnClickListener {
             val newName = editNameText.text.toString()
             val newNameValidate = Validator.validateLogin(newName)
-            if(!newNameValidate.isValidate){
-                editNameText.error=newNameValidate.validateError
+            if (!newNameValidate.isValidate) {
+                editNameText.error = newNameValidate.validateError
                 return@setOnClickListener
             }
-
             dismiss()
-
             AuthActivity.client.currentUser!!.editCard(newName, position)
                 .addOnSuccessListener {
-                    cardAdapter.editItem(newName, position)
+                    cardAdapter.notifyItemChanged(position)
                 }.addOnFailureListener {
-                    Toast.makeText(context,it.message, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
                 }
         }
         return root

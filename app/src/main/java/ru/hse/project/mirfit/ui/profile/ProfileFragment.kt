@@ -11,11 +11,12 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import okhttp3.internal.notify
 import ru.hse.project.mirfit.R
 import ru.hse.project.mirfit.clientAuth.BaseClient
 import ru.hse.project.mirfit.ui.auth.AuthActivity
 import ru.hse.project.mirfit.ui.profile.card.CardAdapter
-import ru.hse.project.mirfit.ui.profile.card.CardObject
 import ru.hse.project.mirfit.ui.profile.card.DialogAddCardFragment
 
 class ProfileFragment : Fragment() {
@@ -39,11 +40,9 @@ class ProfileFragment : Fragment() {
             // findNavController().navigate(R.id.navigation_edit_image)
         }
 
-        val data = arrayListOf<CardObject>()
-        data.addAll(user.cards!!)
 
         // data of user cards
-        val postAdapter = CardAdapter(parentFragmentManager, data)
+        val postAdapter = CardAdapter(parentFragmentManager, user.cards!!)
 
         recycler = root.findViewById(R.id.card_recycler)
         recycler.apply {
@@ -51,13 +50,28 @@ class ProfileFragment : Fragment() {
             adapter = postAdapter
         }
 
+        val refresh = root.findViewById<SwipeRefreshLayout>(R.id.refresh_recycler)
+        refresh.setColorScheme(
+            R.color.first_refresh_color,
+            R.color.second_refresh_color,
+            R.color.third_refresh_color,
+            R.color.fourth_refresh_color
+        )
+
+        refresh.setOnRefreshListener {
+            user.refreshCards().addOnSuccessListener {
+                postAdapter.notifyItemRangeChanged(0, postAdapter.itemCount - 1)
+                refresh.isRefreshing = false
+            }
+        }
+
         root.findViewById<ConstraintLayout>(R.id.prof_lay_setting).setOnClickListener {
             findNavController().navigate(R.id.action_navigation_profile_to_navigation_setting)
         }
 
+
         root.findViewById<ConstraintLayout>(R.id.prof_lay_add_card).setOnClickListener {
             DialogAddCardFragment(postAdapter).show(parentFragmentManager, "ADD_CARD")
-
         }
 
         return root

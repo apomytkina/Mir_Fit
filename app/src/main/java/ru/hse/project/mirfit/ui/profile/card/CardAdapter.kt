@@ -1,6 +1,9 @@
 package ru.hse.project.mirfit.ui.profile.card
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -37,8 +40,11 @@ class CardAdapter(private val fm: FragmentManager, private val data: ArrayList<C
         )
 
         holder.btnEdit.setOnClickListener {
-            val editFrag = DialogEditCardFragment(this, holder.adapterPosition)
-            editFrag.arguments = Bundle().apply { putString("nameCard", item.cardName) }
+            val editFrag = DialogEditCardFragment(this)
+            editFrag.arguments = Bundle().apply {
+                putString("NAME_CARD", item.cardName)
+                putInt("POSITION", holder.adapterPosition)
+            }
             //Создаем фрагмент по изменению имени карты
             editFrag.show(fm, "EDIT_CARD")
             holder.swipeLayout.close()
@@ -46,18 +52,24 @@ class CardAdapter(private val fm: FragmentManager, private val data: ArrayList<C
 
 
         holder.btnDelete.setOnClickListener {
-            AuthActivity.client.currentUser!!.deleteCard(item).addOnSuccessListener {
-                mItemManger.removeShownLayouts(holder.swipeLayout)
-                data.remove(item)
-                notifyItemRemoved(position)
-                notifyItemRangeChanged(position, data.size)
-                mItemManger.closeAllItems()
-            }.addOnFailureListener {
-                holder.swipeLayout.close()
-                Toast.makeText(holder.swipeLayout.context, it.message, Toast.LENGTH_SHORT).show()
-            }
+            AlertDialog.Builder(holder.swipeLayout.context)
+                .setMessage("Вы точно хотите удалить карту с номером\n${item.cardNumber}")
+                .setNegativeButton("Отмена") { dialogInterface: DialogInterface, i: Int -> dialogInterface.dismiss() }
+                .setPositiveButton("Подтвердить") { dialogInterface: DialogInterface, i: Int ->
+                    dialogInterface.dismiss()
+                    AuthActivity.client.currentUser!!.deleteCard(item).addOnSuccessListener {
+                        mItemManger.removeShownLayouts(holder.swipeLayout)
+                        notifyItemRemoved(position)
+                        notifyItemRangeChanged(position, data.size)
+                        mItemManger.closeAllItems()
+                    }.addOnFailureListener {
+                        holder.swipeLayout.close()
+                        Toast.makeText(holder.swipeLayout.context, it.message, Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
+                .create().show()
         }
-
         mItemManger.bindView(holder.itemView, position)
     }
 
@@ -70,16 +82,6 @@ class CardAdapter(private val fm: FragmentManager, private val data: ArrayList<C
         return R.id.swipe
     }
 
-
-    fun addItem(cardObject: CardObject) {
-        data.add(cardObject)
-        this.notifyItemInserted(data.size - 1)
-    }
-
-    fun editItem(newName: String, position: Int) {
-        data[position].cardName = newName
-        notifyItemChanged(position)
-    }
 
     class CardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val swipeLayout: SwipeLayout = itemView.findViewById(R.id.swipe)

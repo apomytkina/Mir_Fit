@@ -31,6 +31,7 @@ class BaseClient(context: Context) {
         private const val AUTH_USER = "$USER_CONTROLLER/authUser"
         private const val UPDATE_LOGIN = "$USER_CONTROLLER/updateLogin"
         private const val UPDATE_PASSWORD = "$USER_CONTROLLER/updatePassword"
+        private const val DELETE_USER = "$USER_CONTROLLER/delete"
 
     }
 
@@ -90,7 +91,6 @@ class BaseClient(context: Context) {
 
         return task.task
     }
-
 
     fun deleteCard(card: CardObject): Task<Void> {
         val task = TaskCompletionSource<Void>()
@@ -262,6 +262,21 @@ class BaseClient(context: Context) {
     }
 
 
+    private fun getCardsFromService(): Task<ArrayList<CardObject>> {
+        val task = TaskCompletionSource<ArrayList<CardObject>>()
+        val id = currentUser!!.id
+        val requestCard: Request = Request.Builder()
+            .url("$BASE_URL$CARD_CONTROLLER/$id")
+            .get()
+            .build()
+        call(requestCard).addOnSuccessListener {
+            task.setResult(JsonParser.parseCards(JSONArray(it.body?.string())))
+        }.addOnFailureListener {
+            task.setException(it);
+        }
+        return task.task;
+    }
+
     private fun call(request: Request): Task<Response> {
         val task = TaskCompletionSource<Response>()
 
@@ -282,7 +297,6 @@ class BaseClient(context: Context) {
         })
         return task.task
     }
-
 
     private fun updateLogin(newLogin: String, id: String): Task<Void> {
         val task = TaskCompletionSource<Void>()
@@ -305,7 +319,6 @@ class BaseClient(context: Context) {
 
         return task.task
     }
-
 
     private fun updatePassword(newPassword: String, id: String): Task<Void> {
         val task = TaskCompletionSource<Void>()
@@ -335,6 +348,22 @@ class BaseClient(context: Context) {
         editor.remove(User.CODE_ID)
         editor.apply()
         currentUser = null
+    }
+
+    fun deleteUser(): Task<Void> {
+        val task = TaskCompletionSource<Void>()
+        val id = currentUser!!.id
+        val request = Request.Builder()
+            .url("$BASE_URL$DELETE_USER/$id")
+            .get()
+            .build()
+        call(request).addOnSuccessListener {
+            signOut()
+            task.setResult(null)
+        }.addOnFailureListener {
+            task.setException(it)
+        }
+        return task.task
     }
 
 
@@ -397,6 +426,20 @@ class BaseClient(context: Context) {
             }
 
             return task
+        }
+
+        fun refreshCards(): Task<Void> {
+            val task = TaskCompletionSource<Void>()
+
+            baseClient.getCardsFromService().addOnSuccessListener {
+                cards!!.clear()
+                cards.addAll(it)
+                task.setResult(null)
+            }.addOnFailureListener {
+                task.setException(it)
+            }
+
+            return task.task
         }
 
         private val baseClient: BaseClient = builder.baseClient

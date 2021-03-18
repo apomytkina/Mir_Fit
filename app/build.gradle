@@ -66,6 +66,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'
     implementation "com.daimajia.swipelayout:library:1.2.0@aar"
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 
 
     androidTestImplementation 'info.cukes:cucumber-android:1.2.6'

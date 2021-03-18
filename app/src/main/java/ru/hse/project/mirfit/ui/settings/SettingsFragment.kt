@@ -1,10 +1,13 @@
 package ru.hse.project.mirfit.ui.settings
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat.finishAfterTransition
 import androidx.fragment.app.Fragment
@@ -37,6 +40,28 @@ class SettingsFragment : Fragment() {
                 if (activity != null) {
                     activity?.finishAfterTransition()
                 }
+            }
+
+
+        layContent.findViewById<ConstraintLayout>(R.id.btn_delete_user)
+            .setOnClickListener {
+                AlertDialog.Builder(context)
+                    .setMessage("Вы точно хотите удалить свой аккаунт?\nВосстановить нельзя его будет!")
+                    .setNegativeButton("Отмена") { dialogInterface: DialogInterface, i: Int -> dialogInterface.dismiss() }
+                    .setPositiveButton("Подтвердить") { dialogInterface: DialogInterface, i: Int ->
+                        dialogInterface.dismiss()
+                        AuthActivity.client.deleteUser().addOnSuccessListener {
+                            val intent = Intent(context, AuthActivity::class.java)
+                            startActivity(intent)
+                            if (activity != null) {
+                                activity?.finishAfterTransition()
+                            }
+                        }.addOnFailureListener {
+                            Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    .create()
+                    .show()
             }
 
         val layNonContent = root.findViewById<ConstraintLayout>(R.id.prof_set_back_content)

@@ -14,7 +14,7 @@ import ru.hse.project.mirfit.R
 import ru.hse.project.mirfit.ui.auth.AuthActivity
 import ru.hse.project.mirfit.util.Validator
 
-class DialogAddCardFragment(private val postAdapter: CardAdapter) : DialogFragment() {
+class DialogAddCardFragment(private val cardAdapter: CardAdapter) : DialogFragment() {
     private lateinit var cardNameText: EditText
     private lateinit var cardNumberText: EditText
     private lateinit var btnAdd: Button
@@ -33,15 +33,15 @@ class DialogAddCardFragment(private val postAdapter: CardAdapter) : DialogFragme
         btnAdd.setOnClickListener {
             val cardNumber = cardNumberText.text.toString()
             val cardNumberValidate = Validator.validateNumberOfCard(cardNumber)
-            if(!cardNumberValidate.isValidate){
-                cardNumberText.error=cardNumberValidate.validateError
+            if (!cardNumberValidate.isValidate) {
+                cardNumberText.error = cardNumberValidate.validateError
                 return@setOnClickListener
             }
 
             val cardName = cardNameText.text.toString()
             val cardNameValidate = Validator.validateLogin(cardName)
-            if(!cardNameValidate.isValidate){
-                cardNameText.error=cardNameValidate.validateError
+            if (!cardNameValidate.isValidate) {
+                cardNameText.error = cardNameValidate.validateError
                 return@setOnClickListener
             }
 
@@ -53,14 +53,13 @@ class DialogAddCardFragment(private val postAdapter: CardAdapter) : DialogFragme
                 AuthActivity.client.currentUser!!.id
             )
 
-
             dismiss()
 
 
             AuthActivity.client.currentUser!!.addCard(card).addOnSuccessListener {
-                postAdapter.addItem(card)
+                cardAdapter.notifyItemInserted(cardAdapter.itemCount - 1)
             }.addOnFailureListener {
-                Toast.makeText(context,it.message,Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
             }
         }
 

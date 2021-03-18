@@ -1,7 +1,7 @@
-#Feature: Enter valid fields and this user doesn't exist
+#Feature: Enter invalid fields
 #
 #  @ui @backend
-#  Scenario Outline: Successful registration
+#  Scenario Outline: Unsuccessful registration
 #    Given I start the application
 #    When I click button REGISTRATION
 #    And I click firstName field
@@ -15,8 +15,8 @@
 #    And I click passwordReg field
 #    And I enter passwordReg "<passwordReg>"
 #    And I click button REGISTRATION in registration form
-#    Then I expect to see successful changing the screen
+#    Then I expect to see error marks
 #    Examples:
 #      | firstName | secondName | patronymic | loginReg | passwordReg |
-#      | Nikita | Tkachenko | Sergeevich | nikita123 | Nikita123 |
+#      | N | T | Ser | nik | Nik |
 #

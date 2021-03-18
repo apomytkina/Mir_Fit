@@ -1,0 +1,158 @@
+Index: app/src/androidTest/assets/features/sign_in_invalid_field.feature
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/androidTest/assets/features/sign_in_invalid_field.feature	(revision 4410de5e25a726d19c25ade84cbcf71b3063d098)
++++ app/src/androidTest/assets/features/sign_in_invalid_field.feature	(revision 4410de5e25a726d19c25ade84cbcf71b3063d098)
+@@ -1,40 +0,0 @@
+-Feature: Sign in application
+-
+-  @ui @backend
+-  Scenario Outline: Data isn' t valid
+-    Given I start the application
+-    When I click button SIGN IN
+-    And I click login field
+-    And I enter login "<Login>"
+-    And I click password field
+-    And I enter password "<Password>"
+-    And I click button SIGN IN in authorize form
+-    Then I expect to the same screen and error in the field
+-    Examples: Login is invalid but password valid
+-      | Login | Password |
+-      | | Nikita123 |
+-      | 1234 | Nikita123 |
+-      | abc.123 | Nikita123 |
+-    Examples: Password is invalid but login is valid
+-      | Login | Password |
+-      | nikita123 | |
+-      | nikita123 | Abcd |
+-      | nikita123 | abc.123 |
+-      | nikita123 | abcde123 |
+-    Examples: Password and login are invalid
+-      | Login  | Password |
+-      | | |
+-      | | Abcd |
+-      | | 1234ABC  |
+-      | | abc.123 |
+-      | | abcde123 |
+-      | 1234 | |
+-      | 1234 | Abcd |
+-      | 1234 | 1234ABC  |
+-      | 1234 | abc.123 |
+-      | 1234 | abcde123 |
+-      | abc.123 | |
+-      | abc.123 | Abcd |
+-      | abc.123 | 1234ABC |
+-      | abc.123 | abc.123 |
+-      | abc.123 | abcde123 |
+\ No newline at end of file
+Index: app/src/androidTest/assets/features/sign_in_user_doesNotExist.feature
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/androidTest/assets/features/sign_in_user_doesNotExist.feature	(revision 4410de5e25a726d19c25ade84cbcf71b3063d098)
++++ app/src/androidTest/assets/features/sign_in_user_doesNotExist.feature	(revision 4410de5e25a726d19c25ade84cbcf71b3063d098)
+@@ -1,15 +0,0 @@
+-Feature: Sign in application
+-
+-  @ui @backend
+-  Scenario Outline: Data is valid but user doesn't exist
+-    Given I start the application
+-    When I click button SIGN IN
+-    And I click login field
+-    And I enter login "<Login>"
+-    And I click password field
+-    And I enter password "<Password>"
+-    And I click button SIGN IN in authorize form
+-    Then I expect to the same screen and notification with error message
+-    Examples: Valid Login and Password
+-      | Login  | Password  |
+-      | nikita | Nikita123 |
+\ No newline at end of file
+Index: app/src/androidTest/assets/features/sign_in_all_valid.feature
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/androidTest/assets/features/sign_in_all_valid.feature	(revision 4410de5e25a726d19c25ade84cbcf71b3063d098)
++++ app/src/androidTest/assets/features/sign_in_all_valid.feature	(revision 4410de5e25a726d19c25ade84cbcf71b3063d098)
+@@ -1,15 +0,0 @@
+-Feature: Sign in application
+-
+-  @ui @backend
+-  Scenario Outline: Data is valid and user exists
+-    Given I start the application
+-    When I click button SIGN IN
+-    And I click login field
+-    And I enter login "<Login>"
+-    And I click password field
+-    And I enter password "<Password>"
+-    And I click button SIGN IN in authorize form
+-    Then I expect to see successful changing the screen
+-    Examples: Valid Login and Password
+-      | Login | Password |
+-      | nikita123 | Nikita123 |
+\ No newline at end of file
+Index: app/src/androidTest/java/ru/hse/project/mirfit/cucumber/steps/SignInDetailsSteps.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/androidTest/java/ru/hse/project/mirfit/cucumber/steps/SignInDetailsSteps.java	(revision 4410de5e25a726d19c25ade84cbcf71b3063d098)
++++ app/src/androidTest/java/ru/hse/project/mirfit/cucumber/steps/SignInDetailsSteps.java	(revision 4410de5e25a726d19c25ade84cbcf71b3063d098)
+@@ -1,52 +0,0 @@
+-package ru.hse.project.mirfit.cucumber.steps;
+-
+-
+-import cucumber.api.java.en.And;
+-import cucumber.api.java.en.Then;
+-import cucumber.api.java.en.When;
+-import ru.hse.project.mirfit.R;
+-
+-import static androidx.test.espresso.Espresso.onView;
+-import static androidx.test.espresso.action.ViewActions.click;
+-import static androidx.test.espresso.action.ViewActions.typeText;
+-import static androidx.test.espresso.matcher.ViewMatchers.withId;
+-
+-
+-public class SignInDetailsSteps {
+-
+-
+-    @When("^I click button SIGN IN$")
+-    public void clickSignIn() {
+-        onView(withId(R.id.btn_signIn)).perform(click());
+-    }
+-
+-    @And("^I click login field$")
+-    public void clickLoginField() {
+-        onView(withId(R.id.frag_sign_login)).perform(click());
+-    }
+-
+-    @And("^I enter login \"([^\"]*)\"$")
+-    public void enterValidLogin(String login) { onView(withId(R.id.frag_sign_login)).perform(typeText(login)); }
+-
+-    @And("^I click password field$")
+-    public void clickPasswordField() {
+-        onView(withId(R.id.frag_sign_password)).perform(click());
+-    }
+-
+-    @And("^I enter password \"([^\"]*)\"$")
+-    public void enterValidPassword(String password) { onView(withId(R.id.frag_sign_password)).perform(typeText(password)); }
+-
+-    @And("^I click button SIGN IN in authorize form$")
+-    public void clickSignInAuthorizeForm() { onView(withId(R.id.frag_sign_btn)).perform(click()); }
+-
+-    @Then("^I expect to see successful changing the screen$")
+-    public void checkExistButtonAddCard() { Utils.closeApp(); }
+-
+-    @Then("^I expect to the same screen and notification with error message$")
+-    public void i_expect_to_the_same_screen_and_notification_with_error_message()
+-    {}
+-
+-    @Then("^I expect to the same screen and error in the field$")
+-    public void i_expect_to_the_same_screen_and_notification_error_in_the_field()
+-    {}
+-}
+\ No newline at end of file

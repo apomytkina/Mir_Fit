@@ -100,7 +100,10 @@ public class CardRepositoryImpl implements CardRepository {
             if (res.size() > 0)
                 getBonusesResponse.setBonuses(res.get(0).getNumberOfBonuses());
             else
-                getBonusesResponse.setError("No such card.");
+                throw new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "No such card"
+                );
         } catch (DataAccessException e) {
             getBonusesResponse.setError(e.getMessage());
         }
@@ -138,17 +141,10 @@ public class CardRepositoryImpl implements CardRepository {
         String error = null;
 
         try {
-            int count = jdbcTemplate.update(
+            jdbcTemplate.update(
                     "DELETE IGNORE FROM card WHERE user_id = ?",
                     userId.toString()
             );
-
-            if (count == 0) {
-                throw new ResponseStatusException(
-                        HttpStatus.NOT_FOUND,
-                        "Cannot find cards with user id = " + userId
-                );
-            }
         } catch (DataAccessException e) {
             error = e.getMessage();
         }

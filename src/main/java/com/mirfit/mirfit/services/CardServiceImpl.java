@@ -63,7 +63,8 @@ public class CardServiceImpl implements CardService {
         if (cardNumber != null)
             return cardRepository.updateName(cardNumber, name);
         else
-            return "Card number cannot be null.";    }
+            return "Card number cannot be null.";
+    }
 
     @Override
     public String addCard(UUID id, CardDto card) {

@@ -69,7 +69,7 @@ public class CardController {
         }
     }
 
-    @PutMapping("increase")
+    @PutMapping("bonuses/increase")
     public ResponseEntity<String> increase(@RequestBody UpdateBonusesRequest request) {
         String error = cardService.updateBonuses(request.getCardNumber(), request.getNumberOfBonuses());
 
@@ -80,7 +80,7 @@ public class CardController {
         }
     }
 
-    @PutMapping("decrease")
+    @PutMapping("bonuses/decrease")
     public ResponseEntity<String> decrease(@RequestBody UpdateBonusesRequest request) {
         String result = cardService.updateBonuses(request.getCardNumber(), request.getNumberOfBonuses() * -1);
 

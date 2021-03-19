@@ -16,7 +16,9 @@ public interface UserService {
 
     String deleteUserById(UUID id);
 
-    String updateUserById(UUID id);
+    String updateLogin(UpdateLoginRequest request);
+
+    String updatePassword(UpdatePasswordRequest request);
 
     AuthUserResponse authorizeUser(AuthUserRequest request);
 }

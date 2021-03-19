@@ -38,9 +38,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String updateUserById(UUID id) {
-        return null;
-    }
+    public String updateLogin(UpdateLoginRequest request) { return userRepository.updateLogin(request); }
+
+    @Override
+    public String updatePassword(UpdatePasswordRequest request) { return userRepository.updatePassword(request); }
 
     @Override
     public AuthUserResponse authorizeUser(AuthUserRequest request) {

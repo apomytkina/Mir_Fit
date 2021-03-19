@@ -15,4 +15,8 @@ public interface UserRepository {
     AuthUserResponse authUser(AuthUserRequest request);
 
     String deleteUser(UUID id);
+
+    String updateLogin(UpdateLoginRequest request);
+
+    String updatePassword(UpdatePasswordRequest request);
 }

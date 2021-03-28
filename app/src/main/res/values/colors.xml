@@ -9,8 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="mir_color">#FF11754F</color>
     <color name="mir_color_upd">#FF0C6A45</color>
-
-
+    <color name="hint_color">#99FFFFFF</color>
+    <color name="background_color_small_btn">#ffF6f6f6</color>
     <color name="first_refresh_color">#4285F4</color>
     <color name="second_refresh_color">#34A853</color>
     <color name="third_refresh_color">#FBBC05</color>

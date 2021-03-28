@@ -88,7 +88,7 @@
                 android:layout_marginStart="20dp"
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center_vertical"
-                android:text="Карты"
+                android:text="@string/tittle_recycler_cards"
                 android:textColor="#070707"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toTopOf="@+id/refresh_recycler"
@@ -156,15 +156,13 @@
     <androidx.cardview.widget.CardView
         android:layout_width="50dp"
         android:layout_height="50dp"
-        app:cardBackgroundColor="#ffF6f6f6"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        app:cardBackgroundColor="@color/background_color_small_btn"
         app:cardCornerRadius="18dp"
         app:cardElevation="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.83"
-        app:layout_constraintStart_toEndOf="@+id/profileImageContainer"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.26">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/prof_lay_setting"
@@ -174,11 +172,11 @@
             android:clickable="true">
 
             <ImageView
-                android:layout_width="29dp"
-                android:layout_height="20dp"
-                android:layout_margin="5dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="7dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="h,1:1"
+                app:layout_constraintDimensionRatio=""
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

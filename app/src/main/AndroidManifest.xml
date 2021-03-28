@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:dist="http://schemas.android.com/apk/distribution"
     xmlns:tools="http://schemas.android.com/tools"
-    package="ru.hse.project.mirfit"
-    xmlns:dist="http://schemas.android.com/apk/distribution">
+    package="ru.hse.project.mirfit">
 
 
     <dist:module dist:instant="true" />
@@ -24,7 +24,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
 
         <activity
             android:name="ru.hse.project.mirfit.MainActivity"

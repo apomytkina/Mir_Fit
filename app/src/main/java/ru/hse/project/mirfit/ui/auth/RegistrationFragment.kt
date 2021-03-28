@@ -9,10 +9,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import ru.hse.project.mirfit.MainActivity
 import ru.hse.project.mirfit.R
-import ru.hse.project.mirfit.clientAuth.BaseClient
 import ru.hse.project.mirfit.util.Validator
 
 

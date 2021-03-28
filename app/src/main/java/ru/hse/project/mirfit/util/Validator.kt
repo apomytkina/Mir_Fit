@@ -6,7 +6,6 @@ class Validator {
     companion object {
 
         private val AUTH_PATTERN = Pattern.compile("""^[_A-z0-9]*([_A-z0-9])*${'$'}""")
-        private val UPPER_CASE_PATTERN = Pattern.compile("""[_A-Z]*${'$'}""")
         private val USERNAME_PATTERN = Pattern.compile("""^[_A-z]*((-)*[_A-z])*${'$'}""")
         private val NUMBER_CODE_MIR_PAY = listOf("2200", "2201", "2202", "0987")
 
@@ -21,6 +20,24 @@ class Validator {
 
             if (!AUTH_PATTERN.matcher(str).matches()) {
                 return ValidatorResult(validateError = "Логин может содержать только символы латиницы и цифры")
+            }
+
+            return ValidatorResult(isValidate = true)
+        }
+
+        fun validateNameCard(str:String):ValidatorResult{
+            if (str.isBlank()) {
+
+                return ValidatorResult(validateError = "Название карты не может быть пустым!")
+            }
+
+
+            if (str.length < 5) {
+                return ValidatorResult(validateError = "Название карты не может содержать менее 5 символов")
+            }
+
+            if (!AUTH_PATTERN.matcher(str).matches()) {
+                return ValidatorResult(validateError = "Название карты может содержать только символы латиницы и цифры")
             }
 
             return ValidatorResult(isValidate = true)

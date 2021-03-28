@@ -9,10 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.app.ActivityCompat.finishAfterTransition
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import ru.hse.project.mirfit.MainActivity
 import ru.hse.project.mirfit.R
 import ru.hse.project.mirfit.ui.auth.AuthActivity
 
@@ -63,6 +61,8 @@ class SettingsFragment : Fragment() {
                     .create()
                     .show()
             }
+
+
 
         val layNonContent = root.findViewById<ConstraintLayout>(R.id.prof_set_back_content)
         // настройка поведения нижнего экрана

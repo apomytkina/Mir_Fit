@@ -3,7 +3,6 @@ package ru.hse.project.mirfit.ui.profile.card
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,15 +15,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.daimajia.swipe.SwipeLayout
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter
 import ru.hse.project.mirfit.R
-import ru.hse.project.mirfit.clientAuth.BaseClient
 import ru.hse.project.mirfit.ui.auth.AuthActivity
 
 
 class CardAdapter(private val fm: FragmentManager, private val data: ArrayList<CardObject>) :
     RecyclerSwipeAdapter<CardAdapter.CardViewHolder>() {
 
+    lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
+        context = parent.context
         val inflater = LayoutInflater.from(parent.context)
         val layout = inflater.inflate(R.layout.layout_bank_card, parent, false)
         return CardViewHolder(layout)
@@ -52,10 +52,10 @@ class CardAdapter(private val fm: FragmentManager, private val data: ArrayList<C
 
 
         holder.btnDelete.setOnClickListener {
-            AlertDialog.Builder(holder.swipeLayout.context)
+            AlertDialog.Builder(context)
                 .setMessage("Вы точно хотите удалить карту с номером\n${item.cardNumber}")
-                .setNegativeButton("Отмена") { dialogInterface: DialogInterface, i: Int -> dialogInterface.dismiss() }
-                .setPositiveButton("Подтвердить") { dialogInterface: DialogInterface, i: Int ->
+                .setNegativeButton(context.getString(R.string.btn_cancel)) { dialogInterface: DialogInterface, _: Int -> dialogInterface.dismiss() }
+                .setPositiveButton(context.getString(R.string.btn_confirm)) { dialogInterface: DialogInterface, _: Int ->
                     dialogInterface.dismiss()
                     AuthActivity.client.currentUser!!.deleteCard(item).addOnSuccessListener {
                         mItemManger.removeShownLayouts(holder.swipeLayout)

@@ -39,7 +39,7 @@ class DialogAddCardFragment(private val cardAdapter: CardAdapter) : DialogFragme
             }
 
             val cardName = cardNameText.text.toString()
-            val cardNameValidate = Validator.validateLogin(cardName)
+            val cardNameValidate = Validator.validateNameCard(cardName)
             if (!cardNameValidate.isValidate) {
                 cardNameText.error = cardNameValidate.validateError
                 return@setOnClickListener

@@ -93,4 +93,7 @@ public class RegistrationDetailsSteps {
         onView(withId(R.id.frag_reg_text_first_name)).check(matches
                 (hasErrorText("Поле не может содержать менее 2 символов")));
     }
+
+
+    
 }

@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">MirFit</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
     <string name="title_profile">Profile</string>
     <string name="title_registration">Registration</string>
     <string name="title_auth">Authentication</string>
@@ -11,15 +9,30 @@
     <string name="hint_reg_secondname">Second Name</string>
     <string name="hint_reg_patronymic">Patronymic</string>
     <string name="hint_reg_cardnumber">Card Number</string>
-    <string name="hint_login">Login</string>
-    <string name="hint_password">Password</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
     <string name="text_profile_login_password">Login and passwrod</string>
     <string name="text_profile_bank_card">Card number</string>
     <string name="text_profile_info_program">About Mir Fit</string>
     <string name="btn_profile_settings">Settings</string>
-    <string name="title_edit">Rename</string>
     <string name="text_edit_card">Name of card</string>
     <string name="btn_cancel">Cancel</string>
     <string name="btn_save">Save</string>
+    <string name="btn_confirm">Confirm</string>
+    <string name="hint_card_name">Card name</string>
+    <string name="hint_card_number">Card number</string>
+    <string name="btn_add">Add</string>
+    <string name="title_edit">Edit</string>
+    <string name="text_edit_login">Your login</string>
+    <string name="text_edit_old_password">Old password</string>
+    <string name="text_edit_new_password">New password</string>
+    <string name="tittle_recycler_cards">Cards</string>
+    <string name="text_about_mir_fit">What Mir Fit is?</string>
+    <string name="text_buy_product">Product purchase</string>
+    <string name="text_product_is_healtfy">Product is healtfy?</string>
+    <string name="text_get_bonuses">We are giving you bonuses</string>
+    <string name="btn_edit_login_password">Edit Login/Password</string>
+    <string name="btn_about_mir_fit">About Mir Fit</string>
+    <string name="text_delete_user">Delete account</string>
 
 </resources>

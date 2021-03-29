@@ -5,14 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import okhttp3.internal.notify
 import ru.hse.project.mirfit.R
 import ru.hse.project.mirfit.clientAuth.BaseClient
 import ru.hse.project.mirfit.ui.auth.AuthActivity
@@ -22,7 +20,7 @@ import ru.hse.project.mirfit.ui.profile.card.DialogAddCardFragment
 class ProfileFragment : Fragment() {
 
     private lateinit var user: BaseClient.User
-    lateinit var recycler: RecyclerView
+    private lateinit var recycler: RecyclerView
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,10 +33,9 @@ class ProfileFragment : Fragment() {
             (user.firstName + " " + user.secondName)
 
 
-
-        root.findViewById<CardView>(R.id.profileImageContainer).setOnClickListener {
-            // findNavController().navigate(R.id.navigation_edit_image)
-        }
+//        root.findViewById<CardView>(R.id.profileImageContainer).setOnClickListener {
+//            // findNavController().navigate(R.id.navigation_edit_image)
+//        }
 
 
         // data of user cards
@@ -51,7 +48,7 @@ class ProfileFragment : Fragment() {
         }
 
         val refresh = root.findViewById<SwipeRefreshLayout>(R.id.refresh_recycler)
-        refresh.setColorScheme(
+        refresh.setColorSchemeResources(
             R.color.first_refresh_color,
             R.color.second_refresh_color,
             R.color.third_refresh_color,

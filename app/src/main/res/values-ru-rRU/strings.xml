@@ -2,8 +2,6 @@
 <resources>
     <string name="app_name">MirFit</string>
     <string name="title_profile">Профиль</string>
-    <string name="title_home">Тест_1</string>
-    <string name="title_dashboard">Тест_2</string>
     <string name="title_registration">Регистрация</string>
     <string name="title_auth">Авторизация</string>
     <string name="title_signin">Войти</string>
@@ -12,16 +10,31 @@
     <string name="hint_reg_secondname">Фамилия</string>
     <string name="hint_reg_patronymic">Отчество</string>
     <string name="hint_reg_cardnumber">Номер карты</string>
-    <string name="hint_login">Логин</string>
-    <string name="hint_password">Пароль</string>
+    <string name="login">Логин</string>
+    <string name="password">Пароль</string>
     <string name="text_profile_login_password">Логин и пароль</string>
     <string name="text_profile_bank_card">Банковская карта</string>
     <string name="text_profile_info_program">О Mir Fit</string>
     <string name="btn_profile_settings">Настройки</string>
-    <string name="title_edit">Переименовать</string>
     <string name="text_edit_card">Название карты</string>
     <string name="btn_cancel">Отмена</string>
     <string name="btn_save">Сохранить</string>
+    <string name="btn_confirm">Подтвердить</string>
+    <string name="hint_card_name">Название карты</string>
+    <string name="hint_card_number">Номер карты</string>
+    <string name="btn_add">Добавить</string>
+    <string name="title_edit">Изменить</string>
+    <string name="text_edit_login">Ваш логин</string>
+    <string name="text_edit_old_password">Старый пароль</string>
+    <string name="text_edit_new_password">Новый пароль</string>
+    <string name="tittle_recycler_cards">Карты</string>
+    <string name="text_about_mir_fit">Что такое Mir Fit?</string>
+    <string name="text_buy_product">Покупка товара</string>
+    <string name="text_product_is_healtfy">Продукт здорового образа жизни?</string>
+    <string name="text_get_bonuses">Мы начисляем вам бонусы</string>
+    <string name="btn_edit_login_password">Изменить Логин/Пароль</string>
+    <string name="btn_about_mir_fit">О Mir Fit</string>
+    <string name="text_delete_user">Удалить аккаунт</string>
 
 
 </resources>

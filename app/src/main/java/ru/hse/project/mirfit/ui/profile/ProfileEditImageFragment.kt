@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import ru.hse.project.mirfit.R
-import ru.hse.project.mirfit.clientAuth.BaseClient
 
 class ProfileEditImageFragment : Fragment() {
 

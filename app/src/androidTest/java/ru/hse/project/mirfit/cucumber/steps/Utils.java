@@ -13,9 +13,9 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 public final  class Utils {
     public static void closeApp(){
-        SystemClock.sleep(2000);
+        SystemClock.sleep(3000);
         onView(withId(R.id.prof_lay_setting)).perform(click());
-        SystemClock.sleep(2000);
+        SystemClock.sleep(3000);
         onView(withId(R.id.btn_sign_out)).perform(click());
     }
 }

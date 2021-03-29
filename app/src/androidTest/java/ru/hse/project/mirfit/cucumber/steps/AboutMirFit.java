@@ -21,7 +21,7 @@ public class AboutMirFit {
     //Нажатие кнопки об мир фит
     @And("^I click about mir fit button$")
     public void clickAboutMirFit() {
-        SystemClock.sleep(2000);
+        SystemClock.sleep(3000);
         onView(withId(R.id.btn_about_mir_fit)).perform(click());
     }
     public ViewAction customswipeDown()
@@ -30,14 +30,14 @@ public class AboutMirFit {
     //Делаем свайп вниз
     @And("^I swipe it down$")
     public void swipeDown() {
-        SystemClock.sleep(2000);
+        SystemClock.sleep(3000);
         onView(withId(R.id.prof_set_back_content)).perform(customswipeDown());
     }
 
     //Выходим из приложения
     @And("^I go out from app$")
     public void goOut() {
-        SystemClock.sleep(2000);
+        SystemClock.sleep(3000);
         onView(withId(R.id.btn_sign_out)).perform(click());
         Espresso.pressBackUnconditionally();
     }

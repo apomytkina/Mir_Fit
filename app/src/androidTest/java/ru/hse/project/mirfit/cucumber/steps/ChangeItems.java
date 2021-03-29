@@ -23,23 +23,23 @@ public class ChangeItems {
     //Нажатие на кнопку с настройками
     @And("^I click setting button$")
     public void clickSettingButton() {
-        SystemClock.sleep(2000);
+        SystemClock.sleep(3000);
         onView(withId(R.id.prof_lay_setting)).perform(click());
     }
 
     //Нажатие кнопки изменить логин или пароль
     @And("^I click change login or password button$")
     public void clickChangeLoginOrPassword() {
-        SystemClock.sleep(2000);
+        SystemClock.sleep(3000);
         onView(withId(R.id.btn_change_login_password)).perform(click());
     }
 
     //Нажатие отмены после нажатия кнопки изменить логин или пароль
     @And("^I click cancel button when was clicked cancel to change login or password button$")
     public void clickChangeLoginOrPasswordCancel() {
-        SystemClock.sleep(2000);
+        SystemClock.sleep(3000);
         onView(withId(R.id.btn_change_login_password_cancel)).perform(click());
-        SystemClock.sleep(2000);
+        SystemClock.sleep(3000);
         onView(withId(R.id.btn_sign_out)).perform(click());
         Espresso.pressBackUnconditionally();
     }
@@ -53,7 +53,7 @@ public class ChangeItems {
     //Нажатие отмены после нажатия кнопки изменить логин
     @And("^I click cancel button when was clicked change login button$")
     public void clickChangeLoginCancel() {
-        SystemClock.sleep(2000);
+        SystemClock.sleep(3000);
         onView(withId(R.id.edit_login_cancel_btn)).perform(click());
     }
 
@@ -66,7 +66,7 @@ public class ChangeItems {
     //Нажатие отмены после нажатия кнопки изменить пароль
     @And("^I click cancel button when was clicked change password button$")
     public void clickChangePasswordCancel() {
-        SystemClock.sleep(2000);
+        SystemClock.sleep(3000);
         onView(withId(R.id.edit_password_cancel_btn)).perform(click());
     }
 
@@ -119,7 +119,7 @@ public class ChangeItems {
 
     public void signOutAndStepBack()
     {
-        SystemClock.sleep(2000);
+        SystemClock.sleep(3000);
         onView(withId(R.id.btn_sign_out)).perform(click());
         Espresso.pressBackUnconditionally();
     }
@@ -152,7 +152,7 @@ public class ChangeItems {
     }
 
     public void saveAndStepBack() {
-        SystemClock.sleep(2000);
+        SystemClock.sleep(3000);
         Espresso.pressBackUnconditionally();
         Espresso.pressBackUnconditionally();
         signOutAndStepBack();

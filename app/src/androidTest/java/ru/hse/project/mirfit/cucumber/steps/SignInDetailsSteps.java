@@ -47,7 +47,11 @@ public class SignInDetailsSteps {
 
     //Нажатие на кнопку вход после заполнения полей
     @And("^I click button SIGN IN in authorize form$")
-    public void clickSignInAuthorizeForm() { onView(withId(R.id.frag_sign_btn)).perform(click()); }
+    public void clickSignInAuthorizeForm() {
+        SystemClock.sleep(500);
+        onView(withId(R.id.frag_sign_btn)).perform(click());
+        SystemClock.sleep(1000);
+    }
 
     //Проверка, что будет переход нас следущий экран
     @Then("^I expect to see successful changing the screen$")
@@ -58,7 +62,7 @@ public class SignInDetailsSteps {
 
     public void stepBack()
     {
-        SystemClock.sleep(2000);
+        SystemClock.sleep(3000);
         for (int i = 0; i < 3; i++) {
             Espresso.pressBackUnconditionally();
         }

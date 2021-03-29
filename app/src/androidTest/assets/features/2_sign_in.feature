@@ -1,4 +1,5 @@
-Feature: Sign in application
+Feature: Sign in
+
 
   @ui @backend
   Scenario Outline: Data is valid and user exists
@@ -13,6 +14,8 @@ Feature: Sign in application
     Examples: Valid login and password
       | Login     | Password  |
       | nikita123 | Nikita123 |
+
+
 
   @ui @backend
   Scenario Outline: Login is empty
@@ -34,6 +37,10 @@ Feature: Sign in application
       |         | Abcd     |
       |         | abc.123  |
       |         | abcde123 |
+
+
+
+
 
   @ui @backend
   Scenario Outline: Login is too short

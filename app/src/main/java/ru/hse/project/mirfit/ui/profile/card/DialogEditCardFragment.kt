@@ -42,7 +42,7 @@ class DialogEditCardFragment(private val cardAdapter: CardAdapter) :
 
         btnComplete.setOnClickListener {
             val newName = editNameText.text.toString()
-            val newNameValidate = Validator.validateLogin(newName)
+            val newNameValidate = Validator.validateNameCard(newName)
             if (!newNameValidate.isValidate) {
                 editNameText.error = newNameValidate.validateError
                 return@setOnClickListener

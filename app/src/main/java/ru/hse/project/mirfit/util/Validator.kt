@@ -4,9 +4,12 @@ import java.util.regex.Pattern
 
 class Validator {
     companion object {
+        private val LAT_KIR_NUM_PATTERN = Pattern.compile("""^[_A-zА-я0-9]*([_A-zА-я0-9])*${'$'}""")
+        private val LAT_NUM_PATTERN = Pattern.compile("""^[_A-z0-9]*([_A-z0-9])*${'$'}""")
+        private val KIR_NUM_PATTERN = Pattern.compile("""^[_А-я0-9]*([_А-я0-9])*${'$'}""")
+        private val LAT_PATTERN = Pattern.compile("""^[_A-z]*((-)*[_A-z])*${'$'}""")
 
-        private val AUTH_PATTERN = Pattern.compile("""^[_A-z0-9]*([_A-z0-9])*${'$'}""")
-        private val USERNAME_PATTERN = Pattern.compile("""^[_A-z]*((-)*[_A-z])*${'$'}""")
+
         private val NUMBER_CODE_MIR_PAY = listOf("2200", "2201", "2202", "0987")
 
         fun validateLogin(str: String): ValidatorResult {
@@ -18,7 +21,7 @@ class Validator {
                 return ValidatorResult(validateError = "Логин не может содержать менее 5 символов")
             }
 
-            if (!AUTH_PATTERN.matcher(str).matches()) {
+            if (!LAT_NUM_PATTERN.matcher(str).matches()) {
                 return ValidatorResult(validateError = "Логин может содержать только символы латиницы и цифры")
             }
 
@@ -31,13 +34,12 @@ class Validator {
                 return ValidatorResult(validateError = "Название карты не может быть пустым!")
             }
 
-
-            if (str.length < 5) {
-                return ValidatorResult(validateError = "Название карты не может содержать менее 5 символов")
+            if (str.length < 2) {
+                return ValidatorResult(validateError = "Название карты не может содержать менее 2 символов")
             }
 
-            if (!AUTH_PATTERN.matcher(str).matches()) {
-                return ValidatorResult(validateError = "Название карты может содержать только символы латиницы и цифры")
+            if (!LAT_KIR_NUM_PATTERN.matcher(str).matches()) {
+                return ValidatorResult(validateError = "Название карты может состоять из латиницы, кириллицы и цифр")
             }
 
             return ValidatorResult(isValidate = true)
@@ -53,10 +55,9 @@ class Validator {
                 return ValidatorResult(validateError = "Пароль не может содержать менее 5 символов")
             }
 
-            if (!AUTH_PATTERN.matcher(str).matches()) {
+            if (!LAT_NUM_PATTERN.matcher(str).matches()) {
                 return ValidatorResult(validateError = "Пароль может содержать только символы латиницы и цифры")
             }
-
 
             if (!str.isOneUpperLetter()) {
                 return ValidatorResult(validateError = "Пароль Должен содержать хотя бы одину заглавную букву")
@@ -74,10 +75,9 @@ class Validator {
                 return ValidatorResult(validateError = "Поле не может содержать менее 2 символов")
             }
 
-            if (!USERNAME_PATTERN.matcher(str).matches()) {
+            if (!LAT_PATTERN.matcher(str).matches()) {
                 return ValidatorResult(validateError = "Поле может содержать только символы латиницы")
             }
-
 
             if (!str.isTitleCase()) {
                 return ValidatorResult(validateError = "Поле должно содержать первую заглавную букву и остальные строчные")

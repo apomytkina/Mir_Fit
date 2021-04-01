@@ -20,6 +20,7 @@ import java.sql.Time;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class BonusesServiceImpl implements BonusesService {
@@ -61,11 +62,12 @@ public class BonusesServiceImpl implements BonusesService {
                     receipt.setAmount(0);
                 } else {
                     withdrawnBonuses = sumBonuses;
-                    receipt.setAmount(receipt.getAmount() - Math.round(sumBonuses));
+                    long newAmount = receipt.getAmount() - Math.round(sumBonuses);
+                    receipt.setAmount(newAmount);
                 }
                 saveTransaction(receipt, "wait", withdrawnBonuses);
 
-                boolean success = makeTransaction(receipt, receipt.getAmount(), "");
+                boolean success = makeTransaction(receipt, receipt.getAmount(), "00");
                 if (success) {
                     cardService.updateBonuses(receipt.getCardSequence(), (-1) * withdrawnBonuses);
                     transactionRepository.update("success",receipt.getTransactionNumber());

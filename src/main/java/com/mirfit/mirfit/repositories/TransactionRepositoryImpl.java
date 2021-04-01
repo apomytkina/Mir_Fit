@@ -22,7 +22,7 @@ public class TransactionRepositoryImpl implements TransactionRepository {
         try {
             int count = jdbcTemplate.update(
                     "INSERT IGNORE INTO transaction (transaction_number, date, time, bonuses, status, card_number, amount, accrual) " +
-                            "VALUES (?, ?, ?, ?, ?, ?, ?)",
+                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
                     transaction.getTransactionNumber(),
                     transaction.getDate(),
                     transaction.getTime(),

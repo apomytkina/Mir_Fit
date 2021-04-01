@@ -32,11 +32,9 @@ class ProfileFragment : Fragment() {
         root.findViewById<TextView>(R.id.prof_text_full_name).text =
             (user.firstName + " " + user.secondName)
 
-
 //        root.findViewById<CardView>(R.id.profileImageContainer).setOnClickListener {
 //            // findNavController().navigate(R.id.navigation_edit_image)
 //        }
-
 
         // data of user cards
         val postAdapter = CardAdapter(parentFragmentManager, user.cards!!)
@@ -65,7 +63,6 @@ class ProfileFragment : Fragment() {
         root.findViewById<ConstraintLayout>(R.id.prof_lay_setting).setOnClickListener {
             findNavController().navigate(R.id.action_navigation_profile_to_navigation_setting)
         }
-
 
         root.findViewById<ConstraintLayout>(R.id.prof_lay_add_card).setOnClickListener {
             DialogAddCardFragment(postAdapter).show(parentFragmentManager, "ADD_CARD")

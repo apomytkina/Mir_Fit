@@ -55,10 +55,10 @@ class DialogEditLoginFragment : DialogFragment() {
 
             user.updateLogin(newLogin).addOnSuccessListener {
                 dismiss()
-                Toast.makeText(context, "successful update login", Toast.LENGTH_SHORT).show()
+                Toast.makeText(inflater.context, "successful update login", Toast.LENGTH_SHORT).show()
             }.addOnFailureListener {
                 dismiss()
-                Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                Toast.makeText(inflater.context, it.message, Toast.LENGTH_SHORT).show()
             }
 
         }

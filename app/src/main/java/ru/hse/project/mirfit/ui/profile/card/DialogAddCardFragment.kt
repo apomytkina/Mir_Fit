@@ -1,5 +1,6 @@
 package ru.hse.project.mirfit.ui.profile.card
 
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -23,7 +24,6 @@ class DialogAddCardFragment(private val cardAdapter: CardAdapter) : DialogFragme
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val root = inflater.inflate(R.layout.dialog_fragment_add_bank_card, container, false)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         cardNumberText = root.findViewById(R.id.edit_text_card_number_frag_add_card)
@@ -59,7 +59,7 @@ class DialogAddCardFragment(private val cardAdapter: CardAdapter) : DialogFragme
             AuthActivity.client.currentUser!!.addCard(card).addOnSuccessListener {
                 cardAdapter.notifyItemInserted(cardAdapter.itemCount - 1)
             }.addOnFailureListener {
-                Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                Toast.makeText(inflater.context, it.message, Toast.LENGTH_SHORT).show()
             }
         }
 

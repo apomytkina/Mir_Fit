@@ -52,7 +52,7 @@ class DialogEditCardFragment(private val cardAdapter: CardAdapter) :
                 .addOnSuccessListener {
                     cardAdapter.notifyItemChanged(position)
                 }.addOnFailureListener {
-                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(inflater.context, it.message, Toast.LENGTH_SHORT).show()
                 }
         }
         return root

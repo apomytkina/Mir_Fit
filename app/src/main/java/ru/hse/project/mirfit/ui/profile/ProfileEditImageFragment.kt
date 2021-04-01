@@ -19,20 +19,12 @@ class ProfileEditImageFragment : Fragment() {
         // Юзер приходит null, но в релизе всегда будет
         val root = inflater.inflate(R.layout.fragment_edit_image_profile, container, false)
 
-
         root.findViewById<ConstraintLayout>(R.id.btn_edit_image_prof).setOnClickListener {
 
-
         }
-
         root.findViewById<ConstraintLayout>(R.id.btn_delete_image_prof).setOnClickListener {
            // BaseClient(inflater.context).updateImage(null)
-
         }
-
-
-
-
 
         return root
     }

@@ -64,10 +64,10 @@ class DialogEditPasswordFragment : DialogFragment() {
 
             user.updatePassword(newPassword).addOnSuccessListener {
                 dismiss()
-                Toast.makeText(context, "successful update password", Toast.LENGTH_SHORT).show()
+                Toast.makeText(inflater.context, "successful update password", Toast.LENGTH_SHORT).show()
             }.addOnFailureListener {
                 dismiss()
-                Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                Toast.makeText(inflater.context, it.message, Toast.LENGTH_SHORT).show()
             }
         }
 

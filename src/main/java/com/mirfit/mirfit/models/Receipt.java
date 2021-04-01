@@ -1,5 +1,7 @@
 package com.mirfit.mirfit.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -12,8 +14,10 @@ public class Receipt {
 
     private List<Product> goods;
 
+    @JsonFormat(pattern = "MM:dd")
     private LocalDate localDate;
 
+    @JsonFormat(pattern = "hh:mm:ss")
     private LocalTime localTime;
 
     private Boolean isAccrual;

@@ -5,6 +5,7 @@ import com.mirfit.mirfit.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -28,11 +29,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String deleteAllUsers() {
-        return null;
-    }
-
-    @Override
     public String deleteUserById(UUID id) {
         return userRepository.deleteUser(id);
     }
@@ -46,5 +42,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public AuthUserResponse authorizeUser(AuthUserRequest request) {
         return userRepository.authUser(request);
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return userRepository.getAllUsers();
     }
 }

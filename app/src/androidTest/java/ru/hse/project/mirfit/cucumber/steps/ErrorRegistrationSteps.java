@@ -15,9 +15,6 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 
-
-
-
 public class ErrorRegistrationSteps {
 
 
@@ -166,7 +163,6 @@ public class ErrorRegistrationSteps {
 
     @Then("^I expect to see error_toast_user_exist$")
     public void iExpectToSeeError_toast_user_exist() {
-
         onView(withText("Login is not available")).inRoot(new ToastMatcher())
                 .check(matches(isDisplayed()));
         Utils.closeCurrentCheck(2);

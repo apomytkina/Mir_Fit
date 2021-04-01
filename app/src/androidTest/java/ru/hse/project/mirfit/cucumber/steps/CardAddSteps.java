@@ -6,25 +6,20 @@ import androidx.test.espresso.action.GeneralLocation;
 import androidx.test.espresso.action.GeneralSwipeAction;
 import androidx.test.espresso.action.Press;
 import androidx.test.espresso.action.Swipe;
-import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 
-import java.time.temporal.TemporalAccessor;
-
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
 import ru.hse.project.mirfit.R;
 
 import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.clearText;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.swipeLeft;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.hasErrorText;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 public class CardAddSteps {
 
@@ -67,57 +62,65 @@ public class CardAddSteps {
     @Then("^I check success sign_in for actions with cards$")
     public void iCheckSuccessSign_inForActionsWithCards() {
         onView(withId(R.id.prof_lay_add_card)).perform(click());
-        Utils.closeCurrentCheck(2);
+        Utils.closeCurrentCheck(1);
     }
 
     @Then("^I check error_message_ps_number$")
     public void iCheckError_message_ps_field() {
         onView(withId(R.id.edit_text_card_number_frag_add_card)).check(matches
                 (hasErrorText("Карта должна быть с платежной системой MIR")));
-        SystemClock.sleep(1000);
-        Utils.closeCurrentCheck(3);
+        Utils.closeCurrentCheck(2);
     }
 
     @Then("^I check error_message_length_number$")
     public void iCheckError_message_length_field() {
         onView(withId(R.id.edit_text_card_number_frag_add_card)).check(matches
                 (hasErrorText("Номер карты не может быть короче 13 цифр")));
-        SystemClock.sleep(1000);
-        Utils.closeCurrentCheck(3);
+        Utils.closeCurrentCheck(2);
     }
 
     @Then("^I check error_message_empty_name$")
     public void iCheckError_message_empty_name() {
         onView(withId(R.id.edit_text_name_card_frag_add_card)).check(matches
                 (hasErrorText("Название карты не может быть пустым!")));
-        SystemClock.sleep(1000);
-        Utils.closeCurrentCheck(3);
+        Utils.closeCurrentCheck(2);
     }
 
     @Then("^I check error_message_length_name$")
     public void iCheckError_message_length_name() {
         onView(withId(R.id.edit_text_name_card_frag_add_card)).check(matches
                 (hasErrorText("Название карты не может содержать менее 2 символов")));
-        SystemClock.sleep(1000);
-        Utils.closeCurrentCheck(3);
+        Utils.closeCurrentCheck(2);
     }
 
     @Then("^I check error_message_symbols_name$")
     public void iCheckError_message_symbols_name() {
         onView(withId(R.id.edit_text_name_card_frag_add_card)).check(matches
                 (hasErrorText("Название карты может состоять из латиницы, кириллицы и цифр")));
-        SystemClock.sleep(1000);
-        Utils.closeCurrentCheck(3);
+        Utils.closeCurrentCheck(2);
     }
 
-    @Then("^I check success add_card$")
-    public void iCheckSuccessAdd_card() {
+
+
+    @Then("^I check toast add_no_exist_card$")
+    public void iCheckToastAdd_no_exist_card() {
+        onView(withText("Card not found")).
+                inRoot(new ToastMatcher()).check(matches(isDisplayed()));
+
+    }
+
+    @Then("^I check success add_exist_card$")
+    public void iCheckSuccessAdd_exist_card() {
         onView(withId(R.id.card_recycler)).perform(
                 RecyclerViewActions.actionOnItemAtPosition(0, new GeneralSwipeAction(
                         Swipe.SLOW, GeneralLocation.BOTTOM_RIGHT, GeneralLocation.BOTTOM_LEFT,
                         Press.FINGER)));
-        SystemClock.sleep(3000);
+        Utils.closeCurrentCheck(1);
     }
 
-
+    @Then("^I check toast add_card_duplicate$")
+    public void iCheckToastAdd_card_duplicate() {
+        onView(withText("Card with number 220006118769339 is already added.")).
+                inRoot(new ToastMatcher()).check(matches(isDisplayed()));
+    }
 }

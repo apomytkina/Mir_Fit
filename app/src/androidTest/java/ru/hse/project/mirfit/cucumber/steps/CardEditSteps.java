@@ -22,6 +22,7 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.hasErrorText;
 import static androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 
 public class CardEditSteps {
@@ -56,8 +57,10 @@ public class CardEditSteps {
         onView(withId(R.id.edit_card_save_btn)).perform(click());
     }
 
-    @Then("^I check change name_card$")
-    public void iCheckChangeName_card() {
+    @Then("^I check change name_card \"([^\"]*)\"$")
+    public void iCheckChangeName_card(String newName) {
+        onView(allOf(withText(newName),
+                withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
     }
 
     @And("^I click button cancel_card$")
@@ -67,7 +70,8 @@ public class CardEditSteps {
 
     @Then("^I check no_change name_card$")
     public void iCheckNo_changeName_card() {
-        Utils.closeCurrentCheck(2);
+        onView(allOf(withText("Card4"),
+                withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
     }
 
     @Then("^I check error_edit_message_empty_name$")
@@ -90,6 +94,5 @@ public class CardEditSteps {
                 hasErrorText("Название карты может состоять из латиницы, кириллицы и цифр")));
         Utils.closeCurrentCheck(2);
     }
-
 
 }

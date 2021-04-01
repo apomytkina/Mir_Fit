@@ -24,8 +24,10 @@ public class AboutMirFit {
         SystemClock.sleep(3000);
         onView(withId(R.id.btn_about_mir_fit)).perform(click());
     }
-    public ViewAction customswipeDown()
-    {return new GeneralSwipeAction(Swipe.SLOW, GeneralLocation.TOP_CENTER,GeneralLocation.BOTTOM_CENTER, Press.FINGER);}
+
+    public ViewAction customswipeDown() {
+        return new GeneralSwipeAction(Swipe.SLOW, GeneralLocation.TOP_CENTER, GeneralLocation.BOTTOM_CENTER, Press.FINGER);
+    }
 
     //Делаем свайп вниз
     @And("^I swipe it down$")

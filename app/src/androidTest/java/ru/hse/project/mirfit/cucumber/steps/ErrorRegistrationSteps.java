@@ -1,9 +1,5 @@
 package ru.hse.project.mirfit.cucumber.steps;
 
-import android.os.SystemClock;
-
-import androidx.test.espresso.Espresso;
-
 import cucumber.api.java.en.Then;
 import ru.hse.project.mirfit.R;
 

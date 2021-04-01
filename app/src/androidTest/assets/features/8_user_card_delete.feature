@@ -1,10 +1,9 @@
-Feature: Delete card for exist user
+Feature: Delete exist user card
 
   @ui @backend
-  Scenario : Delete exist card
+  Scenario: delete card
     Given I start the application
     When I swipe left on the card
     And I click button card_delete
-    And I click button confirm_delete
-    Then I check card_no_exist
-
+    And I click button_confirm
+    Then I check success delete_card

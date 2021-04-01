@@ -91,7 +91,9 @@ public class ChangeItems {
 
     //Ввод старого пароля
     @And("^I enter old password \"([^\"]*)\"$")
-    public void enterOldPassword(String password) { onView(withId(R.id.edit_password_old_field)).perform(typeText(password)); }
+    public void enterOldPassword(String password) {
+        onView(withId(R.id.edit_password_old_field)).perform(typeText(password));
+    }
 
     //Нажатие на поле изменить новый пароль
     @And("^I click change new password field$")
@@ -101,24 +103,23 @@ public class ChangeItems {
 
     //Ввод нового пароля
     @And("^I enter new password \"([^\"]*)\"$")
-    public void enterNewPassword(String password) { onView(withId(R.id.edit_password_new_field)).perform(typeText(password)); }
+    public void enterNewPassword(String password) {
+        onView(withId(R.id.edit_password_new_field)).perform(typeText(password));
+    }
 
     //Нажатие кнопки сохранить логин
     @And("^I save login changes$")
-    public void saveLogin()
-    {
+    public void saveLogin() {
         onView(withId(R.id.edit_login_save_btn)).perform(click());
     }
 
     //Нажатие кнопки сохранить пароль
     @And("^I save password changes$")
-    public void savePassword()
-    {
+    public void savePassword() {
         onView(withId(R.id.edit_password_save_btn)).perform(click());
     }
 
-    public void signOutAndStepBack()
-    {
+    public void signOutAndStepBack() {
         SystemClock.sleep(3000);
         onView(withId(R.id.btn_sign_out)).perform(click());
         Espresso.pressBackUnconditionally();
@@ -126,8 +127,7 @@ public class ChangeItems {
 
     //Проверка, что появится ошибка, что введен тот же логин
     @Then("^I will see the warning about login$")
-    public void seeTheWarningLogin()
-    {
+    public void seeTheWarningLogin() {
         onView(withText("Login is not available")).inRoot(new ToastMatcher()).
                 check(matches(isDisplayed()));
         signOutAndStepBack();
@@ -135,8 +135,7 @@ public class ChangeItems {
 
     //Проверка, что появится уведомление об успешной смене логина
     @Then("^I will see the notification about login$")
-    public void seeTheNotificationLogin()
-    {
+    public void seeTheNotificationLogin() {
         onView(withText("successful update login")).inRoot(new ToastMatcher()).
                 check(matches(isDisplayed()));
         signOutAndStepBack();
@@ -144,8 +143,7 @@ public class ChangeItems {
 
     //Проверка, что появится уведомление об успешной смене пароля
     @Then("^I will see the notification about password$")
-    public void seeTheNotificationPassword()
-    {
+    public void seeTheNotificationPassword() {
         onView(withText("successful update password")).inRoot(new ToastMatcher()).
                 check(matches(isDisplayed()));
         signOutAndStepBack();
@@ -160,8 +158,7 @@ public class ChangeItems {
 
     //Проверка, что будет ошибка в логине с сообщением - Логин не может быть пустым!
     @Then("^I will see the error in the field of login that is empty$")
-    public void seeTheErrorLoginEmpty()
-    {
+    public void seeTheErrorLoginEmpty() {
         onView(withId(R.id.edit_login_field)).
                 check(matches(hasErrorText("Логин не может быть пустым!")));
         saveAndStepBack();
@@ -169,17 +166,15 @@ public class ChangeItems {
 
     //Проверка, что будет ошибка в логине с сообщением - Логин не может содержать менее 5 символов
     @Then("^I will see the error in the field of login that is too short$")
-    public void seeTheErrorLoginShort()
-    {
+    public void seeTheErrorLoginShort() {
         onView(withId(R.id.edit_login_field)).
                 check(matches(hasErrorText("Логин не может содержать менее 5 символов")));
-       saveAndStepBack();
+        saveAndStepBack();
     }
 
     //Проверка, что будет ошибка в логине с сообщением - Логин может содержать только символы латиницы и цифры
     @Then("^I will see the error in the field of login that has wrong symbols$")
-    public void seeTheErrorLoginWrong()
-    {
+    public void seeTheErrorLoginWrong() {
         onView(withId(R.id.edit_login_field)).
                 check(matches(hasErrorText("Логин может содержать только символы латиницы и цифры")));
         saveAndStepBack();
@@ -187,8 +182,7 @@ public class ChangeItems {
 
     //Проверка, что будет ошибка в старом пароле с сообщением - Неверный пароль
     @Then("^I will see the error in the field of old password$")
-    public void seeTheErrorOldPassword()
-    {
+    public void seeTheErrorOldPassword() {
         onView(withId(R.id.edit_password_old_field)).
                 check(matches(hasErrorText("Неверный пароль")));
         saveAndStepBack();
@@ -196,8 +190,7 @@ public class ChangeItems {
 
     //Проверка, что будет ошибка в новом пароле с сообщением - Пароль не может быть пустым!
     @Then("^I will see the error in the field of new password that is empty$")
-    public void seeTheErrorNewPasswordEmpty()
-    {
+    public void seeTheErrorNewPasswordEmpty() {
         onView(withId(R.id.edit_password_new_field)).
                 check(matches(hasErrorText("Пароль не может быть пустым!")));
         saveAndStepBack();
@@ -205,8 +198,7 @@ public class ChangeItems {
 
     //Проверка, что будет ошибка в новом пароле с сообщением - Пароль не может содержать менее 5 символов
     @Then("^I will see the error in the field of new password that is too short$")
-    public void seeTheErrorNewPasswordShort()
-    {
+    public void seeTheErrorNewPasswordShort() {
         onView(withId(R.id.edit_password_new_field)).
                 check(matches(hasErrorText("Пароль не может содержать менее 5 символов")));
         saveAndStepBack();
@@ -214,8 +206,7 @@ public class ChangeItems {
 
     //Проверка, что будет ошибка в новом пароле с сообщением - Пароль может содержать только символы латиницы и цифры
     @Then("^I will see the error in the field of new password that has wrong symbols$")
-    public void seeTheErrorNewPasswordWrong()
-    {
+    public void seeTheErrorNewPasswordWrong() {
         onView(withId(R.id.edit_password_new_field)).
                 check(matches(hasErrorText("Пароль может содержать только символы латиницы и цифры")));
         saveAndStepBack();
@@ -223,8 +214,7 @@ public class ChangeItems {
 
     //Проверка, что будет ошибка в новом пароле с сообщением - Пароль Должен содержать хотя бы одину заглавную букву
     @Then("^I will see the error in the field of new password that doesn't have capital letter$")
-    public void seeTheErrorNewPasswordCapital()
-    {
+    public void seeTheErrorNewPasswordCapital() {
         onView(withId(R.id.edit_password_new_field)).
                 check(matches(hasErrorText("Пароль Должен содержать хотя бы одину заглавную букву")));
         saveAndStepBack();
@@ -232,8 +222,7 @@ public class ChangeItems {
 
     //Проверка, что будет ошибка в новом пароле с сообщением - Новый пароль должен отличаться от старого
     @Then("^I will see the error in the field of new password that was entered the same password$")
-    public void seeTheErrorNewPasswordSame()
-    {
+    public void seeTheErrorNewPasswordSame() {
         onView(withId(R.id.edit_password_new_field)).
                 check(matches(hasErrorText("Новый пароль должен отличаться от старого")));
         saveAndStepBack();

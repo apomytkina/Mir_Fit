@@ -27,16 +27,14 @@ public class DeleteUser {
 
     //Нажатие кнопки отменить удаление аккаунта
     @And("^I click cancel button in dialog$")
-    public void clickCancelDialog()
-    {
+    public void clickCancelDialog() {
         SystemClock.sleep(3000);
         onView(withText("Отмена")).inRoot(isDialog()).check(matches(isDisplayed())).perform(click());
     }
 
     //Нажатие кнопки удалить аккаунт после предупреждения
     @And("^I click accept button in dialog$")
-    public void clickAcceptDialog()
-    {
+    public void clickAcceptDialog() {
         SystemClock.sleep(3000);
         onView(withText("Подтвердить")).inRoot(isDialog()).check(matches(isDisplayed())).perform(click());
         SystemClock.sleep(3000);
@@ -45,8 +43,7 @@ public class DeleteUser {
 
     //Выход из приложения после отмены удаления
     @Then("^I leave the app$")
-    public void leaveApp()
-    {
+    public void leaveApp() {
         SystemClock.sleep(3000);
         onView(withId(R.id.btn_sign_out)).perform(click());
         Espresso.pressBackUnconditionally();

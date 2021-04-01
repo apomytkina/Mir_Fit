@@ -55,7 +55,7 @@ public class CardAddSteps {
     public void iClickButtonCard_add() {
         SystemClock.sleep(2000);
         onView(withId(R.id.btn_frag_add_card)).perform(click());
-        SystemClock.sleep(5000);
+        SystemClock.sleep(1000);
     }
 
 
@@ -101,26 +101,24 @@ public class CardAddSteps {
     }
 
 
-
     @Then("^I check toast add_no_exist_card$")
     public void iCheckToastAdd_no_exist_card() {
         onView(withText("Card not found")).
                 inRoot(new ToastMatcher()).check(matches(isDisplayed()));
-
     }
 
     @Then("^I check success add_exist_card$")
     public void iCheckSuccessAdd_exist_card() {
+        SystemClock.sleep(1000);
         onView(withId(R.id.card_recycler)).perform(
                 RecyclerViewActions.actionOnItemAtPosition(0, new GeneralSwipeAction(
                         Swipe.SLOW, GeneralLocation.BOTTOM_RIGHT, GeneralLocation.BOTTOM_LEFT,
                         Press.FINGER)));
-        Utils.closeCurrentCheck(1);
     }
 
     @Then("^I check toast add_card_duplicate$")
     public void iCheckToastAdd_card_duplicate() {
-        onView(withText("Card with number 220006118769339 is already added.")).
+        onView(withText("Card with number '220006118769339' is already added.")).
                 inRoot(new ToastMatcher()).check(matches(isDisplayed()));
     }
 }

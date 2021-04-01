@@ -16,20 +16,22 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
-public final  class Utils {
-    public static void closeApp(){
+public final class Utils {
+    public static void closeApp() {
         SystemClock.sleep(3000);
         onView(withId(R.id.prof_lay_setting)).perform(click());
         SystemClock.sleep(3000);
         onView(withId(R.id.btn_sign_out)).perform(click());
     }
-    public static void closeCurrentCheck(int numberSteps){
+
+    public static void closeCurrentCheck(int numberSteps) {
         for (int i = 0; i < numberSteps; i++) {
             Espresso.pressBackUnconditionally();
         }
 
     }
-    public static void deleteUserAndCloseApp(){
+
+    public static void deleteUserAndCloseApp() {
         SystemClock.sleep(3000);
         onView(withId(R.id.prof_lay_setting)).perform(click());
         SystemClock.sleep(3000);
@@ -40,9 +42,4 @@ public final  class Utils {
     }
 
 
-
-//    public static RecyclerViewMatcher withRecyclerView(final int recyclerViewId) {
-//
-//        return new RecyclerViewMatcher(recyclerViewId);
-//    }
 }

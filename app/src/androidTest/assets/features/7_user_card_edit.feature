@@ -25,6 +25,7 @@ Feature: Edit card for exist user
     Examples: name_card
       | Name |
       | F    |
+      | 1    |
 
   @ui @backend
   Scenario Outline: Edit card error_symbols_name
@@ -37,6 +38,8 @@ Feature: Edit card for exist user
     Examples: name_card
       | Name  |
       | F.... |
+      | 1)3   |
+      | ##    |
 
 
   @ui @backend
@@ -46,10 +49,12 @@ Feature: Edit card for exist user
     And I click new_name_card field
     And I enter new_name_card "<Name>"
     And I click button save_card
-    Then I check change name_card
+    Then I check change name_card "<Name>"
     Examples: name_card
-      | Name      |
-      | FominCard |
+      | Name    |
+      | Card1   |
+      | Nikita4 |
+      | Card4   |
 
   @ui @backend
   Scenario Outline: Edit_cancel card name

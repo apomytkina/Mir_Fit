@@ -33,7 +33,9 @@ public class SignInDetailsSteps {
 
     //Ввод в поле логина
     @And("^I enter login \"([^\"]*)\"$")
-    public void enterValidLogin(String login) { onView(withId(R.id.frag_sign_login)).perform(typeText(login)); }
+    public void enterValidLogin(String login) {
+        onView(withId(R.id.frag_sign_login)).perform(typeText(login));
+    }
 
     //Нажатие на поле пароля
     @And("^I click password field$")
@@ -43,7 +45,9 @@ public class SignInDetailsSteps {
 
     //Ввод в поле пароля
     @And("^I enter password \"([^\"]*)\"$")
-    public void enterValidPassword(String password) { onView(withId(R.id.frag_sign_password)).perform(typeText(password)); }
+    public void enterValidPassword(String password) {
+        onView(withId(R.id.frag_sign_password)).perform(typeText(password));
+    }
 
     //Нажатие на кнопку вход после заполнения полей
     @And("^I click button SIGN IN in authorize form$")
@@ -59,8 +63,7 @@ public class SignInDetailsSteps {
         Espresso.pressBackUnconditionally();
     }
 
-    public void stepBack()
-    {
+    public void stepBack() {
         SystemClock.sleep(3000);
         for (int i = 0; i < 3; i++) {
             Espresso.pressBackUnconditionally();
@@ -82,6 +85,7 @@ public class SignInDetailsSteps {
                 check(matches(hasErrorText("Логин не может быть пустым!")));
         stepBack();
     }
+
     //Проверка, что будет ошибка в логине с сообщением - Логин не может содержать менее 5 символов
     @Then("^I expect to the same screen and error in the login field that is too short$")
     public void i_expect_to_the_same_screen_and_error_in_the_login_field_short() {
@@ -111,7 +115,7 @@ public class SignInDetailsSteps {
     public void i_expect_to_the_same_screen_and_error_in_the_password_field_short() {
         onView(withId(R.id.frag_sign_password)).
                 check(matches(hasErrorText("Пароль не может содержать менее 5 символов")));
-       stepBack();
+        stepBack();
     }
 
     //Проверка, что будет ошибка в пароле с сообщением - Пароль может содержать только символы латиницы и цифры

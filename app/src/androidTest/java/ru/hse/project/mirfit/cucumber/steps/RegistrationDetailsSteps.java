@@ -1,12 +1,5 @@
 package ru.hse.project.mirfit.cucumber.steps;
 
-import android.os.SystemClock;
-
-import androidx.test.espresso.Espresso;
-import androidx.test.espresso.action.ViewActions;
-import androidx.test.espresso.matcher.ViewMatchers;
-
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -17,11 +10,7 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.hasErrorText;
-import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.is;
 
 public class RegistrationDetailsSteps {
 
@@ -86,7 +75,6 @@ public class RegistrationDetailsSteps {
     }
 
 
-
     @Then("^I expect to see error marks$")
     public void iExpectToSeeErrorMarks() {
         onView(withId(R.id.frag_reg_text_first_name)).check(matches
@@ -94,5 +82,4 @@ public class RegistrationDetailsSteps {
     }
 
 
-    
 }

@@ -13,71 +13,71 @@ Feature: Add cards for exist user
     Examples: Valid login and password
       | Login     | Password  |
       | nikita123 | Nikita123 |
-#
-#  @ui @backend
-#  Scenario Outline: Add card with incorrect_payment_system_number
-#    Given I click the button plus_add_card
-#    When I click number_card field
-#    And I enter number_card "<Number>"
-#    And I click name_card field
-#    And I enter name_card "<Name>"
-#    And I click button card_add
-#    Then I check error_message_ps_number
-#    Examples: number_card and name_card
-#      | Number        | Name        |
-#      | 2291000011112 | CardNikita1 |
-#
-#  @ui @backend
-#  Scenario Outline: Add card with incorrect_length_number
-#    Given I click the button plus_add_card
-#    When I click number_card field
-#    And I enter number_card "<Number>"
-#    And I click name_card field
-#    And I enter name_card "<Name>"
-#    And I click button card_add
-#    Then I check error_message_length_number
-#    Examples: number_card and name_card
-#      | Number    | Name        |
-#      | 220100001 | CardNikita2 |
-#
-#  @ui @backend
-#  Scenario Outline: Add card with empty_name
-#    Given I click the button plus_add_card
-#    When I click number_card field
-#    And I enter number_card "<Number>"
-#    And I click name_card field
-#    And I enter name_card "<Name>"
-#    And I click button card_add
-#    Then I check error_message_empty_name
-#    Examples: number_card and name_card
-#      | Number        | Name |
-#      | 2201000011112 |      |
-#
-#  @ui @backend
-#  Scenario Outline: Add card with incorrect_length_name
-#    Given I click the button plus_add_card
-#    When I click number_card field
-#    And I enter number_card "<Number>"
-#    And I click name_card field
-#    And I enter name_card "<Name>"
-#    And I click button card_add
-#    Then I check error_message_length_name
-#    Examples: number_card and name_card
-#      | Number        | Name |
-#      | 2201000011112 | N    |
-#
-#  @ui @backend
-#  Scenario Outline: Add card with incorrect_symbols_name
-#    Given I click the button plus_add_card
-#    When I click number_card field
-#    And I enter number_card "<Number>"
-#    And I click name_card field
-#    And I enter name_card "<Name>"
-#    And I click button card_add
-#    Then I check error_message_symbols_name
-#    Examples: number_card and name_card
-#      | Number        | Name |
-#      | 2201000011112 | N... |
+
+  @ui @backend
+  Scenario Outline: Add card with incorrect_payment_system_number
+    Given I click the button plus_add_card
+    When I click number_card field
+    And I enter number_card "<Number>"
+    And I click name_card field
+    And I enter name_card "<Name>"
+    And I click button card_add
+    Then I check error_message_ps_number
+    Examples: number_card and name_card
+      | Number        | Name        |
+      | 2291000011112 | CardNikita1 |
+
+  @ui @backend
+  Scenario Outline: Add card with incorrect_length_number
+    Given I click the button plus_add_card
+    When I click number_card field
+    And I enter number_card "<Number>"
+    And I click name_card field
+    And I enter name_card "<Name>"
+    And I click button card_add
+    Then I check error_message_length_number
+    Examples: number_card and name_card
+      | Number    | Name        |
+      | 220100001 | CardNikita2 |
+
+  @ui @backend
+  Scenario Outline: Add card with empty_name
+    Given I click the button plus_add_card
+    When I click number_card field
+    And I enter number_card "<Number>"
+    And I click name_card field
+    And I enter name_card "<Name>"
+    And I click button card_add
+    Then I check error_message_empty_name
+    Examples: number_card and name_card
+      | Number        | Name |
+      | 2201000011112 |      |
+
+  @ui @backend
+  Scenario Outline: Add card with incorrect_length_name
+    Given I click the button plus_add_card
+    When I click number_card field
+    And I enter number_card "<Number>"
+    And I click name_card field
+    And I enter name_card "<Name>"
+    And I click button card_add
+    Then I check error_message_length_name
+    Examples: number_card and name_card
+      | Number        | Name |
+      | 2201000011112 | N    |
+
+  @ui @backend
+  Scenario Outline: Add card with incorrect_symbols_name
+    Given I click the button plus_add_card
+    When I click number_card field
+    And I enter number_card "<Number>"
+    And I click name_card field
+    And I enter name_card "<Name>"
+    And I click button card_add
+    Then I check error_message_symbols_name
+    Examples: number_card and name_card
+      | Number        | Name |
+      | 2201000011112 | N... |
 
   @ui @backend
   Scenario Outline: Add no_exist_card with full correct fields
@@ -117,6 +117,6 @@ Feature: Add cards for exist user
     And I click button card_add
     Then I check toast add_card_duplicate
     Examples: number_card and name_card
-      | Number           | Name          |
+      | Number          | Name        |
       | 220006118769339 | CardNikita5 |
 

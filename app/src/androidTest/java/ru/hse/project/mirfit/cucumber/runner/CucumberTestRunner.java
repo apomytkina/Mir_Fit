@@ -11,7 +11,6 @@ public class CucumberTestRunner extends AndroidJUnitRunner {
     private static final String CUCUMBER_TAGS_KEY = "tags";
     private static final String CUCUMBER_SCENARIO_KEY = "name";
 
-
     @Override
     public void onCreate(final Bundle bundle) {
         super.onCreate(bundle);

@@ -25,15 +25,16 @@ public class CardDeleteSteps {
 
     }
 
-    @And("^I click button confirm_delete$")
-    public void iClickButtonConfirm_delete() {
+    @And("^I click button_confirm$")
+    public void iClickButton_confirm() {
         onView(withText("Confirm")).inRoot(isDialog())
                 .check(matches(isDisplayed()))
                 .perform(click());
     }
 
-    @Then("^I check card_no_exist$")
-    public void iCheckCard_no_exist() {
-
+    @Then("^I check success delete_card$")
+    public void iCheckSuccessDelete_card() {
+        onView(allOf(withText("Card4"),
+                withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)));
     }
 }

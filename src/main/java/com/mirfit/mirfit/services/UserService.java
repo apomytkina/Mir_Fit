@@ -3,6 +3,7 @@ package com.mirfit.mirfit.services;
 import com.mirfit.mirfit.models.*;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -12,8 +13,6 @@ public interface UserService {
 
     GetUserResponse getUserById(UUID id);
 
-    String deleteAllUsers();
-
     String deleteUserById(UUID id);
 
     String updateLogin(UpdateLoginRequest request);
@@ -21,4 +20,6 @@ public interface UserService {
     String updatePassword(UpdatePasswordRequest request);
 
     AuthUserResponse authorizeUser(AuthUserRequest request);
+
+    List<User> getAllUsers();
 }

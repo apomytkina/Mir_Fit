@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -117,5 +118,13 @@ public class UserController {
         } else {
             return new ResponseEntity<>(HttpStatus.OK);
         }
+    }
+
+    @GetMapping(produces = "application/json")
+    public ResponseEntity<List<User>> getAllUsers(){
+
+        var result = userService.getAllUsers();
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

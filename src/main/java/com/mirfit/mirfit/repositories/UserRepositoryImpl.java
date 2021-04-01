@@ -158,8 +158,21 @@ public class UserRepositoryImpl implements UserRepository {
             else{
                 return null;
             }
-        }catch (Exception ex) {
+        }
+        catch (Exception ex) {
             return ex.getMessage();
+        }
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        try {
+
+            List<User> users = jdbcTemplate.query("SELECT * FROM user", new UserRowMapper());
+            return users;
+        }
+        catch (Exception ex) {
+           return null;
         }
     }
 }

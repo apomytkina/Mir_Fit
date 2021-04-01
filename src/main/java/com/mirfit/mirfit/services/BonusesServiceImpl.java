@@ -5,7 +5,7 @@ import com.mirfit.mirfit.models.Receipt;
 import com.mirfit.mirfit.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.isomessage.*;
 import java.util.List;
 
 @Service
@@ -54,6 +54,17 @@ public class BonusesServiceImpl implements BonusesService {
                 }
             }
         }
+
+
+
+
+
+
+
+
+
+
+        
 
         return healthyProductsAmount;
     }

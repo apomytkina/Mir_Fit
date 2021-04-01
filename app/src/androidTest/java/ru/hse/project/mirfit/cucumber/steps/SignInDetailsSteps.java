@@ -48,9 +48,8 @@ public class SignInDetailsSteps {
     //Нажатие на кнопку вход после заполнения полей
     @And("^I click button SIGN IN in authorize form$")
     public void clickSignInAuthorizeForm() {
-        SystemClock.sleep(1000);
         onView(withId(R.id.frag_sign_btn)).perform(click());
-        SystemClock.sleep(3000);
+        SystemClock.sleep(1000);
     }
 
     //Проверка, что будет переход нас следущий экран

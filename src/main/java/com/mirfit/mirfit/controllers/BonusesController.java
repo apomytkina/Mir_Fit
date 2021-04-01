@@ -34,7 +34,6 @@ public class BonusesController {
 
     @PostMapping
     public ResponseEntity<Boolean> start(@RequestBody Receipt receipt) {
-       // return new ResponseEntity<>(bonusesService.saveTransaction(receipt, "wait"), HttpStatus.OK);
         return new ResponseEntity<>(bonusesService.start(receipt), HttpStatus.OK);
     }
 

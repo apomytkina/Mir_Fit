@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.sql.Time;
-import java.util.Date;
+import java.sql.Date;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
@@ -22,11 +22,12 @@ public class Transaction {
     private boolean accrual;
     private String cardNumber;
     private Long amount;
+    private String cardAcceptorIdentificationCode;
 
     public Transaction(int id, String transactionNumber,
                        Date date, Time time, double bonuses,
                        boolean accrual, String cardNumber,
-                       Long amount, String status) {
+                       Long amount, String status, String cardAcceptorIdentificationCode) {
         this.id = id;
         this.transactionNumber = transactionNumber;
         this.date = date;
@@ -36,6 +37,7 @@ public class Transaction {
         this.cardNumber = cardNumber;
         this.amount = amount;
         this.status = status;
+        this.cardAcceptorIdentificationCode = cardAcceptorIdentificationCode;
     }
 
     public Transaction() {
@@ -43,6 +45,14 @@ public class Transaction {
 
     public String getCardNumber() {
         return cardNumber;
+    }
+
+    public String getCardAcceptorIdentificationCode() {
+        return cardAcceptorIdentificationCode;
+    }
+
+    public void setCardAcceptorIdentificationCode(String cardAcceptorIdentificationCode) {
+        this.cardAcceptorIdentificationCode = cardAcceptorIdentificationCode;
     }
 
     public void setCardNumber(String cardNumber) {

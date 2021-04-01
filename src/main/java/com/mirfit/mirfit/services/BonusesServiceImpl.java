@@ -17,8 +17,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.Time;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -88,13 +89,14 @@ public class BonusesServiceImpl implements BonusesService {
         return transactionRepository.add(new Transaction(
                 0,
                 receipt.getTransactionNumber(),
-                Date.from(receipt.getLocalDate().atStartOfDay(ZoneId.systemDefault()).toInstant()),
-                Time.valueOf(receipt.getLocalTime()),
+                Date.valueOf(receipt.getLocalDate()),
+                Time.valueOf(receipt.getLocalTime().plusHours(3)),
                 bonuses,
                 receipt.getAccrual(),
                 receipt.getCardSequence(),
                 receipt.getAmount(),
-                status
+                status,
+                receipt.getCardAcceptorIdentificationCode()
         ));
     }
 
@@ -108,9 +110,33 @@ public class BonusesServiceImpl implements BonusesService {
         Transaction transaction = transactionRepository.getByNumber(transactionNumber);
 
         if (transaction.getStatus().equals("success")) {
-            return "";
+
+                boolean success = makeTransaction(new Receipt(
+                        transactionNumber,
+                        transaction.getAmount(),
+                        null,
+                        transaction.getDate().toLocalDate(),
+                        transaction.getTime().toLocalTime(),
+                        transaction.isAccrual(),
+                        transaction.getCardNumber(),
+                        transaction.getCardAcceptorIdentificationCode()
+                ), transaction.getAmount(), "28");
+
+                if (success) {
+                    if (transaction.isAccrual()) {
+                        cardService.updateBonuses(transaction.getCardNumber(), (-1) * transaction.getBonuses());
+                    } else {
+                        cardService.updateBonuses(transaction.getCardNumber(), transaction.getBonuses());
+                    }
+
+                    transactionRepository.update("cancelled", transactionNumber);
+                } else {
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Failed to cancel");
+                }
+                return null;
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Failed to cancel");
         }
-        return "";
     }
 
     @Override

@@ -18,7 +18,8 @@ public class TransactionRowMapper implements RowMapper<Transaction> {
                 resultSet.getBoolean("accrual"),
                 resultSet.getString("card_number"),
                 resultSet.getLong("amount"),
-                resultSet.getString("status")
+                resultSet.getString("status"),
+                resultSet.getString("card_acceptor_identification_code")
         );
     }
 }

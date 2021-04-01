@@ -21,8 +21,8 @@ public class TransactionRepositoryImpl implements TransactionRepository {
     public String add(Transaction transaction) {
         try {
             int count = jdbcTemplate.update(
-                    "INSERT IGNORE INTO transaction (transaction_number, date, time, bonuses, status, card_number, amount, accrual) " +
-                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                    "INSERT IGNORE INTO transaction (transaction_number, date, time, bonuses, status, card_number, amount, accrual, card_acceptor_identification_code) " +
+                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
                     transaction.getTransactionNumber(),
                     transaction.getDate(),
                     transaction.getTime(),
@@ -30,7 +30,8 @@ public class TransactionRepositoryImpl implements TransactionRepository {
                     transaction.getStatus(),
                     transaction.getCardNumber(),
                     transaction.getAmount(),
-                    transaction.isAccrual()
+                    transaction.isAccrual(),
+                    transaction.getCardAcceptorIdentificationCode()
             );
 
             return null;

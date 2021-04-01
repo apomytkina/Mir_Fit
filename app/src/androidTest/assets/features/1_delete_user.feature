@@ -60,7 +60,7 @@
 #    Then I expect to the same screen and notification with error message
 #    Examples: Valid login and password
 #      | Login  | Password  |
-#      | nikita | Nikita123 |
+#      | nikita123 | Nikita123 |
 #
 #  @ui @backend
 #  Scenario Outline: Enter valid fields and this user not exist

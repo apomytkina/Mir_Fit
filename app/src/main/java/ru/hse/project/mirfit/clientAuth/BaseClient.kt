@@ -24,7 +24,8 @@ class BaseClient(context: Context) {
         private val JSON = "application/json; charset=utf-8".toMediaType()
 //        private const val HOST_IP = "192.168.31.121"   //Alex ip
 //        private const val HOST_IP = "192.168.1.35"  //Nikita ip
-        private const val HOST_IP = "192.168.43.72"  //Polina ip
+        // private const val HOST_IP = "192.168.43.72"  //Polina ip
+        private const val HOST_IP = "192.168.1.35"  //Polina ip
         private const val BASE_URL = "http://$HOST_IP:8080"
         private const val USER_CONTROLLER = "/users"
         private const val CARD_CONTROLLER = "/cards"

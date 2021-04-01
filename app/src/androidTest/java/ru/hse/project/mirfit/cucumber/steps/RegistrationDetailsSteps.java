@@ -2,6 +2,7 @@ package ru.hse.project.mirfit.cucumber.steps;
 
 import android.os.SystemClock;
 
+import androidx.test.espresso.Espresso;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
 
@@ -16,7 +17,9 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.hasErrorText;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
 
@@ -79,14 +82,10 @@ public class RegistrationDetailsSteps {
 
     @And("^I click button REGISTRATION in registration form$")
     public void iClickButtonREGISTRATIONInRegistrationForm() {
-        onView(ViewMatchers.isRoot()).perform(ViewActions.closeSoftKeyboard());
         onView(withId(R.id.frag_reg_btn)).perform(click());
     }
 
-    @Then("^I expect to see toast message$")
-    public void iExpectToSeeToastMessage() {
 
-    }
 
     @Then("^I expect to see error marks$")
     public void iExpectToSeeErrorMarks() {

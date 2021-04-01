@@ -15,6 +15,9 @@ public class TransactionRowMapper implements RowMapper<Transaction> {
                 resultSet.getDate("date"),
                 resultSet.getTime("time"),
                 resultSet.getDouble("bonuses"),
+                resultSet.getBoolean("accrual"),
+                resultSet.getString("card_number"),
+                resultSet.getLong("amount"),
                 resultSet.getString("status")
         );
     }

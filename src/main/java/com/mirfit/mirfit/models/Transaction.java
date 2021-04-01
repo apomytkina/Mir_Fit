@@ -19,17 +19,50 @@ public class Transaction {
     private Date date;
     private Time time;
     private double bonuses;
+    private boolean accrual;
+    private String cardNumber;
+    private Long amount;
 
-    public Transaction(int id, String transactionNumber, Date date, Time time, double bonuses, String status) {
+    public Transaction(int id, String transactionNumber,
+                       Date date, Time time, double bonuses,
+                       boolean accrual, String cardNumber,
+                       Long amount, String status) {
         this.id = id;
         this.transactionNumber = transactionNumber;
         this.date = date;
         this.time = time;
         this.bonuses = bonuses;
+        this.accrual = accrual;
+        this.cardNumber = cardNumber;
+        this.amount = amount;
         this.status = status;
     }
 
     public Transaction() {
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    public Long getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Long amount) {
+        this.amount = amount;
+    }
+
+    public boolean isAccrual() {
+        return accrual;
+    }
+
+    public void setAccrual(boolean accrual) {
+        this.accrual = accrual;
     }
 
     public Time getTime() {

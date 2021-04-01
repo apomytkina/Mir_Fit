@@ -20,7 +20,7 @@ import java.util.UUID;
 public class CardServiceImpl implements CardService {
     private static ObjectMapper mapper = new ObjectMapper();
     private final CardRepository cardRepository;
-    private final String BASE_URL = "https://mir-acquirer.herokuapp.com/info/card-number-exists";
+    private final String BASE_URL = "https://mir-acquirer.herokuapp.com/info/user-exists";
     private static final OkHttpClient client = new OkHttpClient();
 
     @Autowired

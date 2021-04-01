@@ -9,7 +9,9 @@ import java.util.List;
 public interface TransactionRepository {
     String add(Transaction transaction);
 
-    String update(Transaction transaction);
+    String update(String status, String transactionNumber);
 
     List<Transaction> getAll();
+
+    Transaction getByNumber(String transactionNumber);
 }

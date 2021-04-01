@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Receipt {
 
-    private String transactionId;
+    private String transactionNumber;
 
     private long amount;
 
@@ -20,7 +20,7 @@ public class Receipt {
     @JsonFormat(pattern = "hh:mm:ss")
     private LocalTime localTime;
 
-    private Boolean isAccrual;
+    private Boolean accrual;
 
     private String cardSequence;
 
@@ -30,22 +30,26 @@ public class Receipt {
     public Receipt() {
     }
 
-    public Receipt(String transactionId, long amount,
-                        List<Product> goods, LocalDate dateTime,
-                        LocalTime localTime, Boolean isAccrual, String cardSequence,
-                        String cardAcceptorIdentificationCode) {
-        this.transactionId = transactionId;
+    public Receipt(String transactionNumber, long amount,
+                   List<Product> goods, LocalDate dateTime,
+                   LocalTime localTime, Boolean isAccrual, String cardSequence,
+                   String cardAcceptorIdentificationCode) {
+        this.transactionNumber = transactionNumber;
         this.amount = amount;
         this.goods = goods;
         this.localDate = dateTime;
-        this.isAccrual = isAccrual;
+        this.accrual = isAccrual;
         this.localTime = localTime;
         this.cardSequence = cardSequence;
         this.cardAcceptorIdentificationCode = cardAcceptorIdentificationCode;
     }
 
-    public String getTransactionId() {
-        return transactionId;
+    public String getTransactionNumber() {
+        return transactionNumber;
+    }
+
+    public void setAmount(long amount) {
+        this.amount = amount;
     }
 
     public long getAmount() {
@@ -61,7 +65,7 @@ public class Receipt {
     }
 
     public Boolean getAccrual() {
-        return isAccrual;
+        return accrual;
     }
 
     public String getCardSequence() {

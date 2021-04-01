@@ -21,12 +21,16 @@ public class TransactionRepositoryImpl implements TransactionRepository {
     public String add(Transaction transaction) {
         try {
             int count = jdbcTemplate.update(
-                    "INSERT IGNORE INTO transaction (transaction_number, date, time, bonuses, status) VALUES (?, ?, ?, ?, ?)",
+                    "INSERT IGNORE INTO transaction (transaction_number, date, time, bonuses, status, card_number, amount, accrual) " +
+                            "VALUES (?, ?, ?, ?, ?, ?, ?)",
                     transaction.getTransactionNumber(),
                     transaction.getDate(),
                     transaction.getTime(),
                     transaction.getBonuses(),
-                    transaction.getStatus()
+                    transaction.getStatus(),
+                    transaction.getCardNumber(),
+                    transaction.getAmount(),
+                    transaction.isAccrual()
             );
 
             return null;
@@ -36,8 +40,22 @@ public class TransactionRepositoryImpl implements TransactionRepository {
     }
 
     @Override
-    public String update(Transaction transaction) {
-        return null;
+    public String update(String status, String transactionNumber) {
+        try {
+
+            int count = jdbcTemplate.update(
+                    "UPDATE IGNORE transaction SET status = ? WHERE transaction_number = ?",
+                    status,
+                    transactionNumber);
+
+            if (count == 0) {
+                return "Transaction not found";
+            }
+
+            return null;
+        } catch (Exception e) {
+            return e.getMessage();
+        }
     }
 
     @Override
@@ -48,6 +66,24 @@ public class TransactionRepositoryImpl implements TransactionRepository {
                     new TransactionRowMapper()
             );
         } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
+    public Transaction getByNumber(String transactionNumber) {
+        try {
+            var transactions = jdbcTemplate.query(
+                    "SELECT * FROM transaction WHERE transaction_number = ?",
+                    new TransactionRowMapper(),
+                    transactionNumber);
+
+            if (transactions != null) {
+                return transactions.get(0);
+            } else {
+                return null;
+            }
+        }catch (Exception e) {
             return null;
         }
     }

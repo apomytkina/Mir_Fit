@@ -41,25 +41,12 @@ public class CardRepositoryImpl implements CardRepository {
                         "Cannot find card with number = " + cardNumber
                 );
 
-            int count = jdbcTemplate.update(
-                    "UPDATE card " +
-                            "SET number_of_bonuses = CASE" +
-                            "  WHEN number_of_bonuses + ? >= 0" +
-                            "    THEN number_of_bonuses + ?" +
-                            "    ELSE number_of_bonuses " +
-                            "END " +
-                            "WHERE number = ?",
-                    numberOfBonuses,
+            jdbcTemplate.update(
+                    "UPDATE card SET number_of_bonuses = number_of_bonuses + ? WHERE number = ?",
                     numberOfBonuses,
                     cardNumber
             );
 
-            if (count == 0 || numberOfBonuses + res.get(0).getNumberOfBonuses() < 0) {
-                throw new ResponseStatusException(
-                        HttpStatus.BAD_REQUEST,
-                        "Not enough bonuses"
-                );
-            }
         } catch (DataAccessException e) {
             error = e.getMessage();
         }

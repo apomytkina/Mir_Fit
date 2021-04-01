@@ -10,7 +10,9 @@ import java.util.List;
 public interface BonusesService {
     double getNumberOfBonuses(Receipt receipt);
 
-    String saveTransaction(Receipt receipt, String status);
+    boolean start(Receipt receipt);
 
     List<Transaction> getAllTransactions();
+
+    String cancelTransaction(String transactionNumber);
 }

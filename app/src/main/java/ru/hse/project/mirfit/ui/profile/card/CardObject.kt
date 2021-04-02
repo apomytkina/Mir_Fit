@@ -14,6 +14,23 @@ data class CardObject(
         const val CODE_COUNT_BONUSES: String = "numberOfBonuses"
         const val CODE_USER_ID: String = "userId"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as CardObject
+
+        if (cardNumber != other.cardNumber) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return cardNumber.hashCode()
+    }
+
+
 }
 
 

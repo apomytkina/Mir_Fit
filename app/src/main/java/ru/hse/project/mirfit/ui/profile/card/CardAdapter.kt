@@ -92,7 +92,7 @@ class CardAdapter(private val fm: FragmentManager, private val data: ArrayList<C
         fun bind(newObject: CardObject) {
             val cardNumber = newObject.cardNumber
             itemView.findViewById<TextView>(R.id.lay_bank_card_last_digits).text =
-                ("•••• " + cardNumber.subSequence(cardNumber.length - 5, cardNumber.length - 1))
+                ("•••• " + cardNumber.subSequence(cardNumber.length - 4, cardNumber.length ))
 
             itemView.findViewById<TextView>(R.id.lay_bank_card_balance).text =
                 (newObject.balance.toString() + "₽")

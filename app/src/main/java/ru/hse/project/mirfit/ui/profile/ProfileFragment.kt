@@ -56,7 +56,7 @@ class ProfileFragment : Fragment() {
 
         refresh.setOnRefreshListener {
             user.refreshCards().addOnSuccessListener {
-                postAdapter.notifyItemRangeChanged(0, postAdapter.itemCount - 1)
+                postAdapter.notifyItemRangeChanged(0, postAdapter.itemCount )
                 refresh.isRefreshing = false
             }.addOnFailureListener {
                 Toast.makeText(inflater.context, it.message, Toast.LENGTH_SHORT).show()

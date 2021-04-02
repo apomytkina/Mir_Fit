@@ -143,6 +143,7 @@ class BaseClient(context: Context) {
             .url("$BASE_URL$USER_CONTROLLER/$id")
             .get()
             .build()
+
         val requestCard: Request = Request.Builder()
             .url("$BASE_URL$CARD_CONTROLLER/$id")
             .get()

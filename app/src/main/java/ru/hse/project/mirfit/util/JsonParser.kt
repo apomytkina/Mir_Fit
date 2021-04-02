@@ -15,7 +15,7 @@ class JsonParser {
                     val id = obj.getInt(CardObject.CODE_ID)
                     val name = obj.getString(CardObject.CODE_NAME)
                     val number = obj.getString(CardObject.CODE_NUMBER)
-                    val countBonuses = obj.getInt(CardObject.CODE_COUNT_BONUSES)
+                    val countBonuses = obj.getDouble(CardObject.CODE_COUNT_BONUSES)
                     val userId = obj.getString(CardObject.CODE_USER_ID)
                     cards.add(CardObject(countBonuses, number, name, id, userId))
                 }

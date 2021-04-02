@@ -46,7 +46,7 @@ class DialogAddCardFragment(private val cardAdapter: CardAdapter) : DialogFragme
             }
 
             val card = CardObject(
-                0,
+                0.0,
                 cardNumber,
                 cardName,
                 null,

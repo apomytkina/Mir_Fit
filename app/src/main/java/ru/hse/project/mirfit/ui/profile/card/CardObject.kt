@@ -1,7 +1,7 @@
 package ru.hse.project.mirfit.ui.profile.card
 
 data class CardObject(
-    val balance: Int,
+    var balance: Double,
     val cardNumber: String,
     var cardName: String,
     val id: Int?,

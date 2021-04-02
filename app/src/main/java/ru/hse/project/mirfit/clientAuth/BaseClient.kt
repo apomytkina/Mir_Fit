@@ -2,6 +2,7 @@ package ru.hse.project.mirfit.clientAuth
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.TaskCompletionSource
 import com.google.android.gms.tasks.Tasks
@@ -22,10 +23,11 @@ class BaseClient(context: Context) {
         private const val PRIVATE_MODE = 0
         private const val PREF_FILE = "json_user"
         private val JSON = "application/json; charset=utf-8".toMediaType()
-        private const val HOST_IP = "192.168.1.35"   //Alex ip
-     //   private const val HOST_IP = "192.168.1.35"  //Nikita ip
-     //   private const val HOST_IP = "192.168.43.72"  //Polina ip
-     //   private const val HOST_IP = "192.168.1.35"  //Polina ip
+        private const val HOST_IP = "192.168.31.121"   //Alex ip
+
+        //   private const val HOST_IP = "192.168.1.35"  //Nikita ip
+        //   private const val HOST_IP = "192.168.43.72"  //Polina ip
+        //   private const val HOST_IP = "192.168.1.35"  //Polina ip
         private const val BASE_URL = "http://$HOST_IP:8080"
         private const val USER_CONTROLLER = "/users"
         private const val CARD_CONTROLLER = "/cards"
@@ -35,6 +37,8 @@ class BaseClient(context: Context) {
         private const val UPDATE_LOGIN = "$USER_CONTROLLER/updateLogin"
         private const val UPDATE_PASSWORD = "$USER_CONTROLLER/updatePassword"
         private const val DELETE_USER = "$USER_CONTROLLER/delete"
+        private const val GET_BONUSES = "$CARD_CONTROLLER/bonuses"
+
 
     }
 
@@ -116,6 +120,23 @@ class BaseClient(context: Context) {
     }
 
 
+    private fun getBonusesForCard(cardNumber: String): Task<Double> {
+        val task = TaskCompletionSource<Double>()
+
+        val request = Request.Builder()
+            .url("$BASE_URL$GET_BONUSES/$cardNumber")
+            .get()
+            .build()
+
+        call(request).addOnSuccessListener {
+            val bonuses = it.body!!.string().toDouble()
+            task.setResult(bonuses)
+        }.addOnFailureListener {
+            task.setException(it)
+        }
+        return task.task
+    }
+
     fun authUserFromStorage(): Task<Void> {
         val id = currentUser!!.id
         val requestUser: Request = Request.Builder()
@@ -129,6 +150,7 @@ class BaseClient(context: Context) {
 
         val taskGetInfoUser = call(requestUser)
         val taskGetCardsUser = call(requestCard)
+
         val tasks = Tasks.whenAll(taskGetCardsUser, taskGetInfoUser)
 
         tasks.addOnSuccessListener {
@@ -150,7 +172,6 @@ class BaseClient(context: Context) {
                 .login(login)
                 .password(password)
                 .build()
-
         }
 
         return tasks
@@ -369,14 +390,21 @@ class BaseClient(context: Context) {
         return task.task
     }
 
-
     class User(builder: Builder) {
         fun addCard(card: CardObject): Task<Void> {
-            val task = baseClient.addCard(card)
-            task.addOnSuccessListener {
-                cards!!.add(card)
+            val task = TaskCompletionSource<Void>()
+            baseClient.addCard(card).addOnSuccessListener {
+                baseClient.getBonusesForCard(card.cardNumber).addOnSuccessListener {
+                    card.balance = it
+                    cards!!.add(card)
+                    task.setResult(null)
+                }.addOnFailureListener {
+                    task.setException(it)
+                }
+            }.addOnFailureListener {
+                task.setException(it)
             }
-            return task
+            return task.task
         }
 
         fun editCard(newName: String, position: Int): Task<Void> {
